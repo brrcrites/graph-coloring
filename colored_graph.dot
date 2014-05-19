@@ -1,0 +1,24 @@
+graph colored_graph {
+v1[label="v1\n1" style=filled fillcolor="antiquewhite"];
+v2[label="v2\n2" style=filled fillcolor="aquamarine"];
+v3[label="v3\n1" style=filled fillcolor="antiquewhite"];
+v4[label="v4\n2" style=filled fillcolor="aquamarine"];
+v5[label="v5\n1" style=filled fillcolor="antiquewhite"];
+v6[label="v6\n2" style=filled fillcolor="aquamarine"];
+v7[label="v7\n3" style=filled fillcolor="azure"];
+v8[label="v8\n0" style=filled fillcolor="aliceblue"];
+v2 -- v1
+v3 -- v2
+v4 -- v3
+v5 -- v4
+v6 -- v5
+v7 -- v1
+v7 -- v6
+v8 -- v1
+v8 -- v2
+v8 -- v3
+v8 -- v4
+v8 -- v5
+v8 -- v6
+v8 -- v7
+}
