@@ -43,11 +43,8 @@ map<string,int> GraphColoring::Graph::color(int condition) {
 			}
 			hybrid(condition);
 			break;
-		case kTabuCol:
-			if (condition == 0) {
-				condition = graph.size() / 2;
-			}
-			tabucol(condition);
+		case kHybridDSATUR:
+			hybrid_dsatur();
 			break;
 		default:
 			cerr << "Warning: No algorithm selected. Continuing with DSATUR." << endl;
@@ -68,8 +65,8 @@ string GraphColoring::Graph::get_algorithm_string() {
 			return "LMXRLF";
 		case kHybrid:
 			return "Hybrid";
-		case kTabuCol:
-			return "TabuCol";
+		case kHybridDSATUR:
+			return "HybridDSATUR";
 		case kNone:
 		default:
 			return "None";

@@ -11,11 +11,11 @@ Graph Coloring library (Nodes are represented as strings)
 
 Available Algorithms: (See reference papers for descriptions)
 	(set_algorithm(Algorithm new_algorithm))
-	DSATUR (DSATUR.pdf): kDSATUR
-	Chordal (Chordal.pdf): kChordal
-	Hybrid (lmxrlf.pdf): kHybrid
-	LMXRLF (lmxrlf.pdf): kLMXRLF
-	TabuColor (TabuCol.pdf): kTabuCol
+	DSATUR (New Methods to Color the Vertices of a Graph - Brelaz et al.): kDSATUR
+	Chordal (Register Allocation via Coloring of Chordal Graphs - Magno et al.): kChordal
+	Hybrid (Efficient Coloring of a Large Spectrum of Graphs - Kirovski et al.): kHybrid
+	LMXRLF (Efficient Coloring of a Large Spectrum of Graphs - Kirovski et al.): kLMXRLF
+	TabuColor (Using Tabu Search Techniques for Graph Coloring - Hertz et al.): kTabuCol
 
 Text file input:
 	parse_edge_list:

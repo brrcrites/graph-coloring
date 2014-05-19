@@ -18,7 +18,7 @@ using std::string;
 using std::vector;
 
 namespace GraphColoring {
-	enum Algorithm {kNone,kDSATUR,kChordal,kHybrid,kLMXRLF,kTabuCol};
+	enum Algorithm {kNone,kDSATUR,kChordal,kHybrid,kLMXRLF,kHybridDSATUR};
 	class Graph {
 		private:
 			Algorithm algorithm;
