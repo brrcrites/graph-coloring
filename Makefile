@@ -17,6 +17,7 @@ OBJS=main.o\
 	 chordal.o\
 	 tabucol.o\
 	 graph_coloring.o
+DOT=*.dot
 
 TEST=$(WHEEL)
 
@@ -48,7 +49,7 @@ test: $(PRG)
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 cleanup:
-	@rm -f $(OBJS)
+	@rm -f $(OBJS) $(DOT)
 
 clean: cleanup
 	@rm -f $(PRG)
