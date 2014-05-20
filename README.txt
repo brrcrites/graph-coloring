@@ -13,9 +13,11 @@ Available Algorithms: (See reference papers for descriptions)
 	(set_algorithm(Algorithm new_algorithm))
 	DSATUR (New Methods to Color the Vertices of a Graph - Brelaz et al.): kDSATUR
 	Chordal (Register Allocation via Coloring of Chordal Graphs - Magno et al.): kChordal
-	Hybrid (Efficient Coloring of a Large Spectrum of Graphs - Kirovski et al.): kHybrid
-	LMXRLF (Efficient Coloring of a Large Spectrum of Graphs - Kirovski et al.): kLMXRLF
-	TabuColor (Using Tabu Search Techniques for Graph Coloring - Hertz et al.): kTabuCol
+	lmxRLF (Efficient Coloring of a Large Spectrum of Graphs - Kirovski et al.): kLMXRLF
+	Hybrid Tabu (Custom, based on Efficient Coloring... - Kirovski et al.): kHybrid
+	Hybrid DSATUR (Custom, based on Efficient Coloring... - Kirovski et al.): kHybridDSATUR
+	
+	[k-coloring] TabuCol (Using Tabu Search Techniques for Graph Coloring - Hertz et al.): tabucol
 
 Text file input:
 	parse_edge_list:
@@ -34,11 +36,6 @@ Text file input:
 
 		1 indicates an edge between column node and row node
 		0 indicates a lack of an edge
-
-	build_graph:
-		Used to build a graph from an activation sequence
-		Adds an edge between two nodes if their activation sequence differs
-		<node name> <actuation sequence>
 
 Visualizer output:
 	write_graph(string graph_name): Will write a .dot file named graph_name.dot
