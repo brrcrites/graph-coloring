@@ -1,4 +1,5 @@
-##Graph Coloring library (Nodes are represented as strings)
+##Graph Coloring library 
+(Nodes are represented as strings)
 
     map<string,vector<string> >
 A map of the node, to the list of nodes connected to it
@@ -18,7 +19,8 @@ Colors the graph using condition as a stopping condition (for specific algorithm
     verify()
 verifies coloring of the graph
 
-##Available Algorithms: (See reference papers for descriptions)
+##Available Algorithms: 
+(See reference papers for descriptions)
 
     setalgorithm(new_algorithm)
 
