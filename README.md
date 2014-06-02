@@ -22,7 +22,7 @@ verifies coloring of the graph
 ##Available Algorithms: 
 (See reference papers for descriptions)
 
-    setalgorithm(new_algorithm)
+    set_algorithm(new_algorithm)
 
 - DSATUR (New Methods to Color the Vertices of a Graph - Brelaz et al.): kDSATUR
 - Chordal (Register Allocation via Coloring of Chordal Graphs - Magno et al.): kChordal
@@ -30,9 +30,69 @@ verifies coloring of the graph
 - Hybrid Tabu (Custom, based on Efficient Coloring... - Kirovski et al.): kHybrid
 - Hybrid DSATUR (Custom, based on Efficient Coloring... - Kirovski et al.): kHybridDSATUR
 
+(Below is implemented but not Accessable via main)
+
 - [k-coloring] TabuCol (Using Tabu Search Techniques for Graph Coloring - Hertz et al.): tabucol
 
-##Text file input:
+##Running Tests/Test Sets:
+You can test that the program is running correctly by running the following command, which will build a graph for the wheel test, run the DSATUR coloring algorithm, then print the chromatic number.
+
+    make test
+
+You can run specific sets of tests with each graph coloring algorithm by specifying which test set test to run by editing the TEST make variable (by default the main will run the test/test set with DSATUR).
+
+    make test TEST="group_name"
+
+Where "group_name" is the name of a test group from this list:
+
+- all (runs every test)
+- fullins
+- insertions
+- anna
+- ash
+- david
+- dsjc
+- dsjr
+- flat
+- fpsol
+- games
+- homer
+- huck
+- inithx
+- jean
+- le
+- miles
+- mug
+- mulsol
+- myciel
+- queen
+- r125
+- r250
+- r1000
+- rtotal
+- school
+- will
+- zeroni
+- bondymurty
+- chvatal
+- cube
+- dodeca
+- grotzsch
+- grunbaum
+- icosa
+- kuratowski
+- india
+- mycielski
+- octa
+- petersen
+- ramsey
+- tetra
+- wheel
+
+##Adding Tests:
+
+You can also add tests to the test_cases folder that are in the following formats:
+
 Edge List Input File Format:
 
     c FILE: <filename.col>
@@ -49,6 +109,8 @@ Edge Matrix Input File Format:
 
     1 indicates an edge between column node and row node
     0 indicates a lack of an edge
+
+Once you have added tests, you can give them a group handle in the test_cases.mk file, and then register them in the if/else tree under the "test" command.
 
 ##Visualizer output:
 
