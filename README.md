@@ -72,7 +72,7 @@ Where "group_name" is the name of a test group from this list:
 - rtotal
 - school
 - will
-- zeroni
+- zeroin
 - bondymurty
 - chvatal
 - cube
