@@ -28,7 +28,6 @@ namespace GraphColoring {
             /* Parsing Helper Functions */
             vector< vector<string> > get_input(char* input_file);
             vector<string> split(string to_split);
-            bool is_valid_input(char input);
 
             /* Coloring algorithms */
             void dsatur();

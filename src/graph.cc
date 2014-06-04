@@ -81,16 +81,13 @@ GraphColoring::Graph::Graph(string new_algorithm) {
     }
 }
 
-bool GraphColoring::Graph::is_valid_input(char input) {
-    return !isspace(input);
-}
-
 vector<string> GraphColoring::Graph::split(string to_split) {
     vector<string> split_string;
+    unsigned index_start;
     for (unsigned i = 0;i < to_split.length();i++) {
-        if (is_valid_input(to_split.at(i))) {
-            split_string.push_back(to_split.substr(i,1));
-        }
+        index_start = i;
+        while(i < to_split.length() && !isspace(to_split.at(i))) { i++; }
+        split_string.push_back(to_split.substr(index_start,i - index_start));
     }
     return split_string;
 }
@@ -246,10 +243,12 @@ bool GraphColoring::Graph::verify() {
     for(map< string,vector<string> >::iterator i = graph.begin(); i != graph.end(); i++) {
         for(unsigned j=0; j<(*i).second.size(); j++) {
             if(coloring[(*i).first] == coloring[(*i).second[j]]) {
+                cerr << "Graph is not colored correctly" << endl;
                 return false;
             }
         }
     }
+    cerr << "Graph is colored correctly" << endl;
     return true;
 }
 

@@ -247,8 +247,10 @@ test: setflags
 		done ;\
 	fi
 	@if [ "$(TEST_ARG)" != "null" ] ; then \
-		for test in $(TEST_ARG) ; do \
-			echo Running $$test ;\
-			./$(PRG) $$test $(TEST_FLAG) ; \
-		done ;\
+		if [ "$(TEST_ARG)" != "all" ] ; then \
+			for test in $(TEST_ARG) ; do \
+				echo Running $$test ;\
+				./$(PRG) $$test $(TEST_FLAG) ; \
+			done ;\
+		fi ;\
 	fi
