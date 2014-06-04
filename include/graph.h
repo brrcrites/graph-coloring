@@ -2,8 +2,6 @@
 #ifndef _GRAPH_H_
 #define _GRAPH_H_
 
-//#include "graph_coloring.h"
-
 #include <map>
 #include <stack>
 #include <locale>
