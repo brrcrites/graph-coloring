@@ -8,12 +8,16 @@
 #include <vector>
 #include <string>
 #include <utility>
+#include <iostream>
 
 using std::map;
 using std::pair;
 using std::stack;
 using std::string;
 using std::vector;
+using std::cout;
+using std::cerr;
+using std::endl;
 
 namespace GraphColoring {
     enum Algorithm {kNone,kDSATUR,kChordal,kHybrid,kLMXRLF,kHybridDSATUR};
