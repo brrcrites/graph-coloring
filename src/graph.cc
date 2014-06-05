@@ -159,12 +159,6 @@ void GraphColoring::Graph::parse_edge_matrix(char* input_file) {
     if(file.is_open()) {
         string line;
         Getline(file,line);
-        //vector<string> num = GraphColoring::Graph::split(line);
-        //if(num.size() < 1) {
-            //cerr << line << endl;
-            //cerr << "No matrix size at top of file" << endl;
-            //return;
-        //}
         int n = atoi(line.c_str());
         int i = 0;
         while(Getline(file,line)) {
@@ -305,6 +299,12 @@ string GraphColoring::Graph::get_color_string(int color,int max_color) {
 }
 
 void GraphColoring::Graph::write_graph(string graph_name) {
+    int max_color = find_max_color();
+    if(max_color > COLOR_ARRAY_SIZE)
+    {
+        cerr << "Error: Graph has too many colors to be written" << endl;
+        return;
+    }
     if (graph_name.empty()) {
         graph_name = "colored_graph";
     }
@@ -315,7 +315,6 @@ void GraphColoring::Graph::write_graph(string graph_name) {
         return;
     }
     outfile << "graph " << graph_name << " {\n";
-    int max_color = find_max_color();
     map <string,vector<string> >::iterator graph_it;
     graph_it = graph.begin();
     for (/*graph_it*/;graph_it != graph.end();graph_it++) {

@@ -1,3 +1,5 @@
+#define COLOR_ARRAY_SIZE 114
+
 const string ColorArray[] = {"aliceblue","antiquewhite",
 "aquamarine","azure","beige","bisque","blanchedalmond","blue",
 "blueviolet","brown","brown1","brown2","brown3","brown4",
