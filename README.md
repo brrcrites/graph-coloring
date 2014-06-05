@@ -1,4 +1,7 @@
 ##Graph Coloring library 
+
+Please note, currently the only algorithm that has been verified to work correctly is DSATUR. The other algorithms seem to have been broken during a recent rewrite.
+
 (Nodes are represented as strings)
 
     map<string,vector<string> >
