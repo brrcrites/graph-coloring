@@ -15,7 +15,7 @@ OBJS=main.o\
 	 dsatur.o\
 	 hybrid.o\
 	 lmxrlf.o\
-	 chordal.o\
+	 mcs.o\
 	 tabucol.o\
 
 CXXFLAGS=-Wall

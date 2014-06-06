@@ -1,6 +1,6 @@
 ##Graph Coloring library 
 
-Please note, currently the only algorithm that has been verified to work correctly is DSATUR. The other algorithms seem to have been broken during a recent rewrite.
+Please note, currently the only algorithms that has been verified to work correctly are DSATUR and MCS. The other algorithms need additional testing.
 
 (Nodes are represented as strings)
 
@@ -28,7 +28,7 @@ verifies coloring of the graph
     set_algorithm(new_algorithm)
 
 - DSATUR (New Methods to Color the Vertices of a Graph - Brelaz et al.): kDSATUR
-- Chordal (Register Allocation via Coloring of Chordal Graphs - Magno et al.): kChordal
+- MCS (Register Allocation via Coloring of Chordal Graphs - Magno et al.): kMCS
 - lmXRLF (Efficient Coloring of a Large Spectrum of Graphs - Kirovski et al.): kLMXRLF
 - Hybrid Tabu (Custom, based on Efficient Coloring... - Kirovski et al.): kHybrid
 - Hybrid DSATUR (Custom, based on Efficient Coloring... - Kirovski et al.): kHybridDSATUR
@@ -36,6 +36,12 @@ verifies coloring of the graph
 (Below is implemented but not Accessable via main)
 
 - [k-coloring] TabuCol (Using Tabu Search Techniques for Graph Coloring - Hertz et al.): tabucol
+
+Algorithms That I Plan/Hope to Implement:
+
+- Chordal (Register Allocation via Coloring of Chordal Graphs - Magno et al.)
+- LSii (Efficient Coloring of a Large Spectrum of Graphs - Kirovski et al.)
+- Hybrid lmXRLF/LSii (Efficient Coloring of a Large Spectrum of Graphs - Kirovski et al.)
 
 ##Running Tests/Test Sets:
 You can test that the program is running correctly by running the following command, which will build a graph for the wheel test, run the DSATUR coloring algorithm, then print the chromatic number.

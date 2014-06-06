@@ -7,7 +7,7 @@
 void GraphColoring::Graph::dsatur() {	
 
 	vector<string> todo;
-	string max_degree = "$$error$$";
+	string max_degree = "";
 	int degree = -1;
 
 	//find maximal degree vertex to color first and color with 0
@@ -18,7 +18,7 @@ void GraphColoring::Graph::dsatur() {
 			max_degree = (*i).first;
 		}
 	}
-	if(max_degree == "$$error$$")
+	if(max_degree == "")
 	{
 		cerr << "Error: Could not find a max degree node in the graph (reason unknown)" << endl;
 	}
@@ -59,7 +59,7 @@ void GraphColoring::Graph::dsatur() {
 	while(!todo.empty())
 	{
 		int saturation = -1;
-		string saturation_name = "$$error$$";
+		string saturation_name = "";
 		vector<int> saturation_colors;
 		//Find the vertex with the highest saturation level, since we keep the
 		//saturation levels along the way we can do this in a single pass
@@ -83,7 +83,7 @@ void GraphColoring::Graph::dsatur() {
 				}
 			}
 		}
-		if(saturation_name == "$$error$$")
+		if(saturation_name == "")
 		{
 			cerr << "Error: Could not find a max saturated node in the graph (reason unknown)" << endl;
 			return;

@@ -15,7 +15,7 @@ int main(int argc, char** argv)
         return -1;
     }
     
-    Graph graph(GraphColoring::kDSATUR);
+    Graph graph(GraphColoring::kMCS);
     
     if(argc >= 3 && string(argv[2]) == "-m") {
         graph.parse_edge_matrix(argv[1]);

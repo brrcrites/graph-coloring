@@ -28,8 +28,8 @@ map<string,int> GraphColoring::Graph::color(int condition) {
         case kDSATUR:
             dsatur();
             break;
-        case kChordal:
-            chordal();
+        case kMCS:
+            mcs();
             break;
         case kLMXRLF:
             if (condition == 0) {
@@ -59,8 +59,8 @@ string GraphColoring::Graph::get_algorithm_string() {
     switch (algorithm) {
         case kDSATUR:
             return "DSATUR";
-        case kChordal:
-            return "Chordal";
+        case kMCS:
+            return "MCS";
         case kLMXRLF:
             return "LMXRLF";
         case kHybrid:
@@ -234,9 +234,12 @@ vector< vector<string> > GraphColoring::Graph::get_input(char* input_file) {
 }
 
 bool GraphColoring::Graph::verify() {
-    for(map< string,vector<string> >::iterator i = graph.begin(); i != graph.end(); i++) {
-        for(unsigned j=0; j<(*i).second.size(); j++) {
-            if(coloring[(*i).first] == coloring[(*i).second[j]]) {
+    for(map< string,vector<string> >::iterator i = graph.begin(); i != graph.end(); i++) 
+    {
+        for(unsigned j=0; j<(*i).second.size(); j++) 
+        {
+            if(coloring[(*i).first] == coloring[(*i).second[j]]) 
+            {
                 cerr << "Graph is not colored correctly" << endl;
                 return false;
             }
@@ -249,8 +252,12 @@ bool GraphColoring::Graph::verify() {
 //Used to print the Chromatic Color
 void GraphColoring::Graph::print_chromatic() {
     int largest = 0;
-    for(map< string, int >::iterator i = coloring.begin(); i != coloring.end(); i++) {  
-        if((*i).second > largest) { largest = (*i).second; }
+    for(map< string, int >::iterator i = coloring.begin(); i != coloring.end(); i++) 
+    {  
+        if((*i).second > largest) 
+        { 
+            largest = (*i).second; 
+        }
     }
 
     std::cout << get_algorithm_string() << " Chromatic Number: " << largest+1 << endl;

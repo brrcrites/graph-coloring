@@ -9,7 +9,9 @@
 #include <string>
 #include <utility>
 #include <iostream>
+#include <queue>
 
+using std::queue;
 using std::map;
 using std::pair;
 using std::stack;
@@ -20,7 +22,7 @@ using std::cerr;
 using std::endl;
 
 namespace GraphColoring {
-    enum Algorithm {kNone,kDSATUR,kChordal,kHybrid,kLMXRLF,kHybridDSATUR};
+    enum Algorithm {kNone,kDSATUR,kMCS,kHybrid,kLMXRLF,kHybridDSATUR};
     class Graph {
         private:
             Algorithm algorithm;
@@ -35,8 +37,7 @@ namespace GraphColoring {
 
             /* Coloring algorithms */
             void dsatur();
-            void chordal();
-            stack<string> mcs(); //Chordal Helper function
+            void mcs();
             void hybrid(int CARR);//TODO: Default?
             void hybrid_dsatur();
             void lmxrlf(int endcond);//TODO: Default?
