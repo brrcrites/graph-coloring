@@ -254,7 +254,7 @@ void GraphColoring::Graph::lmxrlf(int endcond) {
 			}
 		}
 		Color += 1;
-	} while(colored_nodes < endcond);
+	} while(colored_nodes < endcond-1);
 }
 
 //Runs LMXRLF starting with a fully uncolored graph
