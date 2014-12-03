@@ -33,7 +33,7 @@ map<string,int> GraphColoring::Graph::color(int condition) {
             break;
         case kLMXRLF:
             if (condition == 0) {
-                condition = graph.size() / 2;
+                condition = graph.size();
             }
             lmxrlf_base(condition);
             break;
