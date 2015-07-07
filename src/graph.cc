@@ -136,12 +136,8 @@ void GraphColoring::Graph::parse_edge_list(char* input_file) {
                 arg2.append(words[2]);
                 vector<string> base;
                 vector<string> base2;
-                base = graph[arg1];
-                base2 = graph[arg2];
-                base.push_back(arg2);
-                base2.push_back(arg1);
-                graph[arg1] = base;
-                graph[arg2] = base2;
+		graph[arg1].push_back(arg2);
+		graph[arg2].push_back(arg1);
             }
         }
     } else {

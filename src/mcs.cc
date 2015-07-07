@@ -1,5 +1,6 @@
 
 #include "graph.h"
+#include <set>
 
 // TODO: The following optimization can be made via a note in the paper
 // The procedure MCS can be implemented to run in O(|V | + |E|) time. To 
@@ -9,7 +10,6 @@
 // the weight λ is increased exactly |E| times. By keeping vertices in an 
 // array of buckets indexed by λ, the vertex of highest weight can be found 
 // in O(1) time.
-
 
 //Maximum Cardinal Search
 void GraphColoring::Graph::mcs() {
@@ -65,22 +65,34 @@ void GraphColoring::Graph::mcs() {
 	while(!ordering.empty()) 
 	{
 		int color = 0;
-		int done = 0;
 
 		// Find the lowest possible coloring for this node between
 		// its neighbors
 		string min = ordering.front();
-		while(!done) {
-			done = 1;
-			for(unsigned i=0; i<graph[min].size(); i++) 
-			{
-				if(coloring[graph[min][i]] == color) 
-				{
-					color += 1;
-					done = 0;
-				}
+
+		//Thanks to Michael Kochte @ Universitaet Stuttgart for the below speedup snippit
+
+		//Collect color numbers of neighbors
+		std::set<int> colorset;
+		for(unsigned i = 0; i < graph[min].size(); i++) {
+			int col = coloring[graph[min][i]];
+			colorset.insert(col);
+		}
+
+		//Sort and uniquify
+		vector<int> colorvec;
+		std::copy(colorset.begin(), colorset.end(), std::back_inserter(colorvec));
+		std::sort(colorvec.begin(), colorvec.end());
+
+		//Pick the lowest color not contained
+		int newcolor = 0;
+		for(unsigned i = 0; i < colorvec.size(); i++) {
+			if(colorvec[i] == newcolor) {
+				newcolor++;
 			}
 		}
+		color = newcolor;
+
 		coloring[min] = color;
 		ordering.pop();
 	}	
