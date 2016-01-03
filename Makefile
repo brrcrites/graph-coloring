@@ -6,17 +6,17 @@
 SHELL=/bin/sh
 
 .SUFFIXES:
-.SUFFIXES: .cc .h
+.SUFFIXES: .cpp .h
 
 PRG=graphColoring
 DOT=*.dot
-OBJS=main.o\
-	 graph.o\
+OBJS=graph.o\
 	 dsatur.o\
 	 hybrid.o\
 	 lmxrlf.o\
 	 mcs.o\
 	 tabucol.o\
+	 main.o
 
 CXXFLAGS=-Wall
 CXXFLAGS+=-Iinclude/
@@ -25,8 +25,8 @@ TEST?=wheel
 TEST_ARG?=$(WHEEL)
 TEST_FLAG?=-m
 
-vpath %.h include/
-vpath %.cc src/
+vpath %.h Header/
+vpath %.cpp Source/
 
 .PHONY:cleanup clean all debug release test
 
@@ -40,7 +40,7 @@ debug: $(PRG)
 $(PRG): $(OBJS)
 	$(CXX) $(CXXFLAGS) -o $(PRG) $^
 
-%.o: %.cc
+%.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 

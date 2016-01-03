@@ -1,5 +1,5 @@
 
-#include "graph.h"
+#include "../Header/graph.h"
 
 #include <cstdlib>
 #include <iostream>

@@ -1,5 +1,5 @@
 
-#include "graph.h"
+#include "../Header/graph.h"
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -290,7 +290,7 @@ int GraphColoring::Graph::find_max_color() {
     return max_color;
 }
 
-#include "graph_colors.h"
+#include "../Header/graph_colors.h"
 
 string GraphColoring::Graph::get_color_string(int color,int max_color) {
     return ColorArray[color];

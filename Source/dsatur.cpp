@@ -2,7 +2,7 @@
 #ifndef _DSATUR_H_
 #define _DSATUR_H_
 
-#include "graph.h"
+#include "../Header/graph.h"
 
 void GraphColoring::Graph::dsatur() {	
 

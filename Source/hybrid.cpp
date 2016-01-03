@@ -1,4 +1,4 @@
-#include "graph.h"
+#include "../Header/graph.h"
 
 void GraphColoring::Graph::hybrid(int CARR) {
 	lmxrlf_base(CARR);
