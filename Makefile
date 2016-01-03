@@ -1,11 +1,9 @@
 # Makefile
-#
 
 -include Tests/test_cases.mk
 
 SHELL=/bin/sh
 
-.SUFFIXES:
 .SUFFIXES: .cpp .h
 
 PRG=graphColoring
@@ -30,7 +28,7 @@ vpath %.cpp Source/
 
 .PHONY:cleanup clean all debug release test
 
-all: release
+all: debug
 
 release: $(PRG)
 	$(MAKE) cleanup
