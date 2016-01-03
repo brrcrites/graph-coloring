@@ -2,7 +2,7 @@
 # Adendum file listing test cases for testing
 # and benchmarking graph coloring algorithms
 
-TESTPATH=test_cases/
+TESTPATH=Tests/
 
 # Edge List Test Cases
 FULLINS=$(TESTPATH)1-FullIns_3.col\
