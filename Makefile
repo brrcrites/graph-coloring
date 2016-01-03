@@ -1,7 +1,7 @@
 # Makefile
 #
 
--include test_cases.mk
+-include Tests/test_cases.mk
 
 SHELL=/bin/sh
 
