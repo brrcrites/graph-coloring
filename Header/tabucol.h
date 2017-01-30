@@ -1,5 +1,5 @@
-#ifndef _MY_TABUCOL_H_
-#define _MY_TABUCOL_H_
+#ifndef _TABUCOL_H_
+#define _TABUCOL_H_
 
 #include "graph_color.h"
 
@@ -11,7 +11,9 @@ namespace GraphColoring{
 		private:
 			int f(map<string,int> coloring);
 		public: 
-			tabucol() :GraphColor() { algorithm = kTABUCOL; } 
+			tabucol(map<string, vector<string> > input_graph) :GraphColor(input_graph) { 
+				algorithm = kTABUCOL; 
+			} 
 			map<string,int> color(int condition = 0);
 	};
 }

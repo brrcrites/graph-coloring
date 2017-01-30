@@ -1,9 +1,9 @@
-#ifndef _MY_HYBRID_H_
-#define _MY_HYBRID_H_
+#ifndef _HYBRID_H_
+#define _HYBRID_H_
 
 #include "graph_color.h"
-#include "my_lmxrlf.h"
-#include "my_tabucol.h"
+#include "lmxrlf.h"
+#include "tabucol.h"
 
 using GraphColoring::Algorithm;
 using GraphColoring::GraphColor;
@@ -15,7 +15,9 @@ namespace GraphColoring{
 		private: 
 			map< string,vector<string> > get_subgraph(map< string,int > coloring);
 		public: 
-			hybrid() :GraphColor() { algorithm = kHybrid; } 
+			hybrid(map<string,vector<string> > input_graph) :GraphColor(input_graph) {
+				algorithm = kHybrid; 
+			} 
 			map<string,int> color(int condition = 0);
 	};
 }

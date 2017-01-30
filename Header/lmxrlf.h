@@ -1,5 +1,5 @@
-#ifndef _MY_LMXRLF_H_
-#define _MY_LMXRLF_H_
+#ifndef _LMXRLF_H_
+#define _LMXRLF_H_
 
 #include "graph_color.h"
 
@@ -20,7 +20,9 @@ namespace GraphColoring{
             vector<string> uncolored_neighbor(vector<string> new_set);
             map<string,int> lmxrlf_alg(int endcond);
 		public: 
-			lmxrlf() :GraphColor() { algorithm = kLMXRLF; } 
+			lmxrlf(map<string, vector<string> > input_graph) :GraphColor(input_graph) {
+				algorithm = kLMXRLF; 
+			} 
 			map<string,int> color(int condition = 0);
 	};
 }

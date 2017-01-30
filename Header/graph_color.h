@@ -30,16 +30,15 @@ namespace GraphColoring {
            bool colored;
 
            /* Helper Functions */
-           /* Parsing Helper Functions */
-           vector< vector<string> > get_input(char* input_file);
-           vector<string> split(string to_split);
-
            /* Writing helper function */
            string get_color_string(int color,int max_color);
            int find_max_color();
         public:
             //Default coloring algorithm is DSATUR
-            GraphColor():colored(false){ algorithm = kNone; }
+            GraphColor(map<string, vector<string> > input_graph):colored(false){ 
+              graph = input_graph;
+              algorithm = kNone; 
+            }
 
             /* Mutators */
             void add_edge(string source,string sink);
@@ -49,9 +48,6 @@ namespace GraphColoring {
             /* Coloring functions */
             virtual map<string,int> color(int condition = 0) = 0;
             bool verify();
-            /* Parsing functions */
-            void parse_edge_list(char* input_file);
-            void parse_edge_matrix(char* input_file);
 
             /* Accessors */
             unsigned size() { return graph.size(); }

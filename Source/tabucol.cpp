@@ -1,5 +1,5 @@
 
-#include "../Header/graph.h"
+#include "../Header/tabucol.h"
 
 #include <queue>
 #include <cstdlib>
@@ -13,7 +13,7 @@ const int TABU_SIZE = 25;
 const int REP = 100;
 const int NBMAX = 1000;
 
-int GraphColoring::Graph::f(map<string,int> coloring) {
+int GraphColoring::tabucol::f(map<string,int> coloring) {
 	int sum = 0;
 	for(map< string,vector<string> >::iterator i = graph.begin(); i != graph.end(); i++) {
 		for(unsigned j=0; j< i->second.size(); j++) {
@@ -25,7 +25,7 @@ int GraphColoring::Graph::f(map<string,int> coloring) {
 	return sum;
 }
 
-void GraphColoring::Graph::tabucol(int k) {
+map<string,int> GraphColoring::tabucol::color(int k) {
 	srand(time(NULL));
 	for(map< string,vector<string> >::iterator i = graph.begin(); i != graph.end(); i++) {
 		coloring[(*i).first] = rand() % k;
@@ -90,7 +90,7 @@ void GraphColoring::Graph::tabucol(int k) {
 			map< string, int > ret;
 			cerr << "Best Color was never updated in the loop" << endl;
 			coloring = ret;
-			return;
+			return coloring;
 		}
 		tabu_color.pop();
 		tabu_color.push(best_color);
@@ -104,5 +104,6 @@ void GraphColoring::Graph::tabucol(int k) {
 		map< string,int > ret;
 		coloring = ret;
 	}
+	return coloring;
 }
 

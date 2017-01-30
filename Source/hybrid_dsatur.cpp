@@ -1,4 +1,4 @@
-#include "../Header/my_hybrid_dsatur.h"
+#include "../Header/hybrid_dsatur.h"
 
 map<string,int> GraphColoring::hybrid_dsatur::color(int condition) {
 	GraphColor *temp_graph = new dsatur();
@@ -13,8 +13,7 @@ map<string,int> GraphColoring::hybrid_dsatur::color(int condition) {
 	}
 	largest += 1;
 
-	temp_graph = new tabucol();
-	temp_graph->set_graph(this->graph);
+	temp_graph = new tabucol(this->graph);
 
 	map< string,int > best = coloring;
 	map< string,int > tabu_color = temp_graph->color(largest);

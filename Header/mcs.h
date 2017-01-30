@@ -1,5 +1,5 @@
-#ifndef _MY_DSATUR_H_
-#define _MY_DSATUR_H_
+#ifndef _MCS_H_
+#define _MCS_H_
 
 #include "graph_color.h"
 
@@ -7,9 +7,11 @@ using GraphColoring::GraphColor;
 using GraphColoring::Algorithm;
 
 namespace GraphColoring{
-	class dsatur : public GraphColor {
+	class mcs : public GraphColor {
 		public: 
-			dsatur() :GraphColor() { algorithm = kDSATUR; } 
+			mcs(map<string, vector<string> > input_graph) :GraphColor(input_graph) { 
+				algorithm = kMCS; 
+			} 
 			map<string,int> color(int condition = 0);
 	};
 }
