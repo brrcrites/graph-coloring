@@ -1,8 +1,7 @@
 #include "../Header/hybrid_dsatur.h"
 
 map<string,int> GraphColoring::hybrid_dsatur::color(int condition) {
-	GraphColor *temp_graph = new dsatur();
-	temp_graph->set_graph(this->graph);
+	GraphColor *temp_graph = new dsatur(this->graph);
 	coloring = temp_graph->color();
 	delete temp_graph;
 

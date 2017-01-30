@@ -5,8 +5,7 @@ map<string,int> GraphColoring::hybrid::color(int condition) {
         condition = graph.size() / 2;
     }
 
-	GraphColor *alg_graph = new lmxrlf();
-	alg_graph->set_graph(graph);
+	GraphColor *alg_graph = new lmxrlf(this->graph);
 	coloring = alg_graph->color(condition);
 	//coloring = lmxrlf_base(Graph,CARR);
 	

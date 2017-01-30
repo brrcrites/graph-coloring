@@ -9,12 +9,12 @@ SHELL=/bin/sh
 PRG=graphColoring
 DOT=*.dot
 OBJS=graph_color.o\
-	 my_dsatur.o\
-	 my_mcs.o\
-	 my_lmxrlf.o\
-	 my_tabucol.o\
-	 my_hybrid_dsatur.o\
-	 my_hybrid.o\
+	 dsatur.o\
+	 mcs.o\
+	 lmxrlf.o\
+	 tabucol.o\
+	 hybrid_dsatur.o\
+	 hybrid.o\
 	 main.o
 
 CXXFLAGS=-Wall
