@@ -4,17 +4,20 @@
 #include "graph_color.h"
 
 using GraphColoring::GraphColor;
-using GraphColoring::Algorithm;
 
 namespace GraphColoring{
-	class tabucol : public GraphColor {
+	class Tabucol : public GraphColor {
 		private:
+			int condition; 
 			int f(map<string,int> coloring);
 		public: 
-			tabucol(map<string, vector<string> > input_graph) :GraphColor(input_graph) { 
-				algorithm = kTABUCOL; 
+			Tabucol(map<string, vector<string> > input_graph) :GraphColor(input_graph) { } 
+			Tabucol(map<string, vector<string> > input_graph, int con) :GraphColor(input_graph) { 
+				condition = con;
 			} 
-			map<string,int> color(int condition = 0);
+			map<string,int> color();
+			void set_condition(int con) { condition = con; }
+			string get_algorithm_string() { return "TABUCOL"; }
 	};
 }
 

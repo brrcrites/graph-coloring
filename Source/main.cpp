@@ -31,14 +31,6 @@ void parse_edge_matrix(char* input_file);
 
 map<string,vector<string> > input_graph;
 
-//functions used to graphs test cases to map
-vector<string> split(string to_split);
-vector< vector<string> > get_input(char* input_file);
-void parse_edge_list(char* input_file);
-void parse_edge_matrix(char* input_file);
-
-map<string,vector<string> > input_graph;
-
 int main(int argc, char** argv)
 {
     if(argc < 2) {
@@ -57,7 +49,7 @@ int main(int argc, char** argv)
         return -1;  }
 
 
-    GraphColor *graph = new Dsatur(input_graph);
+    GraphColor *graph = new HybridDsatur(input_graph);
 
 
     graph->color();

@@ -4,15 +4,13 @@
 #include "graph_color.h"
 
 using GraphColoring::GraphColor;
-using GraphColoring::Algorithm;
 
 namespace GraphColoring{
-	class mcs : public GraphColor {
+	class Mcs : public GraphColor {
 		public: 
-			mcs(map<string, vector<string> > input_graph) :GraphColor(input_graph) { 
-				algorithm = kMCS; 
-			} 
-			map<string,int> color(int condition = 0);
+			Mcs(map<string, vector<string> > input_graph) :GraphColor(input_graph) {} 
+			map<string,int> color();
+			string get_algorithm_string() { return "MCS"; }
 	};
 }
 

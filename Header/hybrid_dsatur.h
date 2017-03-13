@@ -5,18 +5,16 @@
 #include "dsatur.h"
 #include "tabucol.h"
 
-using GraphColoring::Algorithm;
 using GraphColoring::GraphColor;
-using GraphColoring::dsatur;
-using GraphColoring::tabucol;
+using GraphColoring::Dsatur;
+using GraphColoring::Tabucol;
 
 namespace GraphColoring{
-	class hybrid_dsatur : public GraphColor {
+	class HybridDsatur : public GraphColor {
 		public: 
-			hybrid_dsatur(map<string, vector<string> > input_graph) :GraphColor(input_graph) { 
-				algorithm = kHybridDSATUR; 
-			} 
-			map<string,int> color(int condition = 0);
+			HybridDsatur(map<string, vector<string> > input_graph) :GraphColor(input_graph) { } 
+			map<string,int> color();
+			string get_algorithm_string() { return "HYBRID_DSATUR"; }
 	};
 }
 

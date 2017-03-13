@@ -4,15 +4,13 @@
 #include "graph_color.h"
 
 using GraphColoring::GraphColor;
-using GraphColoring::Algorithm;
 
 namespace GraphColoring{
-	class dsatur : public GraphColor {
+	class Dsatur : public GraphColor {
 		public: 
-			dsatur(map<string,vector<string> > input_graph) :GraphColor(input_graph) { 
-				algorithm = kDSATUR; 
-			} 
-			map<string,int> color(int condition = 0);
+			Dsatur(map<string,vector<string> > input_graph) :GraphColor(input_graph) { } 
+			map<string,int> color();
+			string get_algorithm_string() { return "DSATUR"; }
 	};
 }
 
