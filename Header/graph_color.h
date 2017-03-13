@@ -32,7 +32,6 @@ namespace GraphColoring {
            string get_color_string(int color,int max_color);
            int find_max_color();
         public:
-            //Default coloring algorithm is DSATUR
             GraphColor(map<string, vector<string> > input_graph):colored(false){ 
               graph = input_graph;
             }
@@ -54,7 +53,7 @@ namespace GraphColoring {
             void set_coloring(map<string,int> new_coloring) { coloring = new_coloring; }
 
             /* Print functions */
-            void print_coloring();
+            virtual void print_coloring();
             void print_chromatic();
             void write_graph(string graph_name = "");
     };

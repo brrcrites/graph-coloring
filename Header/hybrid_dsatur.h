@@ -14,7 +14,7 @@ namespace GraphColoring{
 		public: 
 			HybridDsatur(map<string, vector<string> > input_graph) :GraphColor(input_graph) { }
 			map<string,int> color();
-			string get_algorithm_string() { return "HYBRIDDSATUR"; }
+			string get_algorithm_string() { return "HYBRID_DSATUR"; }
 	};
 }
 

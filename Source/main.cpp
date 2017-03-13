@@ -21,7 +21,8 @@ using GraphColoring::HybridDsatur;
 using GraphColoring::Hybrid;
 using GraphColoring::GraphColor;
 
-//functions used to graphs test cases to map
+//functions used to translate test cases into a graph using a map
+//two types of test cases requires two ways to parse graph (list and matrix)
 vector<string> split(string to_split);
 vector< vector<string> > get_input(char* input_file);
 void parse_edge_list(char* input_file);
@@ -46,12 +47,12 @@ int main(int argc, char** argv)
         cout << "No Graph Input Type Selected" << endl;
         return -1;  }
 
-    GraphColor *graph = new Hybrid(input_graph);
+    GraphColor *graph = new Dsatur(input_graph);
 
     graph->color();
     graph->print_chromatic();
-    //graph->verify();
-    //graph->write_graph();
+    graph->verify();
+    graph->write_graph();
 
     return 0;
 }

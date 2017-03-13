@@ -8,9 +8,7 @@ using GraphColoring::GraphColor;
 namespace GraphColoring{
 	class Dsatur : public GraphColor {
 		public: 
-			Dsatur(map<string,vector<string> > input_graph) :GraphColor(input_graph) { 
-				//algorithm = kDSATUR; 
-			} 
+			Dsatur(map<string,vector<string> > input_graph) :GraphColor(input_graph) { } 
 			map<string,int> color();
 			string get_algorithm_string() { return "DSATUR"; }
 	};
