@@ -12,7 +12,7 @@ int F = 1;
 int LOCAL = 10;
 
 //Returns an independent set from given set
-vector<string> GraphColoring::lmxrlf::get_independent(vector<string> set) {
+vector<string> GraphColoring::Lmxrlf::get_independent(vector<string> set) {
 	vector<string> delta;
 	for(unsigned i=0; i<set.size(); i++) {
 		delta.push_back(set[i]);
@@ -34,7 +34,7 @@ vector<string> GraphColoring::lmxrlf::get_independent(vector<string> set) {
 }
 
 //Creates an independent set from the graph
-vector<string> GraphColoring::lmxrlf::make_independent_set() {
+vector<string> GraphColoring::Lmxrlf::make_independent_set() {
 	vector<string> set;
 	vector<string> todo = get_independent(set);
 	while(todo.size()) {
@@ -45,7 +45,7 @@ vector<string> GraphColoring::lmxrlf::make_independent_set() {
 }
 
 //Objective function for LMXRLF
-int GraphColoring::lmxrlf::objf(vector<string> set) {
+int GraphColoring::Lmxrlf::objf(vector<string> set) {
 	int sum = 0;
 	for(unsigned i=0; i<set.size(); i++) {
 		int non = graph[set[i]].size();
@@ -61,7 +61,7 @@ int GraphColoring::lmxrlf::objf(vector<string> set) {
 }
 
 //Returns the value from the list of best solutions with the minimum objective function
-int GraphColoring::lmxrlf::min_objf(vector< vector<string> > list_of_best) {
+int GraphColoring::Lmxrlf::min_objf(vector< vector<string> > list_of_best) {
 	if(list_of_best.size() == 0) {
 		cerr << "List of Best Solutions is of size 0" << endl;
 		return -1;
@@ -77,7 +77,7 @@ int GraphColoring::lmxrlf::min_objf(vector< vector<string> > list_of_best) {
 }
 
 //Returns the value from the list of best solutions with the maximum objective function
-int GraphColoring::lmxrlf::max_objf(vector< vector<string> > list_of_best) {
+int GraphColoring::Lmxrlf::max_objf(vector< vector<string> > list_of_best) {
 	if(list_of_best.size() == 0) {
 		cerr << "List of Best Solutions is of size 0" << endl;
 		return -1;
@@ -93,7 +93,7 @@ int GraphColoring::lmxrlf::max_objf(vector< vector<string> > list_of_best) {
 }
 
 //Returns the index from the list of best solutions with the minimum objective function
-int GraphColoring::lmxrlf::min_pos_objf(vector< vector<string> > list_of_best) {
+int GraphColoring::Lmxrlf::min_pos_objf(vector< vector<string> > list_of_best) {
 	if(list_of_best.size() == 0) {
 		cerr << "List of Best Solutions is of size 0" << endl;
 		return -1;
@@ -111,7 +111,7 @@ int GraphColoring::lmxrlf::min_pos_objf(vector< vector<string> > list_of_best) {
 }
 
 //Returns the index from the list of best solutions with the maximum objective function
-int GraphColoring::lmxrlf::max_pos_objf(vector< vector<string> > list_of_best) {
+int GraphColoring::Lmxrlf::max_pos_objf(vector< vector<string> > list_of_best) {
 	if(list_of_best.size() == 0) {
 		cerr << "List of Best Solutions is of size 0" << endl;
 		return -1;
@@ -129,7 +129,7 @@ int GraphColoring::lmxrlf::max_pos_objf(vector< vector<string> > list_of_best) {
 }
 
 //Returns a set of uncolored neighbors from the input set
-vector<string> GraphColoring::lmxrlf::uncolored_neighbor(vector<string> new_set) {
+vector<string> GraphColoring::Lmxrlf::uncolored_neighbor(vector<string> new_set) {
 	vector<string> delta;
 	for(map< string, vector<string> >::iterator i = graph.begin(); i != graph.end(); i++) {
 		int flag = 0;
@@ -167,7 +167,7 @@ vector<string> GraphColoring::lmxrlf::uncolored_neighbor(vector<string> new_set)
 	return out;
 }
 
-map<string,int> GraphColoring::lmxrlf::lmxrlf_alg(int endcond) {
+map<string,int> GraphColoring::Lmxrlf::lmxrlf_alg(int endcond) {
 	map< string, vector<string> > Graph_temp;
 	vector< vector<string> > list_of_best_solutions;
 	srand(time(NULL));
@@ -259,11 +259,11 @@ map<string,int> GraphColoring::lmxrlf::lmxrlf_alg(int endcond) {
 }
 
 //Runs LMXRLF starting with a fully uncolored graph
-map<string,int> GraphColoring::lmxrlf::color(int condition) {
-	if (condition == 0) { condition = graph.size(); }
+map<string,int> GraphColoring::Lmxrlf::color() {
+	if (this->condition == 0) { this->condition = graph.size(); }
 	for(map< string, vector<string> >::iterator i = graph.begin(); i != graph.end(); i++) {
 		coloring[(*i).first] = -1;
 	}
-	return lmxrlf_alg(condition);
+	return lmxrlf_alg(this->condition);
 }
 

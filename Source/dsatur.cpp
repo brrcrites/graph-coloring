@@ -1,6 +1,7 @@
 #include "../Header/dsatur.h"
 
-map<string,int> GraphColoring::dsatur::color(int condition) {	
+
+map<string,int> GraphColoring::Dsatur::color() {	
 
 	vector<string> todo;
 	string max_degree = "";
@@ -123,4 +124,3 @@ map<string,int> GraphColoring::dsatur::color(int condition) {
 	}
 	return coloring;
 }
-

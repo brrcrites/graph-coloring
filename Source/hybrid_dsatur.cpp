@@ -1,7 +1,8 @@
 #include "../Header/hybrid_dsatur.h"
 
-map<string,int> GraphColoring::hybrid_dsatur::color(int condition) {
-	GraphColor *temp_graph = new dsatur(this->graph);
+
+map<string,int> GraphColoring::HybridDsatur::color() {
+	GraphColor *temp_graph = new Dsatur(this->graph);
 	coloring = temp_graph->color();
 	delete temp_graph;
 
@@ -12,15 +13,16 @@ map<string,int> GraphColoring::hybrid_dsatur::color(int condition) {
 	}
 	largest += 1;
 
-	temp_graph = new tabucol(this->graph);
+	temp_graph = new Tabucol(this->graph, largest);
 
 	map< string,int > best = coloring;
-	map< string,int > tabu_color = temp_graph->color(largest);
+	map< string,int > tabu_color = temp_graph->color();
 	while(tabu_color.size() > 0)
 	{
 		best = tabu_color;
 		largest -= 1;
-		tabu_color = temp_graph->color(largest);
+		temp_graph->set_condition(largest);
+		tabu_color = temp_graph->color();
 	}
 	coloring = best;
 	delete temp_graph;

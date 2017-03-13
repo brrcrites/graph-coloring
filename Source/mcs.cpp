@@ -12,7 +12,7 @@
 // in O(1) time.
 
 //Maximum Cardinal Search
-map<string,int> GraphColoring::mcs::color(int condition) {
+map<string,int> GraphColoring::Mcs::color() {
 
 	map<string,vector<string> > temp_graph = graph;
 	map< string,int> weight;

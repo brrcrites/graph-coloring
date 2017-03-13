@@ -6,6 +6,10 @@
 *.lo
 *.o
 *.obj
+<<<<<<< HEAD
+=======
+*.dot
+>>>>>>> temp_commit
 
 # Precompiled Headers
 *.gch

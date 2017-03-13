@@ -12,33 +12,8 @@ using std::ifstream;
 using std::ofstream;
 using std::ostringstream;
 
-string GraphColoring::GraphColor::get_algorithm_string() { 
-    switch (algorithm) {
-        case kDSATUR:
-            return "DSATUR";
-            break;
-        case kMCS:
-            return "MCS";
-            break;
-        case kLMXRLF:
-            return "LMXRLF";
-            break;
-        case kHybrid:
-            return "Hybrid";
-            break;
-        case kHybridDSATUR:
-            return "HybridDSATUR";
-            break;
-        case kNone:
-            break;
-        default:
-            break;
-    }
-    return "None";
-}
-
 //TODO: What conditions are needed for each algorithm?
-map<string,int> GraphColoring::GraphColor::color(int condition) {
+map<string,int> GraphColoring::GraphColor::color() {
     
     return coloring;
 } 
@@ -76,22 +51,10 @@ void GraphColoring::GraphColor::print_chromatic() {
 
 //Used to print the color of each node in the graph
 void GraphColoring::GraphColor::print_coloring() {
-    std::cout << "----------" << algorithm << " Colorings----------" << endl;
+    std::cout << "----------" << get_algorithm_string() << " Colorings----------" << endl;
     for(map< string,int >::iterator i = coloring.begin(); i != coloring.end(); i++) {
         std::cout << (*i).first << " " << (*i).second << endl;
     }
-}
-
-void GraphColoring::GraphColor::add_edge(string source,string sink) {
-    map<string,vector<string> >::iterator source_node;
-    map<string,vector<string> >::iterator sink_node;
-    // Find each node. find will insert the node if it does not exist in the
-    // graph
-    source_node = graph.insert(pair<string,vector<string> >(source,vector<string>())).first;
-    sink_node = graph.insert(pair<string,vector<string> >(sink,vector<string>())).first;
-    // Add the opposite node to the edge list for each node
-    (*source_node).second.push_back(sink);
-    (*sink_node).second.push_back(source);
 }
 
 int GraphColoring::GraphColor::find_max_color() {

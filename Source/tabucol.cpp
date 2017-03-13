@@ -13,7 +13,7 @@ const int TABU_SIZE = 25;
 const int REP = 100;
 const int NBMAX = 1000;
 
-int GraphColoring::tabucol::f(map<string,int> coloring) {
+int GraphColoring::Tabucol::f(map<string,int> coloring) {
 	int sum = 0;
 	for(map< string,vector<string> >::iterator i = graph.begin(); i != graph.end(); i++) {
 		for(unsigned j=0; j< i->second.size(); j++) {
@@ -25,10 +25,10 @@ int GraphColoring::tabucol::f(map<string,int> coloring) {
 	return sum;
 }
 
-map<string,int> GraphColoring::tabucol::color(int k) {
+map<string,int> GraphColoring::Tabucol::color() {
 	srand(time(NULL));
 	for(map< string,vector<string> >::iterator i = graph.begin(); i != graph.end(); i++) {
-		coloring[(*i).first] = rand() % k;
+		coloring[(*i).first] = rand() % this->condition;
 	}
 	queue<int> tabu_color;
 	queue<string> tabu_vertex;
@@ -36,7 +36,7 @@ map<string,int> GraphColoring::tabucol::color(int k) {
 		map< string,vector<string> >::iterator x = graph.begin();
 		std::advance(x,(rand() % graph.size()));
 		tabu_vertex.push((*x).first);
-		tabu_color.push(rand() % k);
+		tabu_color.push(rand() % this->condition);
 	}
 	int nbiter = 0;
 	while(f(coloring) > 0 && nbiter < NBMAX) {
@@ -49,7 +49,7 @@ map<string,int> GraphColoring::tabucol::color(int k) {
 			int move_color;
 			string move_vertex;
 			while(!flag) {
-				move_color = rand() % k;
+				move_color = rand() % this->condition;
 				map< string,vector<string> >::iterator mv = graph.begin();
 				std::advance(mv,(rand() % graph.size()));
 				move_vertex = (*mv).first;

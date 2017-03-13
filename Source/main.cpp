@@ -14,13 +14,22 @@ using std::endl;
 using std::ifstream;
 using std::ofstream;
 using std::ostringstream;
-using GraphColoring::dsatur;
-using GraphColoring::mcs;
-using GraphColoring::lmxrlf;
-using GraphColoring::hybrid_dsatur;
-using GraphColoring::hybrid;
+
+using GraphColoring::Dsatur;
+using GraphColoring::Mcs;
+using GraphColoring::Lmxrlf;
+using GraphColoring::HybridDsatur;
+using GraphColoring::Hybrid;
 using GraphColoring::GraphColor;
-using GraphColoring::Algorithm;
+
+//functions used to translate test cases into a graph using a map
+//two types of test cases requires two ways to parse graph (list and matrix)
+vector<string> split(string to_split);
+vector< vector<string> > get_input(char* input_file);
+void parse_edge_list(char* input_file);
+void parse_edge_matrix(char* input_file);
+
+map<string,vector<string> > input_graph;
 
 //functions used to graphs test cases to map
 vector<string> split(string to_split);
@@ -47,7 +56,9 @@ int main(int argc, char** argv)
         cout << "No Graph Input Type Selected" << endl;
         return -1;  }
 
-    GraphColor *graph = new dsatur(input_graph);
+
+    GraphColor *graph = new Dsatur(input_graph);
+
 
     graph->color();
     graph->print_chromatic();
@@ -214,4 +225,3 @@ void parse_edge_matrix(char* input_file) {
     }
     return;
 }
-
