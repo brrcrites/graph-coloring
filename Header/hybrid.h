@@ -15,7 +15,9 @@ namespace GraphColoring{
 			int condition;
 			map< string,vector<string> > get_subgraph(map< string,int > coloring);
 		public: 
-			Hybrid(map<string,vector<string> > input_graph) :GraphColor(input_graph) { } 
+			Hybrid(map<string,vector<string> > input_graph) :GraphColor(input_graph) { 
+				condition = 0;
+			} 
 			Hybrid(map<string,vector<string> > input_graph, int con) :GraphColor(input_graph) { 
 				condition = con;
 			} 

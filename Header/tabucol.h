@@ -11,13 +11,16 @@ namespace GraphColoring{
 			int condition; 
 			int f(map<string,int> coloring);
 		public: 
-			Tabucol(map<string, vector<string> > input_graph) :GraphColor(input_graph) { } 
+			Tabucol(map<string, vector<string> > input_graph) :GraphColor(input_graph) { 
+				condition = 0;
+			} 
 			Tabucol(map<string, vector<string> > input_graph, int con) :GraphColor(input_graph) { 
 				condition = con;
 			} 
 			map<string,int> color();
 			void set_condition(int con) { condition = con; }
 			string get_algorithm_string() { return "TABUCOL"; }
+			bool verify();
 	};
 }
 

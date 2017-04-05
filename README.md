@@ -7,8 +7,8 @@ Please note, currently the only algorithms that has been verified to work correc
     map<string,vector<string> >
 A map of the node, to the list of nodes connected to it
 
-    Graph()
-Creates a new graph with no nodes/edges and uses default DSATUR coloring algorithm
+    Dsatur(input_graph)
+Takes in a graph and can be used to call color function
     
     add_node(string new_node)
 Creates a node <new_node> in the graph with no edges

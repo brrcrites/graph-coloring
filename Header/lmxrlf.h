@@ -20,7 +20,9 @@ namespace GraphColoring{
             vector<string> uncolored_neighbor(vector<string> new_set);
             map<string,int> lmxrlf_alg(int endcond);
 		public: 
-			Lmxrlf(map<string, vector<string> > input_graph) :GraphColor(input_graph) { } 
+			Lmxrlf(map<string, vector<string> > input_graph) :GraphColor(input_graph) { 
+				condition = 0;
+			} 
 			Lmxrlf(map<string, vector<string> > input_graph, int con) :GraphColor(input_graph){ 
 				condition = con;
 			}

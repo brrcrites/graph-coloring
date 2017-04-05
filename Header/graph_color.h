@@ -42,7 +42,7 @@ namespace GraphColoring {
 
             /* Coloring functions */
             virtual map<string,int> color() = 0;
-            bool verify();
+            virtual bool verify();
 
             /* Accessors */
             unsigned size() { return graph.size(); }

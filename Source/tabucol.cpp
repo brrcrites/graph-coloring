@@ -13,6 +13,20 @@ const int TABU_SIZE = 25;
 const int REP = 100;
 const int NBMAX = 1000;
 
+bool GraphColoring::Tabucol::verify(){
+    for(map< string,vector<string> >::iterator i = graph.begin(); i != graph.end(); i++) 
+    {
+        for(unsigned j=0; j<(*i).second.size(); j++) 
+        {
+            if(coloring[(*i).first] == coloring[(*i).second[j]]) 
+            {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
 int GraphColoring::Tabucol::f(map<string,int> coloring) {
 	int sum = 0;
 	for(map< string,vector<string> >::iterator i = graph.begin(); i != graph.end(); i++) {
