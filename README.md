@@ -7,9 +7,6 @@ Please note, currently the algorithms Hybrid and lmXRLF need additional testing.
     map<string,vector<string> >
 A map of the node, to the list of nodes connected to it
 
-    map<string,vector<string> > input_graph;
-Main takes in an input file and puts the newly created map into input_graph
-
     -Algorithm Name-(input_graph)
 Takes in input_graph and can be used to call color function
     
