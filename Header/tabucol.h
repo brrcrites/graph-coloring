@@ -19,7 +19,7 @@ namespace GraphColoring{
 			} 
 			map<string,int> color();
 			void set_condition(int con) { condition = con; }
-			string get_algorithm_string() { return "TABUCOL"; }
+			string get_algorithm() { return "TABUCOL"; }
 			bool verify();
 	};
 }

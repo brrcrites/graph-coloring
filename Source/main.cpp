@@ -49,7 +49,7 @@ int main(int argc, char** argv)
         return -1;  }
 
 
-    GraphColor *graph = new Hybrid(input_graph);
+    GraphColor *graph = new HybridDsatur(input_graph);
 
 
     graph->color();

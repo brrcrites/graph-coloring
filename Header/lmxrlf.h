@@ -27,7 +27,7 @@ namespace GraphColoring{
 				condition = con;
 			}
 			map<string,int> color();
-			string get_algorithm_string() { return "LMXRLF"; }
+			string get_algorithm() { return "LMXRLF"; }
 			void set_condition(int con) { condition = con; }
 	};
 }

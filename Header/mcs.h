@@ -10,7 +10,7 @@ namespace GraphColoring{
 		public: 
 			Mcs(map<string, vector<string> > input_graph) :GraphColor(input_graph) {} 
 			map<string,int> color();
-			string get_algorithm_string() { return "MCS"; }
+			string get_algorithm() { return "MCS"; }
 	};
 }
 

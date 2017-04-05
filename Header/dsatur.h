@@ -10,7 +10,7 @@ namespace GraphColoring{
 		public: 
 			Dsatur(map<string,vector<string> > input_graph) :GraphColor(input_graph) { } 
 			map<string,int> color();
-			string get_algorithm_string() { return "DSATUR"; }
+			string get_algorithm() { return "DSATUR"; }
 	};
 }
 

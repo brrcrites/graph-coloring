@@ -46,12 +46,12 @@ void GraphColoring::GraphColor::print_chromatic() {
         }
     }
 
-    std::cout << get_algorithm_string() << " Chromatic Number: " << largest+1 << endl;
+    std::cout << get_algorithm() << " Chromatic Number: " << largest+1 << endl;
 }
 
 //Used to print the color of each node in the graph
 void GraphColoring::GraphColor::print_coloring() {
-    std::cout << "----------" << get_algorithm_string() << " Colorings----------" << endl;
+    std::cout << "----------" << get_algorithm() << " Colorings----------" << endl;
     for(map< string,int >::iterator i = coloring.begin(); i != coloring.end(); i++) {
         std::cout << (*i).first << " " << (*i).second << endl;
     }

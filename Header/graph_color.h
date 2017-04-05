@@ -47,7 +47,7 @@ namespace GraphColoring {
             /* Accessors */
             unsigned size() { return graph.size(); }
             map<string,int> get_coloring() { return coloring; }
-            virtual string get_algorithm_string() = 0;
+            virtual string get_algorithm() = 0;
 
             /* Mutators */
             void set_graph(map<string,vector<string> > new_graph) { graph = new_graph; }

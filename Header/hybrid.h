@@ -23,7 +23,7 @@ namespace GraphColoring{
 			} 
 			map<string,int> color();
 			void set_condition(int con) { condition = con; }
-			string get_algorithm_string() { return "HYBRID"; }
+			string get_algorithm() { return "HYBRID"; }
 	};
 }
 
