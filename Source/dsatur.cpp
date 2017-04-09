@@ -6,6 +6,7 @@ GraphColoring::Dsatur::Dsatur(map<string,vector<string> > input_graph): GraphCol
 
 void GraphColoring::Dsatur::set_condition(int con) {
 	/* Do Nothing, No Condition */
+	cout << "DSATUR has no condition to set" << endl;
 }
 
 map<string,int> GraphColoring::Dsatur::color() {	

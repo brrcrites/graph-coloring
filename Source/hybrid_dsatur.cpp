@@ -1,7 +1,8 @@
 #include "../Header/hybrid_dsatur.h"
 
 void GraphColoring::HybridDsatur::set_condition(int con) {
-	/* Do Nothing, Has no Condition */
+	/* Do Nothing */
+	cout << "Hybrid DSATUR has no condition to set" << endl;
 }
 
 map<string,int> GraphColoring::HybridDsatur::color() {
