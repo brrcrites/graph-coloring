@@ -97,7 +97,12 @@ map<string,int> GraphColoring::Dsatur::color() {
 		}
 
 		//We now know the most saturated node, so we remove it from the todo list
-		todo.erase(std::find(todo.begin(), todo.end(), saturation_name));
+		for(vector<string>::iterator itr = todo.begin(); itr != todo.end(); itr++) {
+			if((*itr) == saturation_name) {
+				todo.erase(itr);
+				break;
+			}
+		}
 
 		//Find the lowest color that is not being used by any of the most saturated
 		//nodes neighbors, then color the most saturated node
