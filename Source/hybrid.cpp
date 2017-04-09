@@ -31,7 +31,6 @@ map<string,int> GraphColoring::Hybrid::color() {
 			Color = (*i).second;
 		}
 	}
-	delete alg_graph;
 	
 	//******************************************************
 	//***** Run Remainder through Tabucol and Recolor *****

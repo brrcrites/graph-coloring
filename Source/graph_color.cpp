@@ -10,11 +10,6 @@ using std::ifstream;
 using std::ofstream;
 using std::ostringstream;
 
-// TODO: What conditions are needed for each algorithm?
-map<string,int> GraphColoring::GraphColor::color() {
-    return coloring;
-} 
-
 // Checks that no two adjacent nodes have the same color
 bool GraphColoring::GraphColor::verify() {
     for(map< string,vector<string> >::iterator i = graph.begin(); i != graph.end(); i++) {
@@ -39,20 +34,20 @@ int GraphColoring::GraphColor::get_color(string node) {
 
 // Used to print the Chromatic Color
 void GraphColoring::GraphColor::print_chromatic() {
-    int largest = 0;
-    for(map< string, int >::iterator i = coloring.begin(); i != coloring.end(); i++) {  
-        if((*i).second > largest) { 
-            largest = (*i).second; 
+    int largest = -2;
+    for(map< string, int >::iterator itr = this->coloring.begin(); itr != this->coloring.end(); itr++) {
+        if(itr->second > largest) { 
+            largest = itr->second; 
         }
     }
-    cout << get_algorithm() << " Chromatic Number: " << largest+1 << endl;
+    cout << this->get_algorithm() << " Chromatic Number: " << largest+1 << endl;
 }
 
 // Used to print the color of each node in the graph
 void GraphColoring::GraphColor::print_coloring() {
-    std::cout << "----------" << get_algorithm() << " Colorings----------" << endl;
-    for(map< string,int >::iterator i = coloring.begin(); i != coloring.end(); i++) {
-        std::cout << (*i).first << " " << (*i).second << endl;
+    std::cout << "----------" << this->get_algorithm() << " Colorings----------" << endl;
+    for(map< string,int >::iterator itr = coloring.begin(); itr != coloring.end(); itr++) {
+        std::cout << itr->first << " " << itr->second << endl;
     }
 }
 
@@ -69,6 +64,7 @@ int GraphColoring::GraphColor::find_max_color() {
 
 #include "../Header/graph_colors.h"
 
+// TODO(brrcrites): remove the next two functions w/ dotty removal
 string GraphColoring::GraphColor::get_color_string(int color,int max_color) {
     return ColorArray[color];
     const int MaxColor = 1023;
