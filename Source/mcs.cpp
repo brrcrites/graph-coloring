@@ -1,5 +1,5 @@
-
 #include "../Header/mcs.h"
+#include <algorithm>
 #include <set>
 
 // TODO: The following optimization can be made via a note in the paper
