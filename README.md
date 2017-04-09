@@ -1,5 +1,7 @@
 ## Graph Coloring library 
 
+[![Build Status](https://travis-ci.org/brrcrites/GraphColoring.svg?branch=master)](https://travis-ci.org/brrcrites/GraphColoring)
+
 **Please note, currently the algorithms Hybrid and lmXRLF need additional testing. All other algorithms have been tested and are working.**
 
 This system uses a map graph representation as input
