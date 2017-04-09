@@ -17,7 +17,7 @@ OBJS=graph_color.o\
 	 hybrid.o\
 	 main.o
 
-CXXFLAGS=-Wall
+CXXFLAGS=-Wall -std=c++11
 CXXFLAGS+=-Iinclude/
 
 TEST?=wheel

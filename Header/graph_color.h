@@ -41,6 +41,7 @@ namespace GraphColoring {
 			virtual map<string,int> color() = 0;
 			void set_graph(map<string,vector<string> > new_graph) { this->graph = new_graph; this->colored = false; }
 			void modify_graph(string node, vector<string> neighbors) { this->graph[node] = neighbors; this->colored = false; }
+			void set_coloring(map<string, int> coloring) { this->coloring = coloring; }
 			virtual bool verify();
 
 			/* Accessors */
