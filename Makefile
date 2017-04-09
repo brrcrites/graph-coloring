@@ -18,7 +18,6 @@ OBJS=graph_color.o\
 	 main.o
 
 CXXFLAGS=-Wall -std=c++11
-CXXFLAGS+=-Iinclude/
 
 TEST?=wheel
 TEST_ARG?=$(WHEEL)
