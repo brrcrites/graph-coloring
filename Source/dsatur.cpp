@@ -1,4 +1,5 @@
 #include "../Header/dsatur.h"
+#include <limits.h>
 
 GraphColoring::Dsatur::Dsatur(map<string,vector<string> > input_graph): GraphColor(input_graph) {
 	/* Do Nothing */
