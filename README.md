@@ -1,50 +1,55 @@
-##Graph Coloring library 
+## Graph Coloring library 
 
-Please note, currently the algorithms Hybrid and lmXRLF need additional testing. All other algorithms have been tested and are working.
+**Please note, currently the algorithms Hybrid and lmXRLF need additional testing. All other algorithms have been tested and are working.**
 
-(Nodes are represented as strings)
+This system uses a map graph representation as input
 
-    map<string,vector<string> >
-A map of the node, to the list of nodes connected to it
+    map<string,vector<string> > input_graph;
 
-    -Algorithm Name-(input_graph)
-Takes in input_graph and can be used to call color function
+Each node is a unique string, and maps to a `vector<string>` that represent that node's neighbors. If your system uses a unique hash string you can use that directly, if your nodes are numbered then you can use `std::to_string()` to convert those id's to unique strings directly.
+
+This input graph is then passed to an algorithm object, such as an object for the DSATUR algorithm shown here (Note: there are more algorithms listed below)
+
+    Dsatur* algorithm = new Dsatur(input_graph);
+
+This creates a new DSATUR algorithm object that is loaded with your graph. From here, you simply need to call the `color()` function on your algorithm object to color the loaded graph.
+
+    algorithm->color();
+
+Some of the algorithms that are available here are heuristics with variable conditions. While the algorithm objects are constructed with a reasonable default value, you can modifiy the condition variable of any algorithms that have them with a `set_condition(int)` function.
     
-    add_node(string new_node)
-Creates a node <new_node> in the graph with no edges
-    
-    add_edge(string source,string sink)
-Adds sink to the list of nodes connected to source. Adds source to the list of nodes connected to sink. If either source or sink don't exist in the graph, they will be added.
-    
-    set_condition(int con)
-Sets the condition for some specific algorithms
+    algorithm->set_condition(new_value);
 
-    color()
-Colors the graph using the condition as a stopping condition (for specific algorithms). Returns a map of nodes, to their colors (map<string,int>)
+In order to aid in validating the colorings that are created using these algorithms, we also provide a `verify()` function that will perform a full check of the graph to ensure that no two adjacent nodes share the same color.
 
-    verify()
-verifies coloring of the graph
+    algorithm->verify()
 
-##Available Algorithms: 
+Once you have colored your graph, there are a few functions for getting important values
+
+    algorithm->print_chromatic() //prints the number of colors required to color your graph
+    algorithm->print_coloring() //prints each node (by name) and it's color (int)
+    algorithm->find_max_color() //returns the highest color (numbered from 0, is equal to the chromatic number - 1)
+
+You can also write the entire graph into a .dot file using the `write_graph(string filename` function, where the file will be named after the input string (if no name is provided it will be named `colored_graph.dot`)
+
+    algorithm->write_graph(string filename) //generates a .dot file named after the input string
+
+This package was refactored to be more easily extended. I encourage you to write new coloring algorithms utilizing this code as a base, and simply ask that you include this repo's LICENSE with any of your code, and cite/acknowledge this repo in any publications. If you do utilize this code in a publication or project, or you would like to contribute a new algorithm please reach out to me (brrcrites@gmail.com).
+
+## Available Algorithms: 
 (See reference papers for descriptions)
 
-- DSATUR (New Methods to Color the Vertices of a Graph - Brelaz et al.): kDSATUR
-- MCS (Register Allocation via Coloring of Chordal Graphs - Magno et al.): kMCS
-- lmXRLF (Efficient Coloring of a Large Spectrum of Graphs - Kirovski et al.): kLMXRLF
-- Hybrid TabuCol (Custom, based on Efficient Coloring... - Kirovski et al.): kHybrid
-- Hybrid DSATUR (Custom, based on Efficient Coloring... - Kirovski et al.): kHybridDSATUR
+- DSATUR (New Methods to Color the Vertices of a Graph - Brelaz et al.) -- `Dsatur`
+- MCS (Register Allocation via Coloring of Chordal Graphs - Magno et al.) -- `Mcs`
+- lmXRLF (Efficient Coloring of a Large Spectrum of Graphs - Kirovski et al.) -- `Lmxrlf`
+- Hybrid TabuCol (Custom, based on Efficient Coloring... - Kirovski et al.) -- `Hybrid`
+- Hybrid DSATUR (Custom, based on Efficient Coloring... - Kirovski et al.) -- `HybridDsatur`
 
 (Below is implemented but not Accessable via main)
 
-- [k-coloring] TabuCol (Using Tabu Search Techniques for Graph Coloring - Hertz et al.): tabucol
+- [k-coloring] TabuCol (Using Tabu Search Techniques for Graph Coloring - Hertz et al.) -- `Tabucol`
 
-Algorithms That I Plan/Hope to Implement:
-
-- Chordal (Register Allocation via Coloring of Chordal Graphs - Magno et al.)
-- LSii (Efficient Coloring of a Large Spectrum of Graphs - Kirovski et al.)
-- Hybrid lmXRLF/LSii (Efficient Coloring of a Large Spectrum of Graphs - Kirovski et al.)
-
-##Running Tests/Test Sets:
+## Running Tests/Test Sets:
 You can test that the program is running correctly by running the following command, which will build a graph for the wheel test, run the DSATUR coloring algorithm, then print the chromatic number.
 
     make test
@@ -53,7 +58,7 @@ You can run specific sets of tests with each graph coloring algorithm by specify
 
     make test TEST="group_name"
 
-Where "group_name" is the name of a test group from this list:
+Where `group_name` is the name of a test group from this list:
 
 - all (runs every test)
 - fullins
@@ -99,9 +104,9 @@ Where "group_name" is the name of a test group from this list:
 - tetra
 - wheel
 
-##Adding Tests:
+## Adding Tests:
 
-You can also add tests to the test_cases folder that are in the following formats:
+You can also add tests to the `Tests/` directory that are in the following formats:
 
 Edge List Input File Format:
 
@@ -120,28 +125,5 @@ Edge Matrix Input File Format:
     1 indicates an edge between column node and row node
     0 indicates a lack of an edge
 
-Once you have added tests, you can give them a group handle in the test_cases.mk file, and then register them in the if/else tree under the "test" command.
+Once you have added tests, you can give them a group handle in the `Tests/test_cases.mk` file, and then register them in the if/else tree under the "test" command.
 
-##Visualizer output:
-
-    write_graph(string graph_name)
-
-Will write a .dot file named graph_name.dot
-If no argument is provided, writes to colored_graph.dot. The .dot file has
-    nodes colored appropriately and with the second line showing the color id
-    in case the colors are too close.
-
-Example usage: (Without text file input)
-
-    //Create a Graphcolor object and select which algorithm to use
-    //use the empty input_graph
-    Graphcolor new_graph* = new -Algorith Name-(input_graph);
-    //Add all of the nodes/edges
-    string node1 = "node1";
-    string node2 = "node2";
-    new_graph->add_node(node1);
-    new_graph->add_node(node2);
-    new_graph->add_edge(node1,node2);
-    ...
-    //Color the graph
-    new_graph->color();
