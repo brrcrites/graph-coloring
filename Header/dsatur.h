@@ -8,10 +8,16 @@ using GraphColoring::GraphColor;
 namespace GraphColoring{
 	class Dsatur : public GraphColor {
 		public: 
-			Dsatur(map<string,vector<string> > input_graph) :GraphColor(input_graph) { } 
+			/* Constructors */
+			Dsatur(map<string,vector<string> > input_graph);
+
+			/* Mutators */
+			void set_condition(int con);
 			map<string,int> color();
+
+			/* Accessors */
 			string get_algorithm() { return "DSATUR"; }
 	};
 }
 
-#endif
+#endif //_DSATUR_H_

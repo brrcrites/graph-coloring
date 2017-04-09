@@ -27,27 +27,26 @@ namespace GraphColoring {
            map<string,int> coloring;
            bool colored;
 
-           /* Helper Functions */
            /* Writing helper function */
            string get_color_string(int color,int max_color);
            int find_max_color();
-        public:
 
-            GraphColor(map<string, vector<string> > input_graph):colored(false){ 
-              graph = input_graph;
-            }
+        public:
+	    /* Constructors */
+            GraphColor(map<string, vector<string> > input_graph): graph(input_graph), colored(false) {}
 
             /* Mutators */
-            virtual void set_condition(int con) {}
+            virtual void set_condition(int con) = 0;
 
             /* Coloring functions */
             virtual map<string,int> color() = 0;
             virtual bool verify();
 
             /* Accessors */
-            unsigned size() { return graph.size(); }
-            map<string,int> get_coloring() { return coloring; }
+            unsigned size() { return this->graph.size(); }
+            map<string,int> get_coloring() { return this->coloring; }
             virtual string get_algorithm() = 0;
+	    int get_color(string node);
 
             /* Mutators */
             void set_graph(map<string,vector<string> > new_graph) { graph = new_graph; }

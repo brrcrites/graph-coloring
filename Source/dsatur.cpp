@@ -1,5 +1,12 @@
 #include "../Header/dsatur.h"
 
+GraphColoring::Dsatur::Dsatur(map<string,vector<string> > input_graph): GraphColor(input_graph) {
+	/* Do Nothing */
+}
+
+void GraphColoring::Dsatur::set_condition(int con) {
+	/* Do Nothing, No Condition */
+}
 
 map<string,int> GraphColoring::Dsatur::color() {	
 
@@ -124,3 +131,4 @@ map<string,int> GraphColoring::Dsatur::color() {
 	}
 	return coloring;
 }
+

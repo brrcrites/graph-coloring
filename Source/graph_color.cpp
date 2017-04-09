@@ -3,8 +3,6 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
-//TODO: Change atoi, remove this header
-#include <cstdlib>
 
 using std::cerr;
 using std::endl;
@@ -12,44 +10,45 @@ using std::ifstream;
 using std::ofstream;
 using std::ostringstream;
 
-//TODO: What conditions are needed for each algorithm?
+// TODO: What conditions are needed for each algorithm?
 map<string,int> GraphColoring::GraphColor::color() {
-    
     return coloring;
 } 
 
-
+// Checks that no two adjacent nodes have the same color
 bool GraphColoring::GraphColor::verify() {
-    for(map< string,vector<string> >::iterator i = graph.begin(); i != graph.end(); i++) 
-    {
-        for(unsigned j=0; j<(*i).second.size(); j++) 
-        {
-            if(coloring[(*i).first] == coloring[(*i).second[j]]) 
-            {
+    for(map< string,vector<string> >::iterator i = graph.begin(); i != graph.end(); i++) {
+        for(unsigned j=0; j<(*i).second.size(); j++) {
+            if(coloring[(*i).first] == coloring[(*i).second[j]]) {
                 cerr << "Graph is not colored correctly" << endl;
                 return false;
             }
         }
     }
-    cerr << "Graph is colored correctly" << endl;
+    cout << "Graph is colored correctly" << endl;
     return true;
 }
 
-//Used to print the Chromatic Color
+// Returns the color of an individual node, if that node isn't colored it returns -1
+int GraphColoring::GraphColor::get_color(string node) {
+	if(this->coloring.find(node) != this->coloring.end()) {
+		return this->coloring.at(node);
+	}
+	return -1;
+}
+
+// Used to print the Chromatic Color
 void GraphColoring::GraphColor::print_chromatic() {
     int largest = 0;
-    for(map< string, int >::iterator i = coloring.begin(); i != coloring.end(); i++) 
-    {  
-        if((*i).second > largest) 
-        { 
+    for(map< string, int >::iterator i = coloring.begin(); i != coloring.end(); i++) {  
+        if((*i).second > largest) { 
             largest = (*i).second; 
         }
     }
-
-    std::cout << get_algorithm() << " Chromatic Number: " << largest+1 << endl;
+    cout << get_algorithm() << " Chromatic Number: " << largest+1 << endl;
 }
 
-//Used to print the color of each node in the graph
+// Used to print the color of each node in the graph
 void GraphColoring::GraphColor::print_coloring() {
     std::cout << "----------" << get_algorithm() << " Colorings----------" << endl;
     for(map< string,int >::iterator i = coloring.begin(); i != coloring.end(); i++) {
