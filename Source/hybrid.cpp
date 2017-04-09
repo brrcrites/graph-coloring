@@ -1,7 +1,12 @@
-#include "../Header/graph.h"
+#include "../Header/hybrid.h"
 
-void GraphColoring::Graph::hybrid(int CARR) {
-	lmxrlf_base(CARR);
+map<string,int> GraphColoring::Hybrid::color() {
+	if (this->condition == 0) {
+        this->condition = graph.size() / 2;
+    }
+
+	GraphColor *alg_graph = new Lmxrlf(this->graph, this->condition);
+	coloring = alg_graph->color();
 	//coloring = lmxrlf_base(Graph,CARR);
 	
 	//*********************************
@@ -18,42 +23,48 @@ void GraphColoring::Graph::hybrid(int CARR) {
 	map< string,int > Colors_temp = coloring;
 	
 	//coloring = lmxrlf(graph.size());
-	lmxrlf(graph.size());
+	alg_graph->set_condition(graph.size());
+	coloring = alg_graph->color();
 	int Color = 0;
 	for(map< string,int >::iterator i = coloring.begin(); i != coloring.end(); i++) {
 		if((*i).second > Color) {
 			Color = (*i).second;
 		}
 	}
+	delete alg_graph;
 	
 	//******************************************************
 	//***** Run Remainder through Tabucol and Recolor *****
 	//******************************************************
 	int subset_color = Color;
 	
-	Graph subset("tabucol");
-	subset.set_graph(get_subgraph(Colors_temp));
-	subset.set_coloring(Colors_temp);
-	subset.color(subset_color);
-	map<string,int> tabu_color = subset.get_coloring();
+	alg_graph = new Tabucol(get_subgraph(Colors_temp));
+	alg_graph->set_coloring(Colors_temp);
+	alg_graph->set_condition(subset_color);
+	alg_graph->color();
+	map<string,int> tabu_color = alg_graph->get_coloring();
+	
 	//map< string,vector<string> > Graph_subset = get_subgraph(Colors_temp);
 	//map< string,int > tabu_color = tabucol(Graph_subset,subset_color); 
 	map< string,int > best;
 	while(tabu_color.size() > 0) {
 		best = tabu_color;
 		subset_color -= 1;
+		alg_graph->set_condition(subset_color);
 		//tabu_color = tabucol(Graph_subset,subset_color);
-		subset.color(subset_color);
-		tabu_color = subset.get_coloring();
+		alg_graph->set_coloring(alg_graph->color());
+		tabu_color = alg_graph->get_coloring();
 	}
 	if(best.size() > 0) {
 		for(map< string,int >::iterator i = best.begin(); i != best.end(); i++) {
 			coloring[(*i).first] = Color_temp + (*i).second;
 		}
 	}
+	return coloring;
 }
 
-map< string,vector<string> > GraphColoring::Graph::get_subgraph(map< string,int > coloring) {
+
+map< string,vector<string> > GraphColoring::Hybrid::get_subgraph(map< string,int > coloring) {
 	map< string,vector<string> > subgraph;
 	for(map< string,vector<string> >::iterator i = graph.begin(); i != graph.end(); i++) {
 		if(coloring[(*i).first] == -1) {
@@ -66,30 +77,4 @@ map< string,vector<string> > GraphColoring::Graph::get_subgraph(map< string,int 
 		}
 	}
 	return subgraph;
-}
-
-
-//Starts by using DSATUR to get an approximate coloring and then uses decrementing
-//tabucol runs to try and reduce the chromatic number
-void GraphColoring::Graph::hybrid_dsatur() {
-	dsatur();
-
-	int largest = 0;
-	for(map< string, int >::iterator i = coloring.begin(); i != coloring.end(); i++)
-	{	
-		if((*i).second > largest) { largest = (*i).second; }
-	}
-	largest += 1;
-
-	map< string,int > best = coloring;
-	tabucol(largest);
-	map< string,int > tabu_color = coloring;
-	while(tabu_color.size() > 0)
-	{
-		best = tabu_color;
-		largest -= 1;
-		tabucol(largest);
-		tabu_color = coloring;
-	}
-	coloring = best;
 }

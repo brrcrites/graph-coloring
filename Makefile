@@ -8,12 +8,13 @@ SHELL=/bin/sh
 
 PRG=graphColoring
 DOT=*.dot
-OBJS=graph.o\
+OBJS=graph_color.o\
 	 dsatur.o\
-	 hybrid.o\
-	 lmxrlf.o\
 	 mcs.o\
+	 lmxrlf.o\
 	 tabucol.o\
+	 hybrid_dsatur.o\
+	 hybrid.o\
 	 main.o
 
 CXXFLAGS=-Wall

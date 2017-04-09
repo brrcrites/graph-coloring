@@ -1,10 +1,7 @@
+#include "../Header/dsatur.h"
 
-#ifndef _DSATUR_H_
-#define _DSATUR_H_
 
-#include "../Header/graph.h"
-
-void GraphColoring::Graph::dsatur() {	
+map<string,int> GraphColoring::Dsatur::color() {	
 
 	vector<string> todo;
 	string max_degree = "";
@@ -86,7 +83,8 @@ void GraphColoring::Graph::dsatur() {
 		if(saturation_name == "")
 		{
 			cerr << "Error: Could not find a max saturated node in the graph (reason unknown)" << endl;
-			return;
+			coloring.clear();
+			return coloring;
 		}
 
 		//We now know the most saturated node, so we remove it from the todo list
@@ -124,6 +122,5 @@ void GraphColoring::Graph::dsatur() {
 		}
 		saturation_level[saturation_name] = std::numeric_limits<int>::min();
 	}
+	return coloring;
 }
-
-#endif // _DSATUR_H_

@@ -1,5 +1,5 @@
 
-#include "../Header/graph.h"
+#include "../Header/mcs.h"
 #include <set>
 
 // TODO: The following optimization can be made via a note in the paper
@@ -12,7 +12,7 @@
 // in O(1) time.
 
 //Maximum Cardinal Search
-void GraphColoring::Graph::mcs() {
+map<string,int> GraphColoring::Mcs::color() {
 
 	map<string,vector<string> > temp_graph = graph;
 	map< string,int> weight;
@@ -45,7 +45,8 @@ void GraphColoring::Graph::mcs() {
 		if(max_vertex == "")
 		{
 			cerr << "Error: Could not find a max weight node in the graph (reason unknown)" << endl;
-			return;
+			coloring.clear();
+			return coloring;
 		}
 
 		// Add highest weight node to the queue and increment all of its
@@ -96,4 +97,5 @@ void GraphColoring::Graph::mcs() {
 		coloring[min] = color;
 		ordering.pop();
 	}	
+	return coloring;
 }
