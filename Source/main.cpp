@@ -127,7 +127,7 @@ void parse_edge_list(char* input_file) {
             vector<string> words = split(line);
             if(words.size() != 0) {
                 if(words[0] == "p") {
-                    vertices = std::atoi(words[2].c_str());
+                    vertices = atoi(words[2].c_str());
                     flag = 1;
                 }
             }
@@ -177,7 +177,7 @@ void parse_edge_matrix(char* input_file) {
     if(file.is_open()) {
         string line;
         Getline(file,line);
-        int n = std::atoi(line.c_str());
+        int n = atoi(line.c_str());
         int i = 0;
         while(Getline(file,line)) {
             i += 1;
