@@ -49,7 +49,7 @@ map<string,int> GraphColoring::Dsatur::color() {
 
 	//Set the saturation level of the already completed node to -infinity so
 	//that it is not chosen and recolored
-	saturation_level[max_degree] = std::numeric_limits<int>::min();
+	saturation_level[max_degree] = INT_MIN;
 
 	//Populate the todo list with the rest of the vertices that need to be colored
 	for(map< string, vector<string> >::iterator i = graph.begin(); i != graph.end(); i++) 
@@ -123,12 +123,12 @@ map<string,int> GraphColoring::Dsatur::color() {
 		//included here for robustness)
 		for(int i=0; i < graph[saturation_name].size(); i++)
 		{
-			if(saturation_level[graph[saturation_name][i]] != std::numeric_limits<int>::min())
+			if(saturation_level[graph[saturation_name][i]] != INT_MIN)
 			{
 				saturation_level[graph[saturation_name][i]] += 1;
 			}
 		}
-		saturation_level[saturation_name] = std::numeric_limits<int>::min();
+		saturation_level[saturation_name] = INT_MIN;
 	}
 	return coloring;
 }
