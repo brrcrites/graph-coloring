@@ -6,6 +6,7 @@
 #include "../Header/hybrid.h"
 #include <fstream>
 #include <iostream>
+#include <string>
 #include <sstream>
 
 using std::cerr;
@@ -125,7 +126,7 @@ void parse_edge_list(char* input_file) {
             vector<string> words = split(line);
             if(words.size() != 0) {
                 if(words[0] == "p") {
-                    vertices = std::to_string(words[2].c_str());
+                    vertices = std::stoi(words[2]);
                     flag = 1;
                 }
             }
@@ -175,7 +176,7 @@ void parse_edge_matrix(char* input_file) {
     if(file.is_open()) {
         string line;
         Getline(file,line);
-        int n = std::to_string(line.c_str());
+        int n = std::stoi(line);
         int i = 0;
         while(Getline(file,line)) {
             i += 1;
