@@ -1,6 +1,7 @@
 # Makefile
 
 -include Tests/test_cases.mk
+LIB=graphColoring.so
 
 SHELL=/bin/sh
 
@@ -14,8 +15,7 @@ OBJS=graph_color.o\
 	 lmxrlf.o\
 	 tabucol.o\
 	 hybrid_dsatur.o\
-	 hybrid.o\
-	 main.o
+	 hybrid.o
 
 CXXFLAGS=-Wall
 
@@ -23,23 +23,29 @@ TEST?=wheel
 TEST_ARG?=$(WHEEL)
 TEST_FLAG?=-m
 
+INC=Header/
 vpath %.h Header/
 vpath %.cpp Source/
 
 .PHONY:cleanup clean all debug release test
 
+#all: debug
+
 all: debug
+
+shared: $(OBJS)
+	$(CXX) $(CSSFLAGS) -shared -o $(LIB) $(OBJS)
 
 release: $(PRG)
 	$(MAKE) cleanup
 
 debug: $(PRG)
 
-$(PRG): $(OBJS)
+$(PRG): $(OBJS) main.o
 	$(CXX) $(CXXFLAGS) -o $(PRG) $^
 
 %.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c -o $@ $<
+	$(CXX) $(CXXFLAGS) -fPIC -I$(INC) -c $^
 
 
 #----------------------------------------------
@@ -48,9 +54,12 @@ $(PRG): $(OBJS)
 
 cleanup:
 	@rm -f $(OBJS) $(DOT)
+	@rm -f $(LIB)
+	@rm -f main.o
 
 clean: cleanup
 	@rm -f $(PRG)
+	@rm -f $(LIB)
 
 #----------------------------------------------
 # Test Running Command
