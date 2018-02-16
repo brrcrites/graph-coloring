@@ -1,7 +1,7 @@
 # Makefile
 
 -include Tests/test_cases.mk
-LIB=graphColoring.so
+SHARED_LIB=graphColoring.so
 
 SHELL=/bin/sh
 
@@ -29,12 +29,10 @@ vpath %.cpp Source/
 
 .PHONY:cleanup clean all debug release test
 
-#all: debug
-
 all: debug
 
 shared: $(OBJS)
-	$(CXX) $(CSSFLAGS) -shared -o $(LIB) $(OBJS)
+	$(CXX) $(CSSFLAGS) -shared -o $(SHARED_LIB) $(OBJS)
 
 release: $(PRG)
 	$(MAKE) cleanup
@@ -54,12 +52,12 @@ $(PRG): $(OBJS) main.o
 
 cleanup:
 	@rm -f $(OBJS) $(DOT)
-	@rm -f $(LIB)
+	@rm -f $(SHARED_LIB)
 	@rm -f main.o
 
 clean: cleanup
 	@rm -f $(PRG)
-	@rm -f $(LIB)
+	@rm -f $(SHARED_LIB)
 
 #----------------------------------------------
 # Test Running Command
