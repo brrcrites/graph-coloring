@@ -1,6 +1,10 @@
-## Graph Coloring library 
-
 [![Build Status](https://travis-ci.org/brrcrites/GraphColoring.svg?branch=master)](https://travis-ci.org/brrcrites/GraphColoring)
+
+## Requirements
+
+This project requires [CMake](https://cmake.org/) in order to generate a correct makefile
+
+## Graph Coloring Library 
 
 **Please note, currently the algorithms Hybrid and lmXRLF need additional testing. All other algorithms have been tested and are working.**
 
@@ -65,64 +69,9 @@ Additionally, there is a k-coloring algorithm that is accessible, and used inter
 
 - TabuCol (Using Tabu Search Techniques for Graph Coloring - Hertz et al.) -- `Tabucol`
 
-## Running Tests/Test Sets:
-You can test that the program is running correctly by running the following command, which will build a graph for the wheel test, run the DSATUR coloring algorithm, then print the chromatic number.
+## Tests:
 
-    make test
-
-You can run specific sets of tests with each graph coloring algorithm by specifying which test set test to run by editing the TEST make variable (by default the main will run the test/test set with DSATUR).
-
-    make test TEST="group_name"
-
-Where `group_name` is the name of a test group from this list:
-
-- all (runs every test)
-- fullins
-- insertions
-- anna
-- ash
-- david
-- dsjc
-- dsjr
-- flat
-- fpsol
-- games
-- homer
-- huck
-- inithx
-- jean
-- le
-- miles
-- mug
-- mulsol
-- myciel
-- queen
-- r125
-- r250
-- r1000
-- rtotal
-- school
-- will
-- zeroin
-- bondymurty
-- chvatal
-- cube
-- dodeca
-- grotzsch
-- grunbaum
-- icosa
-- kuratowski
-- india
-- mycielski
-- octa
-- petersen
-- ramsey
-- tetra
-- wheel
-
-## Adding Tests:
-
-You can also add tests to the `Tests/` directory that are in the following formats:
+The system is capable of running tests written in both the edge list (`-l` flag) and the edge matrix (`-m` flag) file format. There is a large number of well known tests saved to the `Tests/` directory, and you can also add tests to the `Tests/` directory. The edge list and edge matrix formats are as follows:
 
 Edge List Input File Format:
 
@@ -140,6 +89,4 @@ Edge Matrix Input File Format:
 
     1 indicates an edge between column node and row node
     0 indicates a lack of an edge
-
-Once you have added tests, you can give them a group handle in the `Tests/test_cases.mk` file, and then register them in the if/else tree under the "test" command.
 

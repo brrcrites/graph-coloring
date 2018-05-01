@@ -8,7 +8,6 @@
 *.obj
 *.dot
 
-
 # Precompiled Headers
 *.gch
 *.pch
@@ -32,4 +31,10 @@
 *.exe
 *.out
 *.app
-graphColoring
+
+# CMake
+CMakeCache.txt
+cmake_install.cmake
+CMakeFiles/
+Makefile
+*.dylib

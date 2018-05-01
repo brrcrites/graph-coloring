@@ -48,7 +48,10 @@ int main(int argc, char** argv)
         if(input_graph.size() == 0) { return -2; }
     } else {
         cout << "No Graph Input Type Selected" << endl;
-        return -1;  }
+        cout << "Use a \"-m\" flag for edge matrix inputs" << endl;
+        cout << "Use a \"-l\" flag for edge list inputs" << endl;
+        return -1;  
+    }
 
 
     GraphColor *graph = new HybridDsatur(input_graph);
