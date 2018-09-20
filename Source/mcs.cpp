@@ -11,6 +11,11 @@
 // array of buckets indexed by λ, the vertex of highest weight can be found 
 // in O(1) time.
 
+void GraphColoring::Mcs::set_condition(int con) {
+	/* Do Nothing, No Condition */
+	cout << "MCS has no condition to set" << endl;
+}
+
 //Maximum Cardinal Search
 map<string,int> GraphColoring::Mcs::color() {
 
@@ -24,7 +29,7 @@ map<string,int> GraphColoring::Mcs::color() {
 		weight[(*i).first] = 0;
 	}
 
-	// Work through all the ndoes in the graph, choosing the node
+	// Work through all the nodes in the graph, choosing the node
 	// with maximum weight, then add that node to the queue. Increase
 	// the weight of the queued nodes neighbors by 1. Continue until
 	// every node in the graph has been added to the queue
