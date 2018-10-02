@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/brrcrites/GraphColoring.svg?branch=master)](https://travis-ci.org/brrcrites/GraphColoring)
+[![Build Status](https://travis-ci.org/brrcrites/graph-coloring.svg?branch=master)](https://travis-ci.org/brrcrites/graph-coloring)
 
 ## Requirements
 
