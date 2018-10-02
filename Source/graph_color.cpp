@@ -1,8 +1,10 @@
 
-#include "../Header/graph_color.h"
 #include <fstream>
 #include <iostream>
 #include <sstream>
+
+#include "../Header/graph_color.h"
+#include "../Header/colors.h"
 
 using std::cerr;
 using std::endl;
@@ -61,8 +63,6 @@ int GraphColoring::GraphColor::find_max_color() {
     }
     return max_color;
 }
-
-#include "../Header/graph_colors.h"
 
 // TODO(brrcrites): remove the next two functions w/ dotty removal
 string GraphColoring::GraphColor::get_color_string(int color,int max_color) {
