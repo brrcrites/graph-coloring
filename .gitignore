@@ -40,4 +40,4 @@ Makefile
 *.dylib
 
 color
-test
+color-test
