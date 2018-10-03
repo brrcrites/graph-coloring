@@ -4,7 +4,6 @@
 #include <sstream>
 
 #include "../Header/coloring_algorithm.hpp"
-#include "../Header/colors.hpp"
 
 using std::cout;
 using std::cerr;
