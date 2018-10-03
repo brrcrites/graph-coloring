@@ -13,7 +13,7 @@ namespace GraphColoring{
 	class HybridDsatur : public GraphColor {
 		public: 
 			/* Constructors */
-			HybridDsatur(map<string, vector<string> > input_graph) :GraphColor(input_graph) { } 
+			HybridDsatur(map<string,vector<string>> graph) : GraphColor(graph) { } 
 
 			/* Mutators */
 			map<string,int> color();
