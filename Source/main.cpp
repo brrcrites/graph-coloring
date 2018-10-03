@@ -2,7 +2,6 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-#include <stdlib.h>
 #include <sstream>
 
 #include "../Header/coloring_algorithm.hpp"
@@ -12,8 +11,8 @@
 #include "../Header/hybrid_dsatur.hpp"
 #include "../Header/hybrid.hpp"
 
-using std::cerr;
 using std::cout;
+using std::cerr;
 using std::endl;
 using std::ifstream;
 using std::ofstream;
@@ -35,8 +34,7 @@ void parse_edge_matrix(char* input_file);
 
 map<string,vector<string> > input_graph;
 
-int main(int argc, char** argv)
-{
+int main(int argc, char** argv) {
     if(argc < 2) {
         cerr << "Usage: " << argv[0] << " file_input" << endl;
         return -1;
@@ -54,7 +52,6 @@ int main(int argc, char** argv)
         cout << "Use a \"-l\" flag for edge list inputs" << endl;
         return -1;  
     }
-
 
     GraphColor *graph = new HybridDsatur(input_graph);
 
@@ -80,7 +77,9 @@ vector<string> split(string to_split) {
     unsigned index_start;
     for (unsigned i = 0;i < to_split.length();i++) {
         index_start = i;
-        while(i < to_split.length() && !isspace(to_split.at(i))) { i++; }
+        while(i < to_split.length() && !isspace(to_split.at(i))) { 
+            i++; 
+        }
         split_string.push_back(to_split.substr(index_start,i - index_start));
     }
     return split_string;
@@ -153,16 +152,15 @@ void parse_edge_list(char* input_file) {
         while(Getline(file,line))
         {
             vector<string> words = split(line);
-            if(words[0] == "e")
-            {
+            if(words[0] == "e") {
                 string arg1 = "v";
                 arg1.append(words[1]);
                 string arg2 = "v";
                 arg2.append(words[2]);
                 vector<string> base;
                 vector<string> base2;
-        input_graph[arg1].push_back(arg2);
-        input_graph[arg2].push_back(arg1);
+                input_graph[arg1].push_back(arg2);
+                input_graph[arg2].push_back(arg1);
             }
         }
     } else {
@@ -186,9 +184,10 @@ void parse_edge_matrix(char* input_file) {
             i += 1;
             vector<string> words = split(line);
             if((int)words.size() != n) {
-                cerr << "Invalid Input, line " << i << " is not the correct length (" 
-                     << words.size() << "," << n << "): " << line << endl;
-                for (unsigned i = 0;i < words.size();i++) { cerr << "\t" << words.at(i) << endl; }
+                cerr << "Invalid Input, line " << i << " is not the correct length (" << words.size() << "," << n << "): " << line << endl;
+                for (unsigned i = 0;i < words.size();i++) { 
+                    cerr << "\t" << words.at(i) << endl; 
+                }
                 input_graph.clear();
                 return;
             }
@@ -222,3 +221,4 @@ void parse_edge_matrix(char* input_file) {
     }
     return;
 }
+
