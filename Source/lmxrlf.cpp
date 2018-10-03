@@ -7,9 +7,12 @@
 using std::cerr;
 using std::endl;
 
-int GLOBAL = 10;
-int F = 1;
-int LOCAL = 10;
+GraphColoring::Lmxrlf::Lmxrlf(map<string, vector<string> > input_graph, int condition, int global, int f, int local) : GraphColor(input_graph) { 
+    this->condition = condition;
+    this->global = global;
+    this->f = f;
+    this->local = local;
+}
 
 //Returns an independent set from given set
 vector<string> GraphColoring::Lmxrlf::get_independent(vector<string> set) {
@@ -184,8 +187,8 @@ map<string,int> GraphColoring::Lmxrlf::lmxrlf_alg(int endcond) {
 	if(Color > 0) { Color += 1; }
 	do {
 		int global_iterations;
-		if (Color == 0) { global_iterations = F*GLOBAL; }
-		else { global_iterations = (int)(GLOBAL*(float)(1-(float)((colored_nodes*colored_nodes)/(graph.size()*graph.size())))); }
+		if (Color == 0) { global_iterations = this->f * this->global; }
+		else { global_iterations = (int)(this->global*(float)(1-(float)((colored_nodes*colored_nodes)/(graph.size()*graph.size())))); }
 		vector<string> set = make_independent_set();
 		list_of_best_solutions.push_back(set);
 		for(int i=0; i<global_iterations; i++) {
@@ -210,7 +213,7 @@ map<string,int> GraphColoring::Lmxrlf::lmxrlf_alg(int endcond) {
 		for(unsigned i=0; i<list_of_best_solutions.size(); i++) {
 			int flag = 0;
 			vector<string> S_plus = list_of_best_solutions[i];
-			for(int j=0; j<LOCAL; j++) {
+			for(int j=0; j<this->local; j++) {
 				//remove random vertices from S_star
 				vector<string> S_star = list_of_best_solutions[i];
 				while(uncolored_neighbor(S_star).size() == 0) {
