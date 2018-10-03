@@ -12,7 +12,6 @@ namespace GraphColoring{
 			Mcs(map<string,vector<string>> graph) : GraphColor(graph) {} 
 
 			/* Mutators */
-			void set_condition(int con);
 			map<string,int> color();
 
 			/* Accessors */
