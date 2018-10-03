@@ -1,7 +1,12 @@
 
+#include <iostream>
 #include <limits.h>
 
 #include "../Header/dsatur.hpp"
+
+using std::cout;
+using std::cerr;
+using std::endl;
 
 GraphColoring::Dsatur::Dsatur(map<string,vector<string> > input_graph): GraphColor(input_graph) {
 	/* Do Nothing */

@@ -2,23 +2,12 @@
 #define _GRAPH_COLOR_HPP_
 
 #include <map>
-#include <stack>
-#include <locale>
-#include <vector>
 #include <string>
-#include <utility>
-#include <iostream>
-#include <queue>
+#include <vector>
 
-using std::queue;
 using std::map;
-using std::pair;
-using std::stack;
 using std::string;
 using std::vector;
-using std::cout;
-using std::cerr;
-using std::endl;
 
 namespace GraphColoring {
 	class GraphColor {
@@ -28,7 +17,6 @@ namespace GraphColoring {
 			map<string,int> graph_colors;
 
 			/* Writing helper function */
-			string get_color_string(int color,int max_color); // TODO(brrcrites): remove w/ dotty removal
 			int find_max_color();
 
 		public:
@@ -52,7 +40,6 @@ namespace GraphColoring {
 			/* Print functions */
 			void print_coloring();
 			void print_chromatic();
-			void write_graph(string graph_name = ""); // TODO(brrcrites): remove w/ dotty removal
 	};
 }
 

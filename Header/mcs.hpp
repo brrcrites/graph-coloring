@@ -9,7 +9,7 @@ namespace GraphColoring{
 	class Mcs : public GraphColor {
 		public: 
 			/* Constructors */
-			Mcs(map<string, vector<string> > input_graph) :GraphColor(input_graph) {} 
+			Mcs(map<string,vector<string>> graph) : GraphColor(graph) {} 
 
 			/* Mutators */
 			void set_condition(int con);

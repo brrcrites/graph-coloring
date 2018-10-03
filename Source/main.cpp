@@ -58,11 +58,9 @@ int main(int argc, char** argv)
 
     GraphColor *graph = new HybridDsatur(input_graph);
 
-
     graph->color();
     graph->print_chromatic();
     graph->verify();
-    graph->write_graph();
 
     return 0;
 }

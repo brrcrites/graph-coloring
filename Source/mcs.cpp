@@ -1,8 +1,15 @@
 
+#include <iostream>
 #include <algorithm>
 #include <set>
+#include <queue>
 
 #include "../Header/mcs.hpp"
+
+using std::queue;
+using std::cout;
+using std::cerr;
+using std::endl;
 
 // TODO: The following optimization can be made via a note in the paper
 // The procedure MCS can be implemented to run in O(|V | + |E|) time. To 

@@ -6,6 +6,7 @@
 #include "../Header/coloring_algorithm.hpp"
 #include "../Header/colors.hpp"
 
+using std::cout;
 using std::cerr;
 using std::endl;
 using std::ifstream;
@@ -74,59 +75,6 @@ int GraphColoring::GraphColor::find_max_color() {
         }
     }
     return max_color;
-}
-
-// TODO(brrcrites): remove the next two functions w/ dotty removal
-string GraphColoring::GraphColor::get_color_string(int color,int max_color) {
-    return ColorArray[color];
-    const int MaxColor = 1023;
-    color = color * (MaxColor / max_color);
-    std::stringstream color_changer;
-    color_changer << "0x" << std::hex << color;
-    return color_changer.str();
-}
-
-void GraphColoring::GraphColor::write_graph(string graph_name) {
-    int max_color = find_max_color();
-    if(max_color > COLOR_ARRAY_SIZE)
-    {
-        cerr << "Error: Graph has too many colors to be written" << endl;
-        return;
-    }
-    if (graph_name.empty()) {
-        graph_name = "colored_graph";
-    }
-    string filename = graph_name+".dot";
-    ofstream outfile(filename.c_str());
-    if (!outfile.is_open()) {
-        cerr << "Error: Unable to open \"" << filename << "\"." << endl;
-        return;
-    }
-    outfile << "graph " << graph_name << " {\n";
-    map <string,vector<string> >::iterator graph_it;
-    graph_it = graph.begin();
-    for (/*graph_it*/;graph_it != graph.end();graph_it++) {
-        outfile << (*graph_it).first << "[label=\"" << (*graph_it).first << "\\n"
-                << graph_colors.at((*graph_it).first) << "\"";
-        if (this->is_colored()) { 
-            outfile << " style=filled fillcolor=\"";
-            outfile << get_color_string(graph_colors.at((*graph_it).first),max_color);
-            outfile << "\"";
-        }   
-        outfile << "];\n";
-    }
-    graph_it = graph.begin();
-    for (/*graph_it*/;graph_it != graph.end();graph_it++) {
-        string start_node = (*graph_it).first;
-        vector<string> connections = (*graph_it).second;
-        for (unsigned i = 0;i < connections.size();i++) {
-            if (connections.at(i) < start_node) {
-                outfile << start_node << " -- " << connections.at(i) << endl;
-            }
-        }
-    }
-    outfile << "}" << endl;
-    outfile.close();
 }
 
 bool GraphColoring::GraphColor::is_colored() {
