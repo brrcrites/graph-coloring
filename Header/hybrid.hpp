@@ -13,19 +13,18 @@ namespace GraphColoring{
 	class Hybrid : public GraphColor {
 		private: 
 			int condition;
-            int coloring;
-			map< string,vector<string> > get_subgraph(map< string,int > coloring);
+			map<string,vector<string>> get_subgraph(map<string,int> coloring);
 
 		public: 
             /* Constructors */
-			Hybrid(map<string,vector<string> > input_graph) :GraphColor(input_graph) { this->condition = 0; } 
-			Hybrid(map<string,vector<string> > input_graph, int con) :GraphColor(input_graph) { this->condition = con; } 
+			Hybrid(map<string,vector<string> > graph) : GraphColor(graph) { this->condition = 0; } 
+			Hybrid(map<string,vector<string> > graph, int condition) : GraphColor(graph) { this->condition = condition; } 
 
             /* Mutators */
-			void set_condition(int con) { this->condition = con; }
+			void set_condition(int condition) { this->condition = condition; }
+			map<string,int> color();
 
             /* Accessors */
-			map<string,int> color();
 			string get_algorithm() { return "HYBRID"; }
 	};
 }
