@@ -17,8 +17,7 @@ namespace GraphColoring{
 
 		public: 
             /* Constructors */
-			Hybrid(map<string,vector<string> > graph) : GraphColor(graph) { this->condition = 0; } 
-			Hybrid(map<string,vector<string> > graph, int condition) : GraphColor(graph) { this->condition = condition; } 
+			Hybrid(map<string,vector<string> > graph, int condition = 0) : GraphColor(graph) { this->condition = condition; } 
 
             /* Mutators */
 			void set_condition(int condition) { this->condition = condition; }
