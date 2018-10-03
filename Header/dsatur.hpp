@@ -12,7 +12,6 @@ namespace GraphColoring{
 			Dsatur(map<string,vector<string> > input_graph);
 
 			/* Mutators */
-			void set_condition(int con);
 			map<string,int> color();
 
 			/* Accessors */
