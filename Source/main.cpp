@@ -57,7 +57,9 @@ int main(int argc, char** argv) {
 
     graph->color();
     graph->print_chromatic();
-    graph->verify();
+    if(!graph->is_valid()) {
+        cerr << "Graph coloring is invalid" << endl;
+    }
 
     return 0;
 }

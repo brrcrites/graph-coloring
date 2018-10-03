@@ -25,36 +25,28 @@ GraphColoring::GraphColor::GraphColor(map<string,vector<string>> graph) {
 }
 
 // Checks that no two adjacent nodes have the same color
-bool GraphColoring::GraphColor::verify() {
-    for(map< string,vector<string> >::iterator i = graph.begin(); i != graph.end(); i++) {
-        for(unsigned j=0; j<(*i).second.size(); j++) {
-            if(graph_colors[(*i).first] == graph_colors[(*i).second[j]]) {
-                cerr << "Graph is not colored correctly" << endl;
+bool GraphColoring::GraphColor::is_valid() {
+    for(map<string,vector<string>>::iterator i = this->graph.begin(); i != this->graph.end(); i++) {
+        for(unsigned j = 0; j < i->second.size(); j++) {
+            if(graph_colors[i->first] == graph_colors[i->second[j]] || graph_colors[i->first] == -1) {
                 return false;
             }
         }
     }
-    cout << "Graph is colored correctly" << endl;
     return true;
 }
 
 // Returns the color of an individual node, if that node isn't colored it returns -1
 int GraphColoring::GraphColor::get_color(string node) {
-	if(this->graph_colors.find(node) != this->graph_colors.end()) {
-		return this->graph_colors.at(node);
-	}
-	return -1;
+    if(this->graph_colors.find(node) != this->graph_colors.end()) {
+        return this->graph_colors.at(node);
+    }
+    return -1;
 }
 
 // Used to print the Chromatic Color
 void GraphColoring::GraphColor::print_chromatic() {
-    int largest = -2;
-    for(map< string, int >::iterator itr = this->graph_colors.begin(); itr != this->graph_colors.end(); itr++) {
-        if(itr->second > largest) { 
-            largest = itr->second; 
-        }
-    }
-    cout << this->get_algorithm() << " Chromatic Number: " << largest+1 << endl;
+    cout << this->get_algorithm() << " Chromatic Number: " << this->get_num_colors() << endl;
 }
 
 // Used to print the color of each node in the graph
@@ -65,15 +57,14 @@ void GraphColoring::GraphColor::print_coloring() {
     }
 }
 
-int GraphColoring::GraphColor::find_max_color() {
-    map<string,int>::iterator color_it = graph_colors.begin();
+int GraphColoring::GraphColor::get_num_colors() {
     int max_color = 0;
-    for (/*color_it*/;color_it != graph_colors.end();color_it++) {
-        if ((*color_it).second > max_color) {
-            max_color = (*color_it).second;
+    for(map<string,int>::iterator color_it = this->graph_colors.begin(); color_it != this->graph_colors.end(); color_it++) {
+        if(color_it->second > max_color) {
+            max_color = color_it->second;
         }
     }
-    return max_color;
+    return max_color + 1;
 }
 
 bool GraphColoring::GraphColor::is_colored() {
