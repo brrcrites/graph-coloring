@@ -1,9 +1,9 @@
-#ifndef _HYBRID_DSATUR_H_
-#define _HYBRID_DSATUR_H_
+#ifndef _HYBRID_DSATUR_HPP_
+#define _HYBRID_DSATUR_HPP_
 
-#include "graph_color.h"
-#include "dsatur.h"
-#include "tabucol.h"
+#include "coloring_algorithm.hpp"
+#include "dsatur.hpp"
+#include "tabucol.hpp"
 
 using GraphColoring::GraphColor;
 using GraphColoring::Dsatur;
@@ -13,15 +13,14 @@ namespace GraphColoring{
 	class HybridDsatur : public GraphColor {
 		public: 
 			/* Constructors */
-			HybridDsatur(map<string, vector<string> > input_graph) :GraphColor(input_graph) { } 
+			HybridDsatur(map<string,vector<string>> graph) : GraphColor(graph) { } 
 
 			/* Mutators */
 			map<string,int> color();
-			void set_condition(int con);
 
 			/* Accessors */
 			string get_algorithm() { return "HYBRID_DSATUR"; }
 	};
 }
 
-#endif
+#endif //_HYBRID_DSATUR_HPP_

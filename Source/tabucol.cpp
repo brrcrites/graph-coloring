@@ -1,37 +1,26 @@
 
-#include "../Header/tabucol.h"
-
 #include <queue>
 #include <cstdlib>
 #include <iostream>
+
+#include "../Header/tabucol.hpp"
 
 using std::queue;
 using std::cerr;
 using std::endl;
 
-const int TABU_SIZE = 25;
-const int REP = 100;
-const int NBMAX = 1000;
-
-bool GraphColoring::Tabucol::verify(){
-    for(map< string,vector<string> >::iterator i = graph.begin(); i != graph.end(); i++) 
-    {
-        for(unsigned j=0; j<(*i).second.size(); j++) 
-        {
-            if(coloring[(*i).first] == coloring[(*i).second[j]]) 
-            {
-                return false;
-            }
-        }
-    }
-    return true;
+GraphColoring::Tabucol::Tabucol(map<string, vector<string> > graph, int condition, int tabu_size, int rep, int nbmax) : GraphColor(graph) {
+    this->condition = condition;
+    this->tabu_size = tabu_size;
+    this->rep = rep;
+    this->nbmax = nbmax;
 }
 
-int GraphColoring::Tabucol::f(map<string,int> coloring) {
+int GraphColoring::Tabucol::f(map<string,int> graph_colors) {
 	int sum = 0;
-	for(map< string,vector<string> >::iterator i = graph.begin(); i != graph.end(); i++) {
-		for(unsigned j=0; j< i->second.size(); j++) {
-			if(coloring[i->first] == coloring[i->second[j]]) {
+	for(map< string,vector<string> >::iterator i = this->graph.begin(); i != this->graph.end(); i++) {
+		for(unsigned j = 0; j< i->second.size(); j++) {
+			if(this->graph_colors[i->first] == this->graph_colors[i->second[j]]) {
 				sum += 1;
 			}
 		}
@@ -41,34 +30,34 @@ int GraphColoring::Tabucol::f(map<string,int> coloring) {
 
 map<string,int> GraphColoring::Tabucol::color() {
 	srand(time(NULL));
-	for(map< string,vector<string> >::iterator i = graph.begin(); i != graph.end(); i++) {
-		coloring[(*i).first] = rand() % this->condition;
+	for(map<string,vector<string>>::iterator i = this->graph.begin(); i != this->graph.end(); i++) {
+		this->graph_colors[(*i).first] = rand() % this->condition;
 	}
 	queue<int> tabu_color;
 	queue<string> tabu_vertex;
-	for(int i=0; i<TABU_SIZE; i++) {
-		map< string,vector<string> >::iterator x = graph.begin();
-		std::advance(x,(rand() % graph.size()));
-		tabu_vertex.push((*x).first);
+	for(int i = 0; i < this->tabu_size; i++) {
+		map<string,vector<string>>::iterator x = this->graph.begin();
+		std::advance(x,(rand() % this->graph.size()));
+		tabu_vertex.push(x->first);
 		tabu_color.push(rand() % this->condition);
 	}
 	int nbiter = 0;
-	while(f(coloring) > 0 && nbiter < NBMAX) {
+	while(f(this->graph_colors) > 0 && nbiter < this->nbmax) {
 		int best_color = -1;
 		string best_vertex;
 		int x = 0;
-		int original_f = f(coloring);
-		while(x < REP) {
+		int original_f = f(this->graph_colors);
+		while(x < this->rep) {
 			int flag = 0;
 			int move_color;
 			string move_vertex;
 			while(!flag) {
 				move_color = rand() % this->condition;
-				map< string,vector<string> >::iterator mv = graph.begin();
-				std::advance(mv,(rand() % graph.size()));
-				move_vertex = (*mv).first;
+				map<string,vector<string>>::iterator mv = this->graph.begin();
+				std::advance(mv,(rand() % this->graph.size()));
+				move_vertex = mv->first;
 				int inner_flag = 0;
-				for(unsigned i=0; i<tabu_vertex.size(); i++) {
+				for(unsigned i = 0; i < tabu_vertex.size(); i++) {
 					const string& temp_vertex = tabu_vertex.front();
 					int temp_color = tabu_color.front();
 					if(temp_vertex == move_vertex && temp_color == move_color) {
@@ -87,37 +76,36 @@ map<string,int> GraphColoring::Tabucol::color() {
 				best_color = move_color;
 				best_vertex = move_vertex;
 			}
-			map< string,int > Colors_move = coloring;
-			Colors_move[move_vertex] = move_color;
-			map< string,int > Colors_best = coloring;
-			Colors_best[best_vertex] = best_color;
-			if(f(Colors_move) < f(Colors_best)) {
+			map<string,int> colors_move = this->graph_colors;
+			colors_move[move_vertex] = move_color;
+			map<string,int> colors_best = this->graph_colors;
+			colors_best[best_vertex] = best_color;
+			if(f(colors_move) < f(colors_best)) {
 				best_vertex = move_vertex;
 				best_color = move_color;
 			}
 			x += 1;
-			if(f(Colors_move) < original_f) {
-				x = REP;
+			if(f(colors_move) < original_f) {
+				x = this->rep;
 			}
 		}
 		if(best_color == -1) {
-			map< string, int > ret;
 			cerr << "Best Color was never updated in the loop" << endl;
-			coloring = ret;
-			return coloring;
+			this->graph_colors = map<string,int>();
+			return this->graph_colors;
 		}
 		tabu_color.pop();
 		tabu_color.push(best_color);
 		tabu_vertex.pop();
 		tabu_vertex.push(best_vertex);
-		coloring[best_vertex] = best_color;
+		this->graph_colors[best_vertex] = best_color;
 		nbiter += 1;
 	}
 
-	if(!verify()) {
-		map< string,int > ret;
-		coloring = ret;
+	if(!this->verify()) {
+		this->graph_colors = map<string,int>();
+        return graph_colors;
 	}
-	return coloring;
+	return graph_colors;
 }
 

@@ -2,8 +2,10 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.9)
 
 PROJECT(GraphColoring)
 
+SET(CMAKE_CXX_STANDARD 11)
+
 ADD_LIBRARY(graph-coloring SHARED
-    Source/graph_color.cpp
+    Source/coloring_algorithm.cpp
     Source/dsatur.cpp
     Source/mcs.cpp
     Source/lmxrlf.cpp
