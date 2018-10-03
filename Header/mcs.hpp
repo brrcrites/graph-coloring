@@ -1,7 +1,7 @@
-#ifndef _MCS_H_
-#define _MCS_H_
+#ifndef _MCS_HPP_
+#define _MCS_HPP_
 
-#include "graph_color.h"
+#include "coloring_algorithm.hpp"
 
 using GraphColoring::GraphColor;
 
@@ -9,10 +9,9 @@ namespace GraphColoring{
 	class Mcs : public GraphColor {
 		public: 
 			/* Constructors */
-			Mcs(map<string, vector<string> > input_graph) :GraphColor(input_graph) {} 
+			Mcs(map<string,vector<string>> graph) : GraphColor(graph) {} 
 
 			/* Mutators */
-			void set_condition(int con);
 			map<string,int> color();
 
 			/* Accessors */
@@ -20,4 +19,4 @@ namespace GraphColoring{
 	};
 }
 
-#endif
+#endif //_MCS_HPP_

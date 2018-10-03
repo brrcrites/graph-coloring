@@ -1,7 +1,7 @@
-#ifndef _DSATUR_H_
-#define _DSATUR_H_
+#ifndef _DSATUR_HPP_
+#define _DSATUR_HPP_
 
-#include "graph_color.h"
+#include "coloring_algorithm.hpp"
 
 using GraphColoring::GraphColor;
 
@@ -12,7 +12,6 @@ namespace GraphColoring{
 			Dsatur(map<string,vector<string> > input_graph);
 
 			/* Mutators */
-			void set_condition(int con);
 			map<string,int> color();
 
 			/* Accessors */
@@ -20,4 +19,4 @@ namespace GraphColoring{
 	};
 }
 
-#endif //_DSATUR_H_
+#endif //_DSATUR_HPP_

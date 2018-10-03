@@ -1,6 +1,15 @@
-#include "../Header/mcs.h"
+
+#include <iostream>
 #include <algorithm>
 #include <set>
+#include <queue>
+
+#include "../Header/mcs.hpp"
+
+using std::queue;
+using std::cout;
+using std::cerr;
+using std::endl;
 
 // TODO: The following optimization can be made via a note in the paper
 // The procedure MCS can be implemented to run in O(|V | + |E|) time. To 
@@ -11,54 +20,43 @@
 // array of buckets indexed by λ, the vertex of highest weight can be found 
 // in O(1) time.
 
-void GraphColoring::Mcs::set_condition(int con) {
-	/* Do Nothing, No Condition */
-	cout << "MCS has no condition to set" << endl;
-}
-
 //Maximum Cardinal Search
 map<string,int> GraphColoring::Mcs::color() {
 
-	map<string,vector<string> > temp_graph = graph;
-	map< string,int> weight;
+	map<string,vector<string>> temp_graph = graph;
+	map<string,int> weight;
 	queue<string> ordering;
 
 	// Initially set the weight of each node to 0
-	for(map< string, vector<string> >::iterator i = temp_graph.begin(); i != temp_graph.end(); i++) 
-	{
-		weight[(*i).first] = 0;
+	for(map<string,vector<string>>::iterator i = temp_graph.begin(); i != temp_graph.end(); i++) {
+		weight[i->first] = 0;
 	}
 
 	// Work through all the nodes in the graph, choosing the node
 	// with maximum weight, then add that node to the queue. Increase
 	// the weight of the queued nodes neighbors by 1. Continue until
 	// every node in the graph has been added to the queue
-	for(int i = 0; i < graph.size(); i++) 
-	{
+	for(int i = 0; i < this->graph.size(); i++) {
 		int max_weight = -1;
 		string max_vertex = "";
 
 		// Out of the remaining nodes, find the node with the highest weight
-		for(map< string, vector<string> >:: iterator j = temp_graph.begin(); j != temp_graph.end(); j++) 
-		{
-			if(weight[(*j).first] > max_weight)
-			{
-				max_weight = weight[(*j).first];
-				max_vertex = (*j).first;
+		for(map<string,vector<string>>:: iterator j = temp_graph.begin(); j != temp_graph.end(); j++) {
+			if(weight[j->first] > max_weight) {
+				max_weight = weight[j->first];
+				max_vertex = j->first;
 			}
 		}
-		if(max_vertex == "")
-		{
+		if(max_vertex == "") {
 			cerr << "Error: Could not find a max weight node in the graph (reason unknown)" << endl;
-			coloring.clear();
-			return coloring;
+			this->graph_colors.clear();
+			return this->graph_colors;
 		}
 
 		// Add highest weight node to the queue and increment all of its
 		// neighbors weights by 1
 		ordering.push(max_vertex);
-		for(unsigned j = 0; j<graph[max_vertex].size(); j++) 
-		{
+		for(unsigned j = 0; j < graph[max_vertex].size(); j++) {
 			weight[temp_graph[max_vertex][j]] += 1;
 		}
 
@@ -68,11 +66,10 @@ map<string,int> GraphColoring::Mcs::color() {
 	}
 
 	// Work through the queue in order and color each node
-	while(!ordering.empty()) 
-	{
+	while(!ordering.empty()) {
 		int color = 0;
 
-		// Find the lowest possible coloring for this node between
+		// Find the lowest possible graph_colors for this node between
 		// its neighbors
 		string min = ordering.front();
 
@@ -81,7 +78,7 @@ map<string,int> GraphColoring::Mcs::color() {
 		//Collect color numbers of neighbors
 		std::set<int> colorset;
 		for(unsigned i = 0; i < graph[min].size(); i++) {
-			int col = coloring[graph[min][i]];
+			int col = graph_colors[graph[min][i]];
 			colorset.insert(col);
 		}
 
@@ -99,8 +96,8 @@ map<string,int> GraphColoring::Mcs::color() {
 		}
 		color = newcolor;
 
-		coloring[min] = color;
+		this->graph_colors[min] = color;
 		ordering.pop();
 	}	
-	return coloring;
+	return this->graph_colors;
 }

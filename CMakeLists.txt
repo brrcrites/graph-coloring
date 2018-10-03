@@ -4,8 +4,10 @@ PROJECT(graph-coloring)
 
 ADD_SUBDIRECTORY(googletest)
 
+SET(CMAKE_CXX_STANDARD 11)
+
 ADD_LIBRARY(graph-coloring SHARED
-    Source/graph_color.cpp
+    Source/coloring_algorithm.cpp
     Source/dsatur.cpp
     Source/mcs.cpp
     Source/lmxrlf.cpp

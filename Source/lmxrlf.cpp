@@ -1,15 +1,18 @@
 
-#include "../Header/lmxrlf.h"
-
 #include <cstdlib>
 #include <iostream>
+
+#include "../Header/lmxrlf.hpp"
 
 using std::cerr;
 using std::endl;
 
-int GLOBAL = 10;
-int F = 1;
-int LOCAL = 10;
+GraphColoring::Lmxrlf::Lmxrlf(map<string, vector<string> > input_graph, int condition, int global, int f, int local) : GraphColor(input_graph) { 
+    this->condition = condition;
+    this->global = global;
+    this->f = f;
+    this->local = local;
+}
 
 //Returns an independent set from given set
 vector<string> GraphColoring::Lmxrlf::get_independent(vector<string> set) {
@@ -22,7 +25,7 @@ vector<string> GraphColoring::Lmxrlf::get_independent(vector<string> set) {
 	}
 	vector<string> ret;
 	for(map< string, vector<string> >::iterator i = graph.begin(); i != graph.end(); i++) {
-		if(coloring[(*i).first] == -1) {
+		if(graph_colors[(*i).first] == -1) {
 			int flag = 0;
 			for(unsigned j=0; j<delta.size(); j++) {
 				if(delta[j] == (*i).first) { flag = 1; }
@@ -173,7 +176,7 @@ map<string,int> GraphColoring::Lmxrlf::lmxrlf_alg(int endcond) {
 	srand(time(NULL));
 	int colored_nodes = 0;
 	int Color = 0;
-	for(map< string,int >::iterator i = coloring.begin(); i != coloring.end(); i++) {
+	for(map< string,int >::iterator i = graph_colors.begin(); i != graph_colors.end(); i++) {
 		if((*i).second != -1) {
 			colored_nodes += 1;
 		}
@@ -184,8 +187,8 @@ map<string,int> GraphColoring::Lmxrlf::lmxrlf_alg(int endcond) {
 	if(Color > 0) { Color += 1; }
 	do {
 		int global_iterations;
-		if (Color == 0) { global_iterations = F*GLOBAL; }
-		else { global_iterations = (int)(GLOBAL*(float)(1-(float)((colored_nodes*colored_nodes)/(graph.size()*graph.size())))); }
+		if (Color == 0) { global_iterations = this->f * this->global; }
+		else { global_iterations = (int)(this->global*(float)(1-(float)((colored_nodes*colored_nodes)/(graph.size()*graph.size())))); }
 		vector<string> set = make_independent_set();
 		list_of_best_solutions.push_back(set);
 		for(int i=0; i<global_iterations; i++) {
@@ -210,7 +213,7 @@ map<string,int> GraphColoring::Lmxrlf::lmxrlf_alg(int endcond) {
 		for(unsigned i=0; i<list_of_best_solutions.size(); i++) {
 			int flag = 0;
 			vector<string> S_plus = list_of_best_solutions[i];
-			for(int j=0; j<LOCAL; j++) {
+			for(int j=0; j<this->local; j++) {
 				//remove random vertices from S_star
 				vector<string> S_star = list_of_best_solutions[i];
 				while(uncolored_neighbor(S_star).size() == 0) {
@@ -233,8 +236,8 @@ map<string,int> GraphColoring::Lmxrlf::lmxrlf_alg(int endcond) {
 		//Color each vertex in the solution with the highest objf (making sure they haven't already been colored)
 		vector<string> max_objf = list_of_best_solutions[max_pos_objf(list_of_best_solutions)];
 		for(unsigned i=0; i<max_objf.size(); i++) {
-			if(coloring[max_objf[i]] == -1) {
-				coloring[max_objf[i]] = Color;
+			if(graph_colors[max_objf[i]] == -1) {
+				graph_colors[max_objf[i]] = Color;
 				colored_nodes += 1;
 			}
 		}
@@ -255,14 +258,14 @@ map<string,int> GraphColoring::Lmxrlf::lmxrlf_alg(int endcond) {
 		}
 		Color += 1;
 	} while(colored_nodes < endcond-1);
-	return coloring;
+	return graph_colors;
 }
 
 //Runs LMXRLF starting with a fully uncolored graph
 map<string,int> GraphColoring::Lmxrlf::color() {
 	if (this->condition == 0) { this->condition = graph.size(); }
 	for(map< string, vector<string> >::iterator i = graph.begin(); i != graph.end(); i++) {
-		coloring[(*i).first] = -1;
+		graph_colors[(*i).first] = -1;
 	}
 	return lmxrlf_alg(this->condition);
 }
