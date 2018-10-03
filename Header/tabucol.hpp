@@ -10,15 +10,18 @@ namespace GraphColoring{
 		private:
 			int condition; 
 			int f(map<string,int> coloring);
+
 		public: 
-			Tabucol(map<string, vector<string> > input_graph) :GraphColor(input_graph) { 
-				condition = 0;
-			} 
-			Tabucol(map<string, vector<string> > input_graph, int con) :GraphColor(input_graph) { 
-				condition = con;
-			} 
+            /* Constructors */
+			Tabucol(map<string, vector<string> > input_graph) :GraphColor(input_graph) { this->condition = 0; } 
+			Tabucol(map<string, vector<string> > input_graph, int con) :GraphColor(input_graph) { this->condition = con; } 
+
+            /* Mutators */
 			map<string,int> color();
-			void set_condition(int con) { condition = con; }
+			void set_condition(int con) { this->condition = con; }
+            void set_coloring(map<string,int> coloring) { this->graph_colors = coloring; }
+
+            /* Accessors */
 			string get_algorithm() { return "TABUCOL"; }
 			bool verify();
 	};

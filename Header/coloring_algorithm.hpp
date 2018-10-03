@@ -24,9 +24,8 @@ namespace GraphColoring {
 	class GraphColor {
 		protected:
 			/* Internal Members */
-			map<string,vector<string> > graph;
-			map<string,int> coloring;
-			bool colored;
+			map<string,vector<string>> graph;
+			map<string,int> graph_colors;
 
 			/* Writing helper function */
 			string get_color_string(int color,int max_color); // TODO(brrcrites): remove w/ dotty removal
@@ -34,21 +33,20 @@ namespace GraphColoring {
 
 		public:
 			/* Constructors */
-			GraphColor(map<string, vector<string> > input_graph): graph(input_graph), colored(false) {}
+            GraphColor();
+			GraphColor(map<string, vector<string>> graph);
 
 			/* Mutators */
-			virtual void set_condition(int con) = 0;
 			virtual map<string,int> color() = 0;
-			void set_graph(map<string,vector<string> > new_graph) { this->graph = new_graph; this->colored = false; }
-			void modify_graph(string node, vector<string> neighbors) { this->graph[node] = neighbors; this->colored = false; }
-			void set_coloring(map<string, int> coloring) { this->coloring = coloring; }
+			void set_graph(map<string,vector<string>> new_graph) { this->graph = new_graph; }
+			void modify_graph(string node, vector<string> neighbors) { this->graph[node] = neighbors; }
 			virtual bool verify();
 
 			/* Accessors */
 			virtual string get_algorithm() = 0;
 			unsigned size() { return this->graph.size(); }
-			bool is_colored() { return this->colored; }
-			map<string,int> get_coloring() { return this->coloring; }
+			bool is_colored();
+			map<string,int> get_coloring() { return this->graph_colors; }
 			int get_color(string node);
 
 			/* Print functions */

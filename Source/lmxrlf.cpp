@@ -22,7 +22,7 @@ vector<string> GraphColoring::Lmxrlf::get_independent(vector<string> set) {
 	}
 	vector<string> ret;
 	for(map< string, vector<string> >::iterator i = graph.begin(); i != graph.end(); i++) {
-		if(coloring[(*i).first] == -1) {
+		if(graph_colors[(*i).first] == -1) {
 			int flag = 0;
 			for(unsigned j=0; j<delta.size(); j++) {
 				if(delta[j] == (*i).first) { flag = 1; }
@@ -173,7 +173,7 @@ map<string,int> GraphColoring::Lmxrlf::lmxrlf_alg(int endcond) {
 	srand(time(NULL));
 	int colored_nodes = 0;
 	int Color = 0;
-	for(map< string,int >::iterator i = coloring.begin(); i != coloring.end(); i++) {
+	for(map< string,int >::iterator i = graph_colors.begin(); i != graph_colors.end(); i++) {
 		if((*i).second != -1) {
 			colored_nodes += 1;
 		}
@@ -233,8 +233,8 @@ map<string,int> GraphColoring::Lmxrlf::lmxrlf_alg(int endcond) {
 		//Color each vertex in the solution with the highest objf (making sure they haven't already been colored)
 		vector<string> max_objf = list_of_best_solutions[max_pos_objf(list_of_best_solutions)];
 		for(unsigned i=0; i<max_objf.size(); i++) {
-			if(coloring[max_objf[i]] == -1) {
-				coloring[max_objf[i]] = Color;
+			if(graph_colors[max_objf[i]] == -1) {
+				graph_colors[max_objf[i]] = Color;
 				colored_nodes += 1;
 			}
 		}
@@ -255,14 +255,14 @@ map<string,int> GraphColoring::Lmxrlf::lmxrlf_alg(int endcond) {
 		}
 		Color += 1;
 	} while(colored_nodes < endcond-1);
-	return coloring;
+	return graph_colors;
 }
 
 //Runs LMXRLF starting with a fully uncolored graph
 map<string,int> GraphColoring::Lmxrlf::color() {
 	if (this->condition == 0) { this->condition = graph.size(); }
 	for(map< string, vector<string> >::iterator i = graph.begin(); i != graph.end(); i++) {
-		coloring[(*i).first] = -1;
+		graph_colors[(*i).first] = -1;
 	}
 	return lmxrlf_alg(this->condition);
 }

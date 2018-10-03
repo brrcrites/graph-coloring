@@ -52,8 +52,8 @@ map<string,int> GraphColoring::Mcs::color() {
 		if(max_vertex == "")
 		{
 			cerr << "Error: Could not find a max weight node in the graph (reason unknown)" << endl;
-			coloring.clear();
-			return coloring;
+			graph_colors.clear();
+			return graph_colors;
 		}
 
 		// Add highest weight node to the queue and increment all of its
@@ -74,7 +74,7 @@ map<string,int> GraphColoring::Mcs::color() {
 	{
 		int color = 0;
 
-		// Find the lowest possible coloring for this node between
+		// Find the lowest possible graph_colors for this node between
 		// its neighbors
 		string min = ordering.front();
 
@@ -83,7 +83,7 @@ map<string,int> GraphColoring::Mcs::color() {
 		//Collect color numbers of neighbors
 		std::set<int> colorset;
 		for(unsigned i = 0; i < graph[min].size(); i++) {
-			int col = coloring[graph[min][i]];
+			int col = graph_colors[graph[min][i]];
 			colorset.insert(col);
 		}
 
@@ -101,8 +101,8 @@ map<string,int> GraphColoring::Mcs::color() {
 		}
 		color = newcolor;
 
-		coloring[min] = color;
+		graph_colors[min] = color;
 		ordering.pop();
 	}	
-	return coloring;
+	return graph_colors;
 }

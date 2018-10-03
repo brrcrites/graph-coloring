@@ -18,7 +18,7 @@ bool GraphColoring::Tabucol::verify(){
     {
         for(unsigned j=0; j<(*i).second.size(); j++) 
         {
-            if(coloring[(*i).first] == coloring[(*i).second[j]]) 
+            if(graph_colors[(*i).first] == graph_colors[(*i).second[j]]) 
             {
                 return false;
             }
@@ -27,11 +27,11 @@ bool GraphColoring::Tabucol::verify(){
     return true;
 }
 
-int GraphColoring::Tabucol::f(map<string,int> coloring) {
+int GraphColoring::Tabucol::f(map<string,int> graph_colors) {
 	int sum = 0;
 	for(map< string,vector<string> >::iterator i = graph.begin(); i != graph.end(); i++) {
 		for(unsigned j=0; j< i->second.size(); j++) {
-			if(coloring[i->first] == coloring[i->second[j]]) {
+			if(graph_colors[i->first] == graph_colors[i->second[j]]) {
 				sum += 1;
 			}
 		}
@@ -42,7 +42,7 @@ int GraphColoring::Tabucol::f(map<string,int> coloring) {
 map<string,int> GraphColoring::Tabucol::color() {
 	srand(time(NULL));
 	for(map< string,vector<string> >::iterator i = graph.begin(); i != graph.end(); i++) {
-		coloring[(*i).first] = rand() % this->condition;
+		graph_colors[(*i).first] = rand() % this->condition;
 	}
 	queue<int> tabu_color;
 	queue<string> tabu_vertex;
@@ -53,11 +53,11 @@ map<string,int> GraphColoring::Tabucol::color() {
 		tabu_color.push(rand() % this->condition);
 	}
 	int nbiter = 0;
-	while(f(coloring) > 0 && nbiter < NBMAX) {
+	while(f(graph_colors) > 0 && nbiter < NBMAX) {
 		int best_color = -1;
 		string best_vertex;
 		int x = 0;
-		int original_f = f(coloring);
+		int original_f = f(graph_colors);
 		while(x < REP) {
 			int flag = 0;
 			int move_color;
@@ -87,9 +87,9 @@ map<string,int> GraphColoring::Tabucol::color() {
 				best_color = move_color;
 				best_vertex = move_vertex;
 			}
-			map< string,int > Colors_move = coloring;
+			map< string,int > Colors_move = graph_colors;
 			Colors_move[move_vertex] = move_color;
-			map< string,int > Colors_best = coloring;
+			map< string,int > Colors_best = graph_colors;
 			Colors_best[best_vertex] = best_color;
 			if(f(Colors_move) < f(Colors_best)) {
 				best_vertex = move_vertex;
@@ -103,21 +103,21 @@ map<string,int> GraphColoring::Tabucol::color() {
 		if(best_color == -1) {
 			map< string, int > ret;
 			cerr << "Best Color was never updated in the loop" << endl;
-			coloring = ret;
-			return coloring;
+			graph_colors = ret;
+			return graph_colors;
 		}
 		tabu_color.pop();
 		tabu_color.push(best_color);
 		tabu_vertex.pop();
 		tabu_vertex.push(best_vertex);
-		coloring[best_vertex] = best_color;
+		graph_colors[best_vertex] = best_color;
 		nbiter += 1;
 	}
 
 	if(!verify()) {
 		map< string,int > ret;
-		coloring = ret;
+		graph_colors = ret;
 	}
-	return coloring;
+	return graph_colors;
 }
 

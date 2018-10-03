@@ -17,7 +17,6 @@ namespace GraphColoring{
 
 			/* Mutators */
 			map<string,int> color();
-			void set_condition(int con);
 
 			/* Accessors */
 			string get_algorithm() { return "HYBRID_DSATUR"; }

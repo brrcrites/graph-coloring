@@ -1,31 +1,26 @@
 
 #include "../Header/hybrid_dsatur.hpp"
 
-void GraphColoring::HybridDsatur::set_condition(int con) {
-	/* Do Nothing */
-	cout << "Hybrid DSATUR has no condition to set" << endl;
-}
-
 map<string,int> GraphColoring::HybridDsatur::color() {
 	GraphColor* temp_graph = new Dsatur(this->graph);
-	coloring = temp_graph->color();
+	graph_colors = temp_graph->color();
 
 	int largest = 0;
-	for(map< string, int >::iterator i = coloring.begin(); i != coloring.end(); i++) {	
+	for(map< string, int >::iterator i = graph_colors.begin(); i != graph_colors.end(); i++) {	
 		if((*i).second > largest) { largest = (*i).second; }
 	}
 	largest += 1;
 
-	temp_graph = new Tabucol(this->graph, largest);
+	Tabucol* tabu_graph = new Tabucol(this->graph, largest);
 
-	map< string,int > best = coloring;
-	map< string,int > tabu_color = temp_graph->color();
+	map< string,int > best = graph_colors;
+	map< string,int > tabu_color = tabu_graph->color();
 	while(tabu_color.size() > 0) {
 		best = tabu_color;
 		largest -= 1;
-		temp_graph->set_condition(largest);
-		tabu_color = temp_graph->color();
+		tabu_graph->set_condition(largest);
+		tabu_color = tabu_graph->color();
 	}
-	coloring = best;
-	return coloring;
+	graph_colors = best;
+	return graph_colors;
 }

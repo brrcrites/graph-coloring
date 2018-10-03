@@ -30,7 +30,7 @@ map<string,int> GraphColoring::Dsatur::color() {
 	{
 		cerr << "Error: Could not find a max degree node in the graph (reason unknown)" << endl;
 	}
-	coloring[max_degree] = 0;
+	graph_colors[max_degree] = 0;
 
 	//Create saturation_level so that we can see which graph nodes have the
 	//highest saturation without having to scan through the entire graph
@@ -58,7 +58,7 @@ map<string,int> GraphColoring::Dsatur::color() {
 	for(map< string, vector<string> >::iterator i = graph.begin(); i != graph.end(); i++) 
 	{
 		if((*i).first != max_degree) {
-			coloring[(*i).first] = -1;
+			graph_colors[(*i).first] = -1;
 			todo.push_back((*i).first);
 		}
 	}
@@ -87,15 +87,15 @@ map<string,int> GraphColoring::Dsatur::color() {
 				saturation_colors.clear();
 				for(int j=0; j < graph[(*i).first].size(); j++)
 				{
-					saturation_colors.push_back(coloring[graph[(*i).first][j]]);
+					saturation_colors.push_back(graph_colors[graph[(*i).first][j]]);
 				}
 			}
 		}
 		if(saturation_name == "")
 		{
 			cerr << "Error: Could not find a max saturated node in the graph (reason unknown)" << endl;
-			coloring.clear();
-			return coloring;
+			graph_colors.clear();
+			return graph_colors;
 		}
 
 		//We now know the most saturated node, so we remove it from the todo list
@@ -122,7 +122,7 @@ map<string,int> GraphColoring::Dsatur::color() {
 				}
 			}
 		}
-		coloring[saturation_name] = lowest_color;
+		graph_colors[saturation_name] = lowest_color;
 
 		//Since we have colored another node, that nodes neighbors have now
 		//become more saturated, so we increase each ones saturation level
@@ -138,6 +138,6 @@ map<string,int> GraphColoring::Dsatur::color() {
 		}
 		saturation_level[saturation_name] = INT_MIN;
 	}
-	return coloring;
+	return graph_colors;
 }
 

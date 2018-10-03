@@ -6,30 +6,29 @@ map<string,int> GraphColoring::Hybrid::color() {
         this->condition = graph.size() / 2;
     }
 
-	GraphColor *alg_graph = new Lmxrlf(this->graph, this->condition);
-	coloring = alg_graph->color();
-	//coloring = lmxrlf_base(Graph,CARR);
+	Lmxrlf* lmxrlf_graph = new Lmxrlf(this->graph, this->condition);
+	this->graph_colors = lmxrlf_graph->color();
 	
 	//*********************************
 	//***** Find the Sub Coloring *****
 	//*********************************
 	int Color_temp = 0;
-	for(map< string,int >::iterator i = coloring.begin(); i != coloring.end(); i++) {
-		if((*i).second > Color_temp) {
-			Color_temp = (*i).second;
+	for(map<string,int>::iterator i = this->graph_colors.begin(); i != this->graph_colors.end(); i++) {
+		if(i->second > Color_temp) {
+			Color_temp = i->second;
 		}
 	}
 	Color_temp += 1;
 	
-	map< string,int > Colors_temp = coloring;
+	map<string,int> Colors_temp = this->graph_colors;
 	
 	//coloring = lmxrlf(graph.size());
-	alg_graph->set_condition(graph.size());
-	coloring = alg_graph->color();
+	lmxrlf_graph->set_condition(graph.size());
+	this->graph_colors = lmxrlf_graph->color();
 	int Color = 0;
-	for(map< string,int >::iterator i = coloring.begin(); i != coloring.end(); i++) {
-		if((*i).second > Color) {
-			Color = (*i).second;
+	for(map<string,int>::iterator i = this->graph_colors.begin(); i != this->graph_colors.end(); i++) {
+		if(i->second > Color) {
+			Color = i->second;
 		}
 	}
 	
@@ -38,11 +37,11 @@ map<string,int> GraphColoring::Hybrid::color() {
 	//******************************************************
 	int subset_color = Color;
 	
-	alg_graph = new Tabucol(get_subgraph(Colors_temp));
-	alg_graph->set_coloring(Colors_temp);
-	alg_graph->set_condition(subset_color);
-	alg_graph->color();
-	map<string,int> tabu_color = alg_graph->get_coloring();
+	Tabucol* tabu_graph = new Tabucol(get_subgraph(Colors_temp));
+	tabu_graph->set_coloring(Colors_temp);
+	tabu_graph->set_condition(subset_color);
+	tabu_graph->color();
+	map<string,int> tabu_color = tabu_graph->get_coloring();
 	
 	//map< string,vector<string> > Graph_subset = get_subgraph(Colors_temp);
 	//map< string,int > tabu_color = tabucol(Graph_subset,subset_color); 
@@ -50,17 +49,17 @@ map<string,int> GraphColoring::Hybrid::color() {
 	while(tabu_color.size() > 0) {
 		best = tabu_color;
 		subset_color -= 1;
-		alg_graph->set_condition(subset_color);
+		tabu_graph->set_condition(subset_color);
 		//tabu_color = tabucol(Graph_subset,subset_color);
-		alg_graph->set_coloring(alg_graph->color());
-		tabu_color = alg_graph->get_coloring();
+		tabu_graph->set_coloring(tabu_graph->color());
+		tabu_color = tabu_graph->get_coloring();
 	}
 	if(best.size() > 0) {
 		for(map< string,int >::iterator i = best.begin(); i != best.end(); i++) {
-			coloring[(*i).first] = Color_temp + (*i).second;
+			this->graph_colors[i->first] = Color_temp + i->second;
 		}
 	}
-	return coloring;
+	return this->graph_colors;
 }
 
 
