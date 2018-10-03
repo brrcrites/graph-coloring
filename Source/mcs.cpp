@@ -1,6 +1,8 @@
-#include "../Header/mcs.h"
+
 #include <algorithm>
 #include <set>
+
+#include "../Header/mcs.hpp"
 
 // TODO: The following optimization can be made via a note in the paper
 // The procedure MCS can be implemented to run in O(|V | + |E|) time. To 

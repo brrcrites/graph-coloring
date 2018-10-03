@@ -1,7 +1,7 @@
-#ifndef _MCS_H_
-#define _MCS_H_
+#ifndef _MCS_HPP_
+#define _MCS_HPP_
 
-#include "graph_color.h"
+#include "coloring_algorithm.hpp"
 
 using GraphColoring::GraphColor;
 
@@ -20,4 +20,4 @@ namespace GraphColoring{
 	};
 }
 
-#endif
+#endif //_MCS_HPP_

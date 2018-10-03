@@ -1,4 +1,5 @@
-#include "../Header/hybrid.h"
+
+#include "../Header/hybrid.hpp"
 
 map<string,int> GraphColoring::Hybrid::color() {
 	if (this->condition == 0) {

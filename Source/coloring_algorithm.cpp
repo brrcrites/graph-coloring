@@ -3,8 +3,8 @@
 #include <iostream>
 #include <sstream>
 
-#include "../Header/graph_color.h"
-#include "../Header/colors.h"
+#include "../Header/coloring_algorithm.hpp"
+#include "../Header/colors.hpp"
 
 using std::cerr;
 using std::endl;

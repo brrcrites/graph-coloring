@@ -1,7 +1,7 @@
-#ifndef _LMXRLF_H_
-#define _LMXRLF_H_
+#ifndef _LMXRLF_HPP_
+#define _LMXRLF_HPP_
 
-#include "graph_color.h"
+#include "coloring_algorithm.hpp"
 
 using GraphColoring::GraphColor;
 
@@ -32,4 +32,4 @@ namespace GraphColoring{
 	};
 }
 
-#endif
+#endif //_LMXRLF_HPP_

@@ -1,9 +1,9 @@
-#ifndef _HYBRID_H_
-#define _HYBRID_H_
+#ifndef _HYBRID_HPP_
+#define _HYBRID_HPP_
 
-#include "graph_color.h"
-#include "lmxrlf.h"
-#include "tabucol.h"
+#include "coloring_algorithm.hpp"
+#include "lmxrlf.hpp"
+#include "tabucol.hpp"
 
 using GraphColoring::GraphColor;
 using GraphColoring::Lmxrlf;
@@ -27,4 +27,4 @@ namespace GraphColoring{
 	};
 }
 
-#endif
+#endif //_HYBRID_HPP_

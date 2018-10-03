@@ -1,7 +1,7 @@
-#ifndef _TABUCOL_H_
-#define _TABUCOL_H_
+#ifndef _TABUCOL_HPP_
+#define _TABUCOL_HPP_
 
-#include "graph_color.h"
+#include "coloring_algorithm.hpp"
 
 using GraphColoring::GraphColor;
 
@@ -24,4 +24,4 @@ namespace GraphColoring{
 	};
 }
 
-#endif
+#endif //_TABUCOL_HPP_

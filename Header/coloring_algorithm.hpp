@@ -1,5 +1,5 @@
-#ifndef _GRAPH_COLOR_H_
-#define _GRAPH_COLOR_H_
+#ifndef _GRAPH_COLOR_HPP_
+#define _GRAPH_COLOR_HPP_
 
 #include <map>
 #include <stack>
@@ -58,4 +58,4 @@ namespace GraphColoring {
 	};
 }
 
-#endif // _GRAPH_COLOR_H_
+#endif // _GRAPH_COLOR_HPP_

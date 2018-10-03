@@ -1,8 +1,8 @@
 
-#include "../Header/lmxrlf.h"
-
 #include <cstdlib>
 #include <iostream>
+
+#include "../Header/lmxrlf.hpp"
 
 using std::cerr;
 using std::endl;

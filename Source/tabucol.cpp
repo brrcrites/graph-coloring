@@ -1,9 +1,9 @@
 
-#include "../Header/tabucol.h"
-
 #include <queue>
 #include <cstdlib>
 #include <iostream>
+
+#include "../Header/tabucol.hpp"
 
 using std::queue;
 using std::cerr;

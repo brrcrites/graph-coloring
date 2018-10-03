@@ -1,9 +1,9 @@
-#ifndef _HYBRID_DSATUR_H_
-#define _HYBRID_DSATUR_H_
+#ifndef _HYBRID_DSATUR_HPP_
+#define _HYBRID_DSATUR_HPP_
 
-#include "graph_color.h"
-#include "dsatur.h"
-#include "tabucol.h"
+#include "coloring_algorithm.hpp"
+#include "dsatur.hpp"
+#include "tabucol.hpp"
 
 using GraphColoring::GraphColor;
 using GraphColoring::Dsatur;
@@ -24,4 +24,4 @@ namespace GraphColoring{
 	};
 }
 
-#endif
+#endif //_HYBRID_DSATUR_HPP_

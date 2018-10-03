@@ -1,14 +1,16 @@
-#include "../Header/graph_color.h"
-#include "../Header/dsatur.h"
-#include "../Header/mcs.h"
-#include "../Header/lmxrlf.h"
-#include "../Header/hybrid_dsatur.h"
-#include "../Header/hybrid.h"
+
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <stdlib.h>
 #include <sstream>
+
+#include "../Header/coloring_algorithm.hpp"
+#include "../Header/dsatur.hpp"
+#include "../Header/mcs.hpp"
+#include "../Header/lmxrlf.hpp"
+#include "../Header/hybrid_dsatur.hpp"
+#include "../Header/hybrid.hpp"
 
 using std::cerr;
 using std::cout;

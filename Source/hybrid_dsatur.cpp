@@ -1,4 +1,5 @@
-#include "../Header/hybrid_dsatur.h"
+
+#include "../Header/hybrid_dsatur.hpp"
 
 void GraphColoring::HybridDsatur::set_condition(int con) {
 	/* Do Nothing */
