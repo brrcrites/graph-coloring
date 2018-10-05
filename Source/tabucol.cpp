@@ -9,6 +9,8 @@ using std::queue;
 using std::cerr;
 using std::endl;
 
+using std::cout;
+
 GraphColoring::Tabucol::Tabucol(map<string, vector<string> > graph, int condition, int tabu_size, int rep, int nbmax) : GraphColor(graph) {
     this->condition = condition;
     this->tabu_size = tabu_size;
@@ -29,10 +31,14 @@ int GraphColoring::Tabucol::f(map<string,int> graph_colors) {
 }
 
 map<string,int> GraphColoring::Tabucol::color() {
+    if(this->condition <= 0) {
+        return map<string,int>();
+    }
 	srand(time(NULL));
 	for(map<string,vector<string>>::iterator i = this->graph.begin(); i != this->graph.end(); i++) {
 		this->graph_colors[(*i).first] = rand() % this->condition;
 	}
+
 	queue<int> tabu_color;
 	queue<string> tabu_vertex;
 	for(int i = 0; i < this->tabu_size; i++) {
@@ -41,6 +47,7 @@ map<string,int> GraphColoring::Tabucol::color() {
 		tabu_vertex.push(x->first);
 		tabu_color.push(rand() % this->condition);
 	}
+
 	int nbiter = 0;
 	while(f(this->graph_colors) > 0 && nbiter < this->nbmax) {
 		int best_color = -1;
@@ -102,10 +109,11 @@ map<string,int> GraphColoring::Tabucol::color() {
 		nbiter += 1;
 	}
 
-	if(!this->verify()) {
+	if(!this->is_valid()) {
 		this->graph_colors = map<string,int>();
         return graph_colors;
 	}
+
 	return graph_colors;
 }
 
