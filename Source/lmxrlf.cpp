@@ -25,12 +25,12 @@ vector<string> GraphColoring::Lmxrlf::get_independent(vector<string> set) {
 	}
 	vector<string> ret;
 	for(map< string, vector<string> >::iterator i = graph.begin(); i != graph.end(); i++) {
-		if(graph_colors[(*i).first] == -1) {
+		if(this->graph_colors[i->first] == -1) {
 			int flag = 0;
 			for(unsigned j=0; j<delta.size(); j++) {
-				if(delta[j] == (*i).first) { flag = 1; }
+				if(delta[j] == i->first) { flag = 1; }
 			}
-			if(!flag) { ret.push_back((*i).first); }
+			if(!flag) { ret.push_back(i->first); }
 		}
 	}
 	return ret;
@@ -149,7 +149,7 @@ vector<string> GraphColoring::Lmxrlf::uncolored_neighbor(vector<string> new_set)
 	for(map< string, vector<string> >::iterator i = graph.begin(); i != graph.end(); i++) {
 		int initf = 1;
 		for(unsigned j=0; j<delta.size(); j++) {
-			if((*i).first == delta[j]) {
+			if(i->first == delta[j]) {
 				initf = 0;
 			}
 		}
@@ -157,13 +157,13 @@ vector<string> GraphColoring::Lmxrlf::uncolored_neighbor(vector<string> new_set)
 			int count = 0;
 			for(unsigned j=0; j<(*i).second.size(); j++) {
 				for(unsigned y=0; y<delta.size(); y++) {
-					if((*i).second[j] == delta[y]) {
+					if(i->second[j] == delta[y]) {
 						count += 1;
 					}
 				}
 			}
-			if(count == (int)(*i).second.size()) {
-				out.push_back((*i).first);
+			if(count == (int)i->second.size()) {
+				out.push_back(i->first);
 			}
 		}
 	}
@@ -171,19 +171,16 @@ vector<string> GraphColoring::Lmxrlf::uncolored_neighbor(vector<string> new_set)
 }
 
 map<string,int> GraphColoring::Lmxrlf::lmxrlf_alg(int endcond) {
-	map< string, vector<string> > Graph_temp;
-	vector< vector<string> > list_of_best_solutions;
+	map<string,vector<string>> Graph_temp;
+	vector<vector<string>> list_of_best_solutions;
 	srand(time(NULL));
 	int colored_nodes = 0;
-	int Color = 0;
-	for(map< string,int >::iterator i = graph_colors.begin(); i != graph_colors.end(); i++) {
-		if((*i).second != -1) {
+	for(map<string,int>::iterator i = graph_colors.begin(); i != graph_colors.end(); i++) {
+		if(i->second != -1) {
 			colored_nodes += 1;
 		}
-		if((*i).second > Color) {
-			Color = (*i).second;
-		}
 	}
+    int Color = this->get_num_colors() - 1;
 	if(Color > 0) { Color += 1; }
 	do {
 		int global_iterations;
@@ -211,7 +208,6 @@ map<string,int> GraphColoring::Lmxrlf::lmxrlf_alg(int endcond) {
 			}
 		}
 		for(unsigned i=0; i<list_of_best_solutions.size(); i++) {
-			int flag = 0;
 			vector<string> S_plus = list_of_best_solutions[i];
 			for(int j=0; j<this->local; j++) {
 				//remove random vertices from S_star
@@ -228,7 +224,6 @@ map<string,int> GraphColoring::Lmxrlf::lmxrlf_alg(int endcond) {
 				//Check ObjF of S_star and add if smaller than original
 				if(objf(S_star) > objf(S_plus)) {
 					S_plus = S_star;
-					flag = 1;//TODO: flag is never used?
 				}
 			}
 			list_of_best_solutions[i] = S_plus;
@@ -257,15 +252,15 @@ map<string,int> GraphColoring::Lmxrlf::lmxrlf_alg(int endcond) {
 			}
 		}
 		Color += 1;
-	} while(colored_nodes < endcond-1);
-	return graph_colors;
+	} while(colored_nodes < endcond);
+	return this->graph_colors;
 }
 
 //Runs LMXRLF starting with a fully uncolored graph
 map<string,int> GraphColoring::Lmxrlf::color() {
 	if (this->condition == 0) { this->condition = graph.size(); }
-	for(map< string, vector<string> >::iterator i = graph.begin(); i != graph.end(); i++) {
-		graph_colors[(*i).first] = -1;
+	for(map<string, vector<string>>::iterator i = graph.begin(); i != graph.end(); i++) {
+		this->graph_colors[i->first] = -1;
 	}
 	return lmxrlf_alg(this->condition);
 }
