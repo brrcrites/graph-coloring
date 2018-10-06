@@ -1,4 +1,30 @@
 language: cpp
-script:
-    - cmake .
-    - make
+
+jobs:
+  include:
+
+  - stage: "Builds"
+    name: "Linux Build"
+    os: linux
+    dist: trusty
+    compiler: gcc
+    script: 
+      - make
+
+  - name: "Mac Build"
+    os: osx
+    compiler: clang
+    env: COMPILER=clang++
+    script:
+      - make
+  
+  - stage: "Test"
+    name: "Unit Tests"
+    os: linux
+    dist: trusty
+    compiler: gcc
+    script: 
+      - make && ./color-test
+
+install:
+  - cmake .
