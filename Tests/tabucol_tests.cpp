@@ -1,4 +1,5 @@
 
+#include <climits>
 #include <gtest/gtest.h>
 
 #include "../Header/tabucol.hpp"
