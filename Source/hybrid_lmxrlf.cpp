@@ -1,7 +1,7 @@
 
 #include "../Header/hybrid_lmxrlf.hpp"
 
-map<string,int> GraphColoring::Hybrid::color() {
+map<string,int> GraphColoring::HybridLmxrlf::color() {
 	Lmxrlf* lmxrlf_graph = new Lmxrlf(this->graph, this->condition);
 	this->graph_colors = lmxrlf_graph->color();
     int largest = this->get_num_colors();
@@ -20,7 +20,7 @@ map<string,int> GraphColoring::Hybrid::color() {
 	return this->graph_colors;
 }
 
-map<string,vector<string>> GraphColoring::Hybrid::get_subgraph(map<string,int> coloring) {
+map<string,vector<string>> GraphColoring::HybridLmxrlf::get_subgraph(map<string,int> coloring) {
 	map<string,vector<string>> subgraph;
 	for(map<string,vector<string>>::iterator adj_tuple = this->graph.begin(); adj_tuple != this->graph.end(); adj_tuple++) {
 		if(coloring[adj_tuple->first] == -1) {

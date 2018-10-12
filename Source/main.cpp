@@ -22,7 +22,7 @@ using GraphColoring::Dsatur;
 using GraphColoring::Mcs;
 using GraphColoring::Lmxrlf;
 using GraphColoring::HybridDsatur;
-using GraphColoring::Hybrid;
+using GraphColoring::HybridLmxrlf;
 using GraphColoring::GraphColor;
 
 //functions used to translate test cases into a graph using a map

@@ -18,3 +18,14 @@ TEST(TabucolTests, TabucolK5ColorTest) {
     EXPECT_EQ(tabucol->get_num_colors(),5);
     delete tabucol;
 }
+
+TEST(TabucolTests, TabucolK33ColorTest) {
+    vector<string> side_a = { "k4", "k5", "k6" };
+    vector<string> side_b = { "k1", "k2", "k3" };
+    map<string,vector<string>> k33 = { {"k1", side_a}, {"k2", side_a}, {"k3", side_a}, {"k4", side_b}, {"k5", side_b}, {"k6", side_b} };
+    
+    Tabucol* tabucol = new Tabucol(k33,2);
+    map<string,int> resultant = tabucol->color();
+    EXPECT_EQ(tabucol->get_num_colors(),2);
+    delete tabucol;
+}
