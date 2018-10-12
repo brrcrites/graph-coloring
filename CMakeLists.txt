@@ -19,10 +19,11 @@ ADD_LIBRARY(graph-coloring SHARED
 ADD_EXECUTABLE(color-test
     Source/test.cpp
     Tests/dsatur_tests.cpp
-    Tests/hybrid_tests.cpp
     Tests/lmxrlf_tests.cpp
     Tests/mcs_tests.cpp
     Tests/tabucol_tests.cpp
+    Tests/hybrid_tests.cpp
+    Tests/hybrid_dsatur_tests.cpp
 )
 
 ADD_EXECUTABLE(color 

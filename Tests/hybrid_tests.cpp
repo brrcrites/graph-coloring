@@ -5,8 +5,7 @@
 
 using GraphColoring::Hybrid;
 
-/*
-TEST(HybridTests, HybridK55ColorTest) {
+TEST(HybridTests, HybridK5ColorTest) {
     vector<string> node_k1 = { "k2", "k3", "k4", "k5" };
     vector<string> node_k2 = { "k1", "k3", "k4", "k5" };
     vector<string> node_k3 = { "k1", "k2", "k4", "k5" };
@@ -19,4 +18,3 @@ TEST(HybridTests, HybridK55ColorTest) {
     EXPECT_EQ(hybrid->get_num_colors(),5);
     delete hybrid;
 }
-*/

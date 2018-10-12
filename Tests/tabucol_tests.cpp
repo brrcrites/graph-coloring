@@ -5,7 +5,7 @@
 
 using GraphColoring::Tabucol;
 
-TEST(TabucolTests, TabucolK55ColorTest) {
+TEST(TabucolTests, TabucolK5ColorTest) {
     vector<string> node_k1 = { "k2", "k3", "k4", "k5" };
     vector<string> node_k2 = { "k1", "k3", "k4", "k5" };
     vector<string> node_k3 = { "k1", "k2", "k4", "k5" };
