@@ -1,5 +1,5 @@
 
-#include "../Header/hybrid.hpp"
+#include "../Header/hybrid_lmxrlf.hpp"
 
 map<string,int> GraphColoring::Hybrid::color() {
 	Lmxrlf* lmxrlf_graph = new Lmxrlf(this->graph, this->condition);

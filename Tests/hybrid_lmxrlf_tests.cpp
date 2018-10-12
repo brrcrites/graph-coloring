@@ -1,7 +1,7 @@
 
 #include <gtest/gtest.h>
 
-#include "../Header/hybrid.hpp"
+#include "../Header/hybrid_lmxrlf.hpp"
 
 using GraphColoring::Hybrid;
 
