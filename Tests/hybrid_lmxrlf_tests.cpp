@@ -29,3 +29,12 @@ TEST(HybridLmxrlfTests, HybridLmxrlfK33ColorTest) {
     EXPECT_EQ(hybrid_lmxrlf->get_num_colors(),2);
     delete hybrid_lmxrlf;
 }
+
+TEST(HybridLmxrlfTests, HybridLmxrlfEmptyGraphTest) {
+    map<string,vector<string>> empty = map<string,vector<string>>();
+
+    HybridLmxrlf* hybrid_lmxrlf = new HybridLmxrlf(empty);
+    map<string,int> resultant = hybrid_lmxrlf->color();
+    EXPECT_EQ(resultant.size(), empty.size());
+    delete hybrid_lmxrlf;
+}

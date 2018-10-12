@@ -29,3 +29,11 @@ TEST(LmxrlfTests, LmxrlfK33ColorTest) {
     EXPECT_EQ(lmxrlf->get_num_colors(),2);
     delete lmxrlf;
 }
+
+TEST(LmxrlfTests, LmxrlfEmptyGraphTest) {
+    map<string,vector<string>> empty = map<string,vector<string>>();
+    Lmxrlf* lmxrlf = new Lmxrlf(empty);
+    map<string,int> resultant = lmxrlf->color();
+    EXPECT_EQ(resultant.size(), empty.size());
+    delete lmxrlf;
+}

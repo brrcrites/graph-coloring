@@ -29,3 +29,12 @@ TEST(McsTests, McsK33ColorTest) {
     EXPECT_EQ(mcs->get_num_colors(),2);
     delete mcs;
 }
+
+TEST(McsTests, McsEmptyGraphTest) {
+    map<string,vector<string>> empty = map<string,vector<string>>();
+
+    Mcs* mcs = new Mcs(empty);
+    map<string,int> resultant = mcs->color();
+    EXPECT_EQ(resultant.size(), empty.size());
+    delete mcs;
+}

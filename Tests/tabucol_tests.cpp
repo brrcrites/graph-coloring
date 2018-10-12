@@ -29,3 +29,12 @@ TEST(TabucolTests, TabucolK33ColorTest) {
     EXPECT_EQ(tabucol->get_num_colors(),2);
     delete tabucol;
 }
+
+TEST(TabucolTests, TabucolEmptyGraphTest) {
+    map<string,vector<string>> empty = map<string,vector<string>>();
+
+    Tabucol* tabucol = new Tabucol(empty,INT_MAX);
+    map<string,int> resultant = tabucol->color();
+    EXPECT_EQ(resultant.size(), empty.size());
+    delete tabucol;
+}

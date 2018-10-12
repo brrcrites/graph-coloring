@@ -29,3 +29,12 @@ TEST(HybridDsaturTests, HybridDsaturK33ColorTest) {
     EXPECT_EQ(hybrid_dsatur->get_num_colors(),2);
     delete hybrid_dsatur;
 }
+
+TEST(HybridDsaturTests, HybridDsaturEmptyGraphTest) {
+    map<string,vector<string>> empty = map<string,vector<string>>();
+
+    HybridDsatur* hybrid_dsatur = new HybridDsatur(empty);
+    map<string,int> resultant = hybrid_dsatur->color();
+    EXPECT_EQ(resultant.size(), empty.size());
+    delete hybrid_dsatur;
+}

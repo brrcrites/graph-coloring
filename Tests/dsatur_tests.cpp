@@ -29,3 +29,12 @@ TEST(DsaturTests, DsaturK33ColorTest) {
     EXPECT_EQ(dsatur->get_num_colors(),2);
     delete dsatur;
 }
+
+TEST(DsaturTests, DsaturEmptyGraphTest) {
+    map<string,vector<string>> empty = map<string,vector<string>>();
+
+    Dsatur* dsatur = new Dsatur(empty);
+    map<string,int> resultant = dsatur->color();
+    EXPECT_EQ(resultant.size(), empty.size());
+    delete dsatur;
+}
