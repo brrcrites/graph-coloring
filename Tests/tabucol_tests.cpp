@@ -16,6 +16,7 @@ TEST(TabucolTests, TabucolK5ColorTest) {
     
     Tabucol* tabucol = new Tabucol(k5,5);
     map<string,int> resultant = tabucol->color();
+    EXPECT_EQ(resultant.size(), k5.size());
     EXPECT_EQ(tabucol->get_num_colors(),5);
     delete tabucol;
 }
@@ -27,6 +28,7 @@ TEST(TabucolTests, TabucolK33ColorTest) {
     
     Tabucol* tabucol = new Tabucol(k33,2);
     map<string,int> resultant = tabucol->color();
+    EXPECT_EQ(resultant.size(), k33.size());
     EXPECT_EQ(tabucol->get_num_colors(),2);
     delete tabucol;
 }
@@ -37,5 +39,15 @@ TEST(TabucolTests, TabucolEmptyGraphTest) {
     Tabucol* tabucol = new Tabucol(empty,INT_MAX);
     map<string,int> resultant = tabucol->color();
     EXPECT_EQ(resultant.size(), empty.size());
+    delete tabucol;
+}
+
+TEST(TabucolTests, TabucolOneNodeGraphTest) {
+    map<string,vector<string>> one_node = {{ "n", vector<string>() }};
+
+    Tabucol* tabucol = new Tabucol(one_node,INT_MAX);
+    map<string,int> resultant = tabucol->color();
+    EXPECT_EQ(resultant.size(), one_node.size());
+    EXPECT_EQ(tabucol->get_num_colors(),1);
     delete tabucol;
 }

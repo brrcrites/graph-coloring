@@ -259,6 +259,7 @@ map<string,int> GraphColoring::Lmxrlf::lmxrlf_alg(int endcond) {
 //Runs LMXRLF starting with a fully uncolored graph
 map<string,int> GraphColoring::Lmxrlf::color() {
     if(this->graph.size() == 0) { 
+        this->graph_colors = map<string,int>();
         return map<string,int>(); 
     }
     // TODO(brrcrites): Read the paper again to figure out the conditions and write something in the README about it

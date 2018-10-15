@@ -15,6 +15,7 @@ TEST(HybridDsaturTests, HybridDsaturK5ColorTest) {
     
     HybridDsatur* hybrid_dsatur = new HybridDsatur(k5);
     map<string,int> resultant = hybrid_dsatur->color();
+    EXPECT_EQ(resultant.size(), k5.size());
     EXPECT_EQ(hybrid_dsatur->get_num_colors(),5);
     delete hybrid_dsatur;
 }
@@ -26,6 +27,7 @@ TEST(HybridDsaturTests, HybridDsaturK33ColorTest) {
     
     HybridDsatur* hybrid_dsatur = new HybridDsatur(k33);
     map<string,int> resultant = hybrid_dsatur->color();
+    EXPECT_EQ(resultant.size(), k33.size());
     EXPECT_EQ(hybrid_dsatur->get_num_colors(),2);
     delete hybrid_dsatur;
 }
@@ -36,5 +38,15 @@ TEST(HybridDsaturTests, HybridDsaturEmptyGraphTest) {
     HybridDsatur* hybrid_dsatur = new HybridDsatur(empty);
     map<string,int> resultant = hybrid_dsatur->color();
     EXPECT_EQ(resultant.size(), empty.size());
+    delete hybrid_dsatur;
+}
+
+TEST(HybridDsaturTests, HybridDsaturOneNodeGraphTest) {
+    map<string,vector<string>> one_node = {{ "n", vector<string>() }};
+
+    HybridDsatur* hybrid_dsatur = new HybridDsatur(one_node);
+    map<string,int> resultant = hybrid_dsatur->color();
+    EXPECT_EQ(resultant.size(), one_node.size());
+    EXPECT_EQ(hybrid_dsatur->get_num_colors(), 1);
     delete hybrid_dsatur;
 }

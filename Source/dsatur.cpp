@@ -10,6 +10,7 @@ using std::endl;
 
 map<string,int> GraphColoring::Dsatur::color() {
     if(this->graph.size() == 0) {
+        this->graph_colors = map<string,int>();
         return map<string,int>();
     }
 
@@ -26,6 +27,7 @@ map<string,int> GraphColoring::Dsatur::color() {
     }
     if(max_degree == "") {
         cerr << "Error: Could not find a max degree node in the graph (reason unknown)" << endl;
+        this->graph_colors = map<string,int>();
         return map<string,int>();
     }
     this->graph_colors[max_degree] = 0;
@@ -84,7 +86,7 @@ map<string,int> GraphColoring::Dsatur::color() {
         }
         if(saturation_name == "") {
             cerr << "Error: Could not find a max saturated node in the graph (reason unknown)" << endl;
-            this->graph_colors.clear();
+            this->graph_colors = map<string,int>();
             return graph_colors;
         }
 

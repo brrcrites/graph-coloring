@@ -15,6 +15,7 @@ TEST(DsaturTests, DsaturK5ColorTest) {
     
     Dsatur* dsatur = new Dsatur(k5);
     map<string,int> resultant = dsatur->color();
+    EXPECT_EQ(resultant.size(), k5.size());
     EXPECT_EQ(dsatur->get_num_colors(),5);
     delete dsatur;
 }
@@ -26,6 +27,7 @@ TEST(DsaturTests, DsaturK33ColorTest) {
     
     Dsatur* dsatur = new Dsatur(k33);
     map<string,int> resultant = dsatur->color();
+    EXPECT_EQ(resultant.size(), k33.size());
     EXPECT_EQ(dsatur->get_num_colors(),2);
     delete dsatur;
 }
@@ -36,5 +38,15 @@ TEST(DsaturTests, DsaturEmptyGraphTest) {
     Dsatur* dsatur = new Dsatur(empty);
     map<string,int> resultant = dsatur->color();
     EXPECT_EQ(resultant.size(), empty.size());
+    delete dsatur;
+}
+
+TEST(DsaturTests, DsaturOneNodeGraphTest) {
+    map<string,vector<string>> one_node = {{ "n", vector<string>() }};
+
+    Dsatur* dsatur = new Dsatur(one_node);
+    map<string,int> resultant = dsatur->color();
+    EXPECT_EQ(resultant.size(), one_node.size());
+    EXPECT_EQ(dsatur->get_num_colors(),1);
     delete dsatur;
 }

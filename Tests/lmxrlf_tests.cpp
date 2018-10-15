@@ -15,6 +15,7 @@ TEST(LmxrlfTests, LmxrlfK5ColorTest) {
     
     Lmxrlf* lmxrlf = new Lmxrlf(k5);
     map<string,int> resultant = lmxrlf->color();
+    EXPECT_EQ(resultant.size(), k5.size());
     EXPECT_EQ(lmxrlf->get_num_colors(),5);
     delete lmxrlf;
 }
@@ -26,14 +27,26 @@ TEST(LmxrlfTests, LmxrlfK33ColorTest) {
     
     Lmxrlf* lmxrlf = new Lmxrlf(k33);
     map<string,int> resultant = lmxrlf->color();
+    EXPECT_EQ(resultant.size(), k33.size());
     EXPECT_EQ(lmxrlf->get_num_colors(),2);
     delete lmxrlf;
 }
 
 TEST(LmxrlfTests, LmxrlfEmptyGraphTest) {
     map<string,vector<string>> empty = map<string,vector<string>>();
+
     Lmxrlf* lmxrlf = new Lmxrlf(empty);
     map<string,int> resultant = lmxrlf->color();
     EXPECT_EQ(resultant.size(), empty.size());
+    delete lmxrlf;
+}
+
+TEST(LmxrlfTests, LmxrlfOneNodeGraphTest) {
+    map<string,vector<string>> one_node = {{ "n", vector<string>() }};
+
+    Lmxrlf* lmxrlf = new Lmxrlf(one_node);
+    map<string,int> resultant = lmxrlf->color();
+    EXPECT_EQ(resultant.size(), one_node.size());
+    EXPECT_EQ(lmxrlf->get_num_colors(),1);
     delete lmxrlf;
 }

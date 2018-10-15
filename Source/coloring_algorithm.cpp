@@ -26,9 +26,15 @@ GraphColoring::GraphColor::GraphColor(map<string,vector<string>> graph) {
 
 // Checks that no two adjacent nodes have the same color
 bool GraphColoring::GraphColor::is_valid() {
+    if(this->graph_colors.size() == 0 || this->graph.size() != this->graph_colors.size()) {
+        return false;
+    }
     for(map<string,vector<string>>::iterator i = this->graph.begin(); i != this->graph.end(); i++) {
+        if(this->graph_colors.find(i->first) == this->graph_colors.end()) {
+            return false;
+        }
         for(unsigned j = 0; j < i->second.size(); j++) {
-            if(graph_colors[i->first] == graph_colors[i->second[j]] || graph_colors[i->first] == -1) {
+            if(this->graph_colors[i->first] == this->graph_colors[i->second[j]] || this->graph_colors[i->first] == -1) {
                 return false;
             }
         }

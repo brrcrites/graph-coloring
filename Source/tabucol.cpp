@@ -12,7 +12,11 @@ using std::endl;
 using std::cout;
 
 GraphColoring::Tabucol::Tabucol(map<string, vector<string> > graph, int condition, int tabu_size, int rep, int nbmax) : GraphColor(graph) {
-    this->condition = condition;
+    if(condition > this->graph.size()) {
+        this->condition = this->graph.size();
+    } else { 
+        this->condition = condition;
+    }
     this->tabu_size = tabu_size;
     this->rep = rep;
     this->nbmax = nbmax;
@@ -30,11 +34,28 @@ int GraphColoring::Tabucol::f(map<string,int> graph_colors) {
     return sum;
 }
 
+map<string,int> GraphColoring::Tabucol::make_colors_contiguous(map<string,int> coloring) {
+    map<int,int> recoloring;
+    int current_color = 0;
+    for(map<string,int>::iterator coloring_tuple = coloring.begin(); coloring_tuple != coloring.end(); coloring_tuple++) {
+        if(recoloring.find(coloring_tuple->second) != recoloring.end()) {
+            coloring[coloring_tuple->first] = recoloring[coloring_tuple->second];
+        } else {
+            recoloring[coloring_tuple->second] = current_color;
+            coloring[coloring_tuple->first] = current_color;
+            current_color++;
+        }
+    }
+    return coloring;
+}
+
 map<string,int> GraphColoring::Tabucol::color() {
     if(this->condition <= 0) {
+        this->graph_colors = map<string,int>();
         return map<string,int>();
     }
     if(this->graph.size() == 0) {
+        this->graph_colors = map<string,int>();
         return map<string,int>();
     }
     for(map<string,vector<string>>::iterator adj_tuple = this->graph.begin(); adj_tuple != this->graph.end(); adj_tuple++) {
@@ -99,7 +120,7 @@ map<string,int> GraphColoring::Tabucol::color() {
                 x = this->rep;
             }
         }
-        if(best_color == -1) {
+        if(best_color < 0) {
             cerr << "Best Color was never updated in the loop" << endl;
             this->graph_colors = map<string,int>();
             return this->graph_colors;
@@ -112,6 +133,10 @@ map<string,int> GraphColoring::Tabucol::color() {
         nbiter += 1;
     }
 
+    this->graph_colors = make_colors_contiguous(this->graph_colors);
+
+    // TODO(brrcrites): Why are we checking at the end if its valid or not? Shouldn't we be
+    // able to tell during the computation if it isn't going to be valid?
     if(!this->is_valid()) {
         this->graph_colors = map<string,int>();
         return graph_colors;

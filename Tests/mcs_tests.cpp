@@ -15,6 +15,7 @@ TEST(McsTests, McsK5ColorTest) {
     
     Mcs* mcs = new Mcs(k5);
     map<string,int> resultant = mcs->color();
+    EXPECT_EQ(resultant.size(), k5.size());
     EXPECT_EQ(mcs->get_num_colors(),5);
     delete mcs;
 }
@@ -26,6 +27,7 @@ TEST(McsTests, McsK33ColorTest) {
     
     Mcs* mcs = new Mcs(k33);
     map<string,int> resultant = mcs->color();
+    EXPECT_EQ(resultant.size(), k33.size());
     EXPECT_EQ(mcs->get_num_colors(),2);
     delete mcs;
 }
@@ -36,5 +38,15 @@ TEST(McsTests, McsEmptyGraphTest) {
     Mcs* mcs = new Mcs(empty);
     map<string,int> resultant = mcs->color();
     EXPECT_EQ(resultant.size(), empty.size());
+    delete mcs;
+}
+
+TEST(McsTests, McsOneNodeGraphTest) {
+    map<string,vector<string>> one_node = {{ "n", vector<string>() }};
+
+    Mcs* mcs = new Mcs(one_node);
+    map<string,int> resultant = mcs->color();
+    EXPECT_EQ(resultant.size(), one_node.size());
+    EXPECT_EQ(mcs->get_num_colors(),1);
     delete mcs;
 }

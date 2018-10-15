@@ -3,6 +3,7 @@
 
 map<string,int> GraphColoring::HybridDsatur::color() {
     if(this->graph.size() == 0) {
+        this->graph_colors = map<string,int>();
         return map<string,int>();
     }
     Dsatur* temp_graph = new Dsatur(this->graph);
@@ -10,6 +11,7 @@ map<string,int> GraphColoring::HybridDsatur::color() {
     if(!temp_graph->is_valid()) {
         // TODO(brrcrites): We probably want to de-color the graph if
         // its partially colored and return that instead
+        this->graph_colors = map<string,int>();
         return map<string,int>();
     }
     int largest = this->get_num_colors();
