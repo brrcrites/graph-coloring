@@ -15,6 +15,7 @@ TEST(HybridLmxrlfTests, HybridLmxrlfK5ColorTest) {
 
     HybridLmxrlf* hybrid_lmxrlf = new HybridLmxrlf(k5);
     map<string,int> resultant = hybrid_lmxrlf->color();
+    EXPECT_EQ(resultant.size(), k5.size());
     EXPECT_EQ(hybrid_lmxrlf->get_num_colors(),5);
     delete hybrid_lmxrlf;
 }
@@ -26,6 +27,26 @@ TEST(HybridLmxrlfTests, HybridLmxrlfK33ColorTest) {
     
     HybridLmxrlf* hybrid_lmxrlf = new HybridLmxrlf(k33);
     map<string,int> resultant = hybrid_lmxrlf->color();
+    EXPECT_EQ(resultant.size(), k33.size());
     EXPECT_EQ(hybrid_lmxrlf->get_num_colors(),2);
+    delete hybrid_lmxrlf;
+}
+
+TEST(HybridLmxrlfTests, HybridLmxrlfEmptyGraphTest) {
+    map<string,vector<string>> empty = map<string,vector<string>>();
+
+    HybridLmxrlf* hybrid_lmxrlf = new HybridLmxrlf(empty);
+    map<string,int> resultant = hybrid_lmxrlf->color();
+    EXPECT_EQ(resultant.size(), empty.size());
+    delete hybrid_lmxrlf;
+}
+
+TEST(HybridLmxrlfTests, HybridLmxrlfOneNodeGraphTest) {
+    map<string,vector<string>> one_node = {{ "n", vector<string>() }};
+
+    HybridLmxrlf* hybrid_lmxrlf = new HybridLmxrlf(one_node);
+    map<string,int> resultant = hybrid_lmxrlf->color();
+    EXPECT_EQ(resultant.size(), one_node.size());
+    EXPECT_EQ(hybrid_lmxrlf->get_num_colors(), 1);
     delete hybrid_lmxrlf;
 }
