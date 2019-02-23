@@ -4,8 +4,8 @@
 
 This project has two primary uses:
 
-(1) As an executable for finding the chromatic number for an input graph (in edge list or edge matrix format)
-(2) As a library for finding the particular coloring of an input graph (represented as a `map<string,vector<string>>` edge list)
+* As an executable for finding the chromatic number for an input graph (in edge list or edge matrix format)
+* As a library for finding the particular coloring of an input graph (represented as a `map<string,vector<string>>` edge list)
 
 In either of these cases, the project requires the use of the [CMake](https://cmake.org/) build system to allow for easy integration into other projects. To generate an executable which can color an input graph file, simply run the following commands from the project root.
 
