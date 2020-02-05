@@ -1,6 +1,8 @@
 [![Build Status](https://travis-ci.org/brrcrites/graph-coloring.svg?branch=master)](https://travis-ci.org/brrcrites/graph-coloring)
 
-# Contact
+# C++ Graph Coloring Package
+
+## Contact
 
 If you have questions or reqeusts about this repository please feel free to [reach out to me about it](mailto:bcrit001@ucr.edu). Also feel free to email me if you open a PR and I seem to be neglecting it.
 
