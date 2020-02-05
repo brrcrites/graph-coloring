@@ -14,7 +14,7 @@ using std::cout;
 GraphColoring::Tabucol::Tabucol(map<string, vector<string> > graph, int condition, int tabu_size, int rep, int nbmax) : GraphColor(graph) {
     if(condition > this->graph.size()) {
         this->condition = this->graph.size();
-    } else { 
+    } else {
         this->condition = condition;
     }
     this->tabu_size = tabu_size;
@@ -26,7 +26,7 @@ int GraphColoring::Tabucol::f(map<string,int> graph_colors) {
     int sum = 0;
     for(map< string,vector<string> >::iterator i = this->graph.begin(); i != this->graph.end(); i++) {
         for(unsigned j = 0; j< i->second.size(); j++) {
-            if(this->graph_colors[i->first] == this->graph_colors[i->second[j]]) {
+            if(graph_colors[i->first] == graph_colors[i->second[j]]) {
                 sum += 1;
             }
         }
@@ -144,4 +144,3 @@ map<string,int> GraphColoring::Tabucol::color() {
 
     return graph_colors;
 }
-
