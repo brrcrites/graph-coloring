@@ -12,12 +12,8 @@
 #include "../Header/hybrid_dsatur.hpp"
 #include "../Header/hybrid_lmxrlf.hpp"
 
-using std::cout;
 using std::cerr;
 using std::endl;
-using std::ifstream;
-using std::ofstream;
-using std::ostringstream;
 
 using GraphColoring::Dsatur;
 using GraphColoring::Mcs;
@@ -27,8 +23,8 @@ using GraphColoring::HybridLmxrlf;
 using GraphColoring::GraphColor;
 
 DEFINE_string(graph, "", "The path to the graph file to be colored");
-DEFINE_string(algorithm, "hybrid dsatur", "The algorithm to execute on chosen benchmark");
-DEFINE_string(format, "", "The format of the input graph to be parsed");
+DEFINE_string(algorithm, "hybrid dsatur", "The algorithm to execute on chosen benchmark (dsatur, mcs, lmxrlf, hybrid dsatur, hybrid lmxrlf)");
+DEFINE_string(format, "", "The format of the input graph to be parsed (matrix, list)");
 
 GraphColor* parse_algorithm_flag(map<string,vector<string>> graph) {
     if(FLAGS_algorithm == "dsatur") {
@@ -63,9 +59,13 @@ int main(int argc, char** argv) {
     } else if(FLAGS_format == "list") {
         input_graph = parse_edge_list(FLAGS_graph);
     } else {
-        cerr << "No Graph Input Type Selected" << endl;
-        cerr << "\t* Use \"--format=matrix\" command line flag for edge matrix inputs" << endl;
-        cerr << "\t* Use \"--format=list\" command line flag for edge list inputs" << endl;
+        gflags::ShowUsageWithFlags(argv[0]);
+        return -1;
+    }
+
+    GraphColor *graph = parse_algorithm_flag(input_graph);
+    if(!graph) {
+        gflags::ShowUsageWithFlags(argv[0]);
         return -1;
     }
 
@@ -74,16 +74,11 @@ int main(int argc, char** argv) {
         return -2; 
     }
 
-    GraphColor *graph = parse_algorithm_flag(input_graph);
-    if(!graph) {
-        cerr << "Please entere a valid algorithm (DSATUR, MCS, lmXRLF, Hybrid DSATUR, or Hybird lmXRLF)" << endl;
-        return -1;
-    }
-
     graph->color();
     graph->print_chromatic();
     if(!graph->is_valid()) {
         cerr << "Graph coloring is invalid" << endl;
+        return -1;
     }
 
     return 0;
