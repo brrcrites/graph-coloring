@@ -3,6 +3,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.9)
 PROJECT(graph-coloring)
 
 ADD_SUBDIRECTORY(googletest)
+ADD_SUBDIRECTORY(gflags)
 
 SET(CMAKE_CXX_STANDARD 11)
 
@@ -30,7 +31,9 @@ ADD_EXECUTABLE(color
     Source/main.cpp
 )
 
+TARGET_LINK_LIBRARIES(color-test gflags)
 TARGET_LINK_LIBRARIES(color-test graph-coloring)
 TARGET_LINK_LIBRARIES(color-test gtest)
 
+TARGET_LINK_LIBRARIES(color gflags)
 TARGET_LINK_LIBRARIES(color graph-coloring)

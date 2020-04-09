@@ -1,9 +1,10 @@
-
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <gflags/gflags.h>
 
+#include "../Header/parse.hpp"
 #include "../Header/coloring_algorithm.hpp"
 #include "../Header/dsatur.hpp"
 #include "../Header/mcs.hpp"
@@ -25,35 +26,59 @@ using GraphColoring::HybridDsatur;
 using GraphColoring::HybridLmxrlf;
 using GraphColoring::GraphColor;
 
-//functions used to translate test cases into a graph using a map
-//two types of test cases requires two ways to parse graph (list and matrix)
-vector<string> split(string to_split);
-vector< vector<string> > get_input(char* input_file);
-void parse_edge_list(char* input_file);
-void parse_edge_matrix(char* input_file);
+DEFINE_string(graph, "", "The path to the graph file to be colored");
+DEFINE_string(algorithm, "hybrid dsatur", "The algorithm to execute on chosen benchmark");
+DEFINE_string(format, "", "The format of the input graph to be parsed");
 
-map<string,vector<string> > input_graph;
+GraphColor* parse_algorithm_flag(map<string,vector<string>> graph) {
+    if(FLAGS_algorithm == "dsatur") {
+        return new Dsatur(graph);
+    } else if(FLAGS_algorithm == "mcs") {
+        return new Mcs(graph);
+    } else if(FLAGS_algorithm == "lmxrlf") {
+        return new Lmxrlf(graph);
+    } else if(FLAGS_algorithm == "hybrid dsatur") {
+        return new HybridDsatur(graph);
+    } else if(FLAGS_algorithm == "hybird lmxrlf") {
+        return new HybridLmxrlf(graph);
+    }
+    return nullptr;
+}
 
 int main(int argc, char** argv) {
-    if(argc < 2) {
-        cerr << "Usage: " << argv[0] << " file_input" << endl;
+    gflags::ParseCommandLineFlags(&argc, &argv, true);
+
+    string banner = "This program attempts to color an input graph using one of the available coloring algorithms";
+    string usage = "\tUsage: ./color --graph=path_to_graph --format=(matrix|list) [--algorithm=(dsatur|mcs|lmxrlf|hybrid dsatur|hybrid lmxrlf)]";
+    gflags::SetUsageMessage(banner + "\n" + usage);
+
+    if(FLAGS_graph == "") {
+        gflags::ShowUsageWithFlags(argv[0]);
         return -1;
     }
 
-    if(argc >= 3 && string(argv[2]) == "-m") {
-        parse_edge_matrix(argv[1]);
-        if(input_graph.size() == 0) { return -2; }
-    } else if(argc >= 3 && string(argv[2]) == "-l") {
-        parse_edge_list(argv[1]);
-        if(input_graph.size() == 0) { return -2; }
+    map<string,vector<string>> input_graph;
+    if(FLAGS_format == "matrix") {
+        input_graph = parse_edge_matrix(FLAGS_graph);
+    } else if(FLAGS_format == "list") {
+        input_graph = parse_edge_list(FLAGS_graph);
     } else {
-        cout << "No Graph Input Type Selected" << endl;
-        cout << "Use a \"-m\" flag for edge matrix inputs" << endl;
-        cout << "Use a \"-l\" flag for edge list inputs" << endl;
-        return -1;  
+        cerr << "No Graph Input Type Selected" << endl;
+        cerr << "\t* Use \"--format=matrix\" command line flag for edge matrix inputs" << endl;
+        cerr << "\t* Use \"--format=list\" command line flag for edge list inputs" << endl;
+        return -1;
     }
 
-    GraphColor *graph = new HybridDsatur(input_graph);
+    if(input_graph.size() == 0) { 
+        cerr << "Stopping due to failure to parse input file" << endl;
+        return -2; 
+    }
+
+    GraphColor *graph = parse_algorithm_flag(input_graph);
+    if(!graph) {
+        cerr << "Please entere a valid algorithm (DSATUR, MCS, lmXRLF, Hybrid DSATUR, or Hybird lmXRLF)" << endl;
+        return -1;
+    }
 
     graph->color();
     graph->print_chromatic();
@@ -62,165 +87,5 @@ int main(int argc, char** argv) {
     }
 
     return 0;
-}
-
-ifstream& Getline(ifstream& ifs,string& line) {
-    getline(ifs,line);
-    if (!line.empty()) {
-        while (isspace(line.at(line.size()-1))) {
-            line = line.substr(0,line.size()-1);
-        }
-    }
-    return ifs;
-}
-
-vector<string> split(string to_split) {
-    vector<string> split_string;
-    unsigned index_start;
-    for (unsigned i = 0;i < to_split.length();i++) {
-        index_start = i;
-        while(i < to_split.length() && !isspace(to_split.at(i))) { 
-            i++; 
-        }
-        split_string.push_back(to_split.substr(index_start,i - index_start));
-    }
-    return split_string;
-}
-
-vector< vector<string> > get_input(char* input_file) {
-    vector< vector<string> > Input;
-
-    ifstream file(input_file);
-    if(file.is_open()) {
-        string line;
-        while(Getline(file,line)) {
-            vector<string> words = split(line);
-            if(words.size() > 1) {
-                for(unsigned i=1; i<words.size(); i++) {
-                    if(words[i] != "0" && words[i] != "1" && words[i] != "x" && words[i] != "X") {
-                        cerr << "Problem with this Input Line: " << line << endl;
-                        cerr << "Problem is with word: \"" << words[i] << "\" at position " << i << endl;
-                        Input.clear();
-                        return Input;
-                    }
-                }
-            } else {
-                cerr << "No Actuation Data Found, Please Check Input File" << endl;
-                Input.clear();
-                return Input;
-            }
-            Input.push_back(words);
-        }
-        file.close();
-    } else {
-        cerr << "Input File Not Found" << endl;
-    }
-    return Input;
-}
-
-void parse_edge_list(char* input_file) {
-    ifstream file(input_file);
-    if(file.is_open()) {
-        string line;
-        int vertices = -1;
-        int flag = 0;
-        while(!flag && Getline(file,line)) {
-            while(line.size() == 0) {
-                Getline(file,line);
-            }
-            vector<string> words = split(line);
-            if(words.size() != 0) {
-                if(words[0] == "p") {
-                    vertices = atoi(words[2].c_str());
-                    flag = 1;
-                }
-            }
-        }
-        if(!flag || vertices == -3) {
-            cerr << "File is missing parameter line before edge list" << endl;
-            cerr << "Should be: \"p edge <number of vertices> <number of edges>\"" << endl;
-            return;
-        }
-        for(int i=0; i<vertices; i++) {
-            string pre = "v";
-            string temp;
-            std::ostringstream convert;
-            convert << (i+1);
-            temp = convert.str();
-            pre.append(temp);
-            vector<string> base;
-            input_graph[pre] = base;
-        }
-        while(Getline(file,line))
-        {
-            vector<string> words = split(line);
-            if(words[0] == "e") {
-                string arg1 = "v";
-                arg1.append(words[1]);
-                string arg2 = "v";
-                arg2.append(words[2]);
-                vector<string> base;
-                vector<string> base2;
-                input_graph[arg1].push_back(arg2);
-                input_graph[arg2].push_back(arg1);
-            }
-        }
-    } else {
-        cerr << "Input File Not Found" << endl;
-        return;
-    }
-}
-
-//Used to parse test inputs where the first line is the number of
-//vertices, and the next lines are the edge matrix
-void parse_edge_matrix(char* input_file) {
-    string pre = "v";
-
-    ifstream file(input_file);
-    if(file.is_open()) {
-        string line;
-        Getline(file,line);
-        int n = atoi(line.c_str());
-        int i = 0;
-        while(Getline(file,line)) {
-            i += 1;
-            vector<string> words = split(line);
-            if((int)words.size() != n) {
-                cerr << "Invalid Input, line " << i << " is not the correct length (" << words.size() << "," << n << "): " << line << endl;
-                for (unsigned i = 0;i < words.size();i++) { 
-                    cerr << "\t" << words.at(i) << endl; 
-                }
-                input_graph.clear();
-                return;
-            }
-            vector<string> edges;
-            for(int j = 0; j < n; j++) {
-                if(words[j] == "1") {
-                    pre = "v";
-                    string temp;
-                    ostringstream convert;
-                    convert << (j+1);
-                    temp = convert.str();
-                    edges.push_back(pre.append(temp));
-                }
-            }
-            pre = "v";
-            string temp;
-            ostringstream convert;
-            convert << i;
-            temp = convert.str();
-            input_graph[pre.append(temp)] = edges;
-        }
-        if(i != n) {
-            cerr << "Input is not the right length" << endl;
-            input_graph.clear();
-            return;
-        }
-        file.close();
-    } else {
-        cerr << "Input File Not Found" << endl;
-        return;
-    }
-    return;
 }
 
