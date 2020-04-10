@@ -32,6 +32,9 @@
 *.out
 *.app
 
+# Vim
+*.swp
+
 # CMake
 CMakeCache.txt
 cmake_install.cmake

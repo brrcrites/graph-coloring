@@ -79,11 +79,11 @@ This package was refactored to be more easily extended. I encourage you to write
 
 Five coloring algorithms are currently provided in this package (See reference papers for descriptions):
 
-- DSATUR (New Methods to Color the Vertices of a Graph - Brelaz et al.) -- `Dsatur`
-- MCS (Register Allocation via Coloring of Chordal Graphs - Magno et al.) -- `Mcs`
-- lmXRLF (Efficient Coloring of a Large Spectrum of Graphs - Kirovski et al.) -- `Lmxrlf`
-- Hybrid TabuCol (Custom, based on Efficient Coloring... - Kirovski et al.) -- `Hybrid`
-- Hybrid DSATUR (Custom, based on Efficient Coloring... - Kirovski et al.) -- `HybridDsatur`
+- DSATUR (New Methods to Color the Vertices of a Graph - Brelaz et al.) -- `--algorithm=ssatur`
+- MCS (Register Allocation via Coloring of Chordal Graphs - Magno et al.) -- `--algorithm=mcs`
+- lmXRLF (Efficient Coloring of a Large Spectrum of Graphs - Kirovski et al.) -- `--algorithm=lmxrlf`
+- Hybrid DSATUR (Custom, based on Efficient Coloring... - Kirovski et al.) -- `--hybrid dsatur`
+- Hybrid lmXRLF (Custom, based on Efficient Coloring... - Kirovski et al.) -- `--algorithm=hybrid lmxrlf`
 
 Additionally, there is a k-coloring algorithm that is accessible, and used internally within other algorithms:
 
@@ -91,7 +91,7 @@ Additionally, there is a k-coloring algorithm that is accessible, and used inter
 
 ## Tests:
 
-The system is capable of running tests written in both the edge list (`-l` flag) and the edge matrix (`-m` flag) file format. There is a large number of well known tests saved to the `Tests/` directory, and you can also add tests to the `Tests/` directory. The edge list and edge matrix formats are as follows:
+The system is capable of running tests written in both the edge list (`--format=list` flag) and the edge matrix (`--format=matrix` flag) file format. There is a large number of well known tests saved to the `Tests/` directory, and you can also add tests to the `Tests/` directory. The edge list and edge matrix formats are as follows:
 
 Edge List Input File Format:
 
