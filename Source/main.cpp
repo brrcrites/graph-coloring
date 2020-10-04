@@ -23,7 +23,7 @@ using GraphColoring::HybridLmxrlf;
 using GraphColoring::GraphColor;
 
 DEFINE_string(graph, "", "The path to the graph file to be colored");
-DEFINE_string(algorithm, "hybrid dsatur", "The algorithm to execute on chosen benchmark (dsatur, mcs, lmxrlf, hybrid dsatur, hybrid lmxrlf)");
+DEFINE_string(algorithm, "mcs", "The algorithm to execute on chosen benchmark (dsatur, mcs, lmxrlf, hybrid dsatur, hybrid lmxrlf)");
 DEFINE_string(format, "", "The format of the input graph to be parsed (matrix, list)");
 
 GraphColor* parse_algorithm_flag(map<string,vector<string>> graph) {
@@ -33,9 +33,9 @@ GraphColor* parse_algorithm_flag(map<string,vector<string>> graph) {
         return new Mcs(graph);
     } else if(FLAGS_algorithm == "lmxrlf") {
         return new Lmxrlf(graph);
-    } else if(FLAGS_algorithm == "hybrid dsatur") {
+    } else if(FLAGS_algorithm == "hybrid-dsatur") {
         return new HybridDsatur(graph);
-    } else if(FLAGS_algorithm == "hybird lmxrlf") {
+    } else if(FLAGS_algorithm == "hybird-lmxrlf") {
         return new HybridLmxrlf(graph);
     }
     return nullptr;
@@ -45,7 +45,7 @@ int main(int argc, char** argv) {
     gflags::ParseCommandLineFlags(&argc, &argv, true);
 
     string banner = "This program attempts to color an input graph using one of the available coloring algorithms";
-    string usage = "\tUsage: ./color --graph=path_to_graph --format=(matrix|list) [--algorithm=(dsatur|mcs|lmxrlf|hybrid dsatur|hybrid lmxrlf)]";
+    string usage = "\tUsage: ./color --graph=path_to_graph --format=(m[atrix]|l[ist]) [--algorithm=(dsatur|mcs|lmxrlf|hybrid-dsatur|hybrid-lmxrlf)]";
     gflags::SetUsageMessage(banner + "\n" + usage);
 
     if(FLAGS_graph == "") {
@@ -54,9 +54,9 @@ int main(int argc, char** argv) {
     }
 
     map<string,vector<string>> input_graph;
-    if(FLAGS_format == "matrix") {
+    if(FLAGS_format == "matrix" || FLAGS_format == "m") {
         input_graph = parse_edge_matrix(FLAGS_graph);
-    } else if(FLAGS_format == "list") {
+    } else if(FLAGS_format == "list" || FLAGS_format == "l") {
         input_graph = parse_edge_list(FLAGS_graph);
     } else {
         gflags::ShowUsageWithFlags(argv[0]);

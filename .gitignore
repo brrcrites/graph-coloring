@@ -31,6 +31,8 @@
 *.exe
 *.out
 *.app
+color
+color-test
 
 # Vim
 *.swp
@@ -42,5 +44,5 @@ CMakeFiles/
 Makefile
 *.dylib
 
-color
-color-test
+# VS Code
+.vscode
