@@ -77,7 +77,7 @@ map<string,vector<string>> parse_edge_list(string input_file) {
             vector<string> words = split(line);
             if(words.size() != 0) {
                 if(words[0] == "p") {
-                    vertices = atoi(words[2].c_str());
+                    vertices = stoi(words[2]);
                     flag = 1;
                 }
             }
@@ -128,7 +128,7 @@ map<string,vector<string>> parse_edge_matrix(string input_file) {
     if(file.is_open()) {
         string line;
         Getline(file,line);
-        int n = atoi(line.c_str());
+        int n = stoi(line);
         int i = 0;
         while(Getline(file,line)) {
             i += 1;
