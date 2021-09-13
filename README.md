@@ -79,7 +79,7 @@ This package was refactored to be more easily extended. I encourage you to write
 
 Five coloring algorithms are currently provided in this package (See reference papers for descriptions):
 
-- DSATUR (New Methods to Color the Vertices of a Graph - Brelaz et al.) -- `--algorithm=ssatur`
+- DSATUR (New Methods to Color the Vertices of a Graph - Brelaz et al.) -- `--algorithm=dsatur`
 - MCS (Register Allocation via Coloring of Chordal Graphs - Magno et al.) -- `--algorithm=mcs`
 - lmXRLF (Efficient Coloring of a Large Spectrum of Graphs - Kirovski et al.) -- `--algorithm=lmxrlf`
 - Hybrid DSATUR (Custom, based on Efficient Coloring... - Kirovski et al.) -- `--hybrid-dsatur`
